@@ -10,4 +10,7 @@ function src() {
   done
 }
 
+# Run dotfiles script, then source.
+alias dotfiles='~/.dotfiles/bin/dotfiles && src'
+
 src
