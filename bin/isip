@@ -16,7 +16,7 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-IPLIST=$(ifconfig -a | perl -nle'/inet (\d+\.\d+\.\d+\.\d+)/ && print $1')
+IPLIST=$(ifconfig -a | perl -nle'/inet (?:addr:)?(\d+\.\d+\.\d+\.\d+)/ && print $1')
 
 if [ "$1" ]; then
   if [ "$(echo $IPLIST | grep -w $1)" ]; then
