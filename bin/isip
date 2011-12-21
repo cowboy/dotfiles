@@ -16,7 +16,7 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-IPLIST=$(ifconfig -u | grep -w "inet" | grep -v "127[.]0[.]0[.]1" | cut -d " " -f 2 | sed 's/^ *//;s/ *$//')
+IPLIST=$(ifconfig -a | perl -nle'/inet (\d+\.\d+\.\d+\.\d+)/ && print $1')
 
 if [ "$1" ]; then
   if [ "$(echo $IPLIST | grep -w $1)" ]; then

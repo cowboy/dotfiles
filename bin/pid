@@ -15,4 +15,8 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-echo $(ps auxww | grep -v "grep $@" | grep -v "pid $@" | grep "$@" | sort | awk '{print $2}')
+if [ ! "$1" ]; then
+  ps -axco pid,tty,user,command | sort -bdfk4
+else
+  echo $(ps -axco pid,tty,user,command | grep -w "$@" | sort | awk '{print $1}')
+fi
