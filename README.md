@@ -3,7 +3,7 @@
 My linux / OS X dotfiles. This is a work in progress, as I'm currently rebuilding my system!
 
 ## Installation
-`bash <(curl -s https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)`
+`bash -c "$(curl -s https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
 
 ## Sources
 <https://github.com/gf3/dotfiles>  

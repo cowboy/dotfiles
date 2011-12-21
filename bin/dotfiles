@@ -22,7 +22,7 @@ read -p "This may overwrite existing files in your home directory, are you sure?
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   echo "Operation aborted!"
-  exit
+  exit 1
 fi
 
 # Gotta start somewhere.
@@ -84,6 +84,4 @@ if [ "$DOTGLOBOFF" ]; then
 fi
 
 # All done!
-source ~/.bash_profile
-
 echo -e "\nAll done!"
