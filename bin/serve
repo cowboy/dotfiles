@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Serve a file (or the current directory)
+http://benalman.com/
+
+Usage: `basename "$0"` [PORT] [FILE]
+
+If a port isn't specified, use 8080. If a file isn't specified, serve the
+current directory. Once started, open the specified file (or the current
+directory) with the default web browser.
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+PORT=8080; if [[ "$1" =~ ^[0-9]+$ ]]; then PORT=$1; shift; fi
+FILE=$1
+
+( { sleep 0.5; open "http://localhost:$PORT/$FILE"; } & )
+python -m SimpleHTTPServer $PORT

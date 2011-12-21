@@ -1,0 +1,89 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Initialize dotfiles
+http://benalman.com/
+
+Usage: `basename "$0"`
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+# Doesn't exist? Clone it!
+if [ ! -d ~/.dotfiles ]; then
+  git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
+fi
+
+read -p "This may overwrite existing files in your home directory, are you sure? (Yes/No) " -n 1
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  echo "Operation aborted!"
+  exit
+fi
+
+# Gotta start somewhere.
+cd ~/.dotfiles
+
+# Make sure we have the latest files.
+echo -e "\nChecking git for updates..."
+git pull origin master
+git submodule init
+git submodule update
+
+# Enable dotfile globbing
+shopt -q dotglob
+DOTGLOBOFF=$?
+shopt -s dotglob
+
+# Copy files.
+function do_copy() {
+  if [ ! "$1" ]; then echo "Copying files into home directory..."; return; fi
+  echo "Copying ~/$1."
+  cp "$2" "$3"
+}
+
+# Link files.
+function do_link() {
+  if [ ! "$1" ]; then echo "Linking files into home directory..."; return; fi
+  echo "Linking ~/$1."
+  ln -sf "$2" "$3"
+}
+
+# Copy, link, etc.
+function do_stuff() {
+  echo
+  "do_$1"
+  for FILE in ~/.dotfiles/$1/*; do
+    BASE="$(basename $FILE)"
+    DEST="$HOME/$BASE"
+    REPLY=Y
+    if [[ ! "$ALL" && -e "$DEST" ]]; then
+      read -p "~/$BASE already exists, overwrite? (Yes/No/All) " -n 1
+      echo
+      if [[ "$REPLY" =~ ^[Aa]$ ]]; then
+        ALL=1
+      fi
+    fi
+    if [[ "$REPLY" =~ ^[YyAa]$ ]]; then
+      "do_$1" "$BASE" "$FILE" "$DEST"
+    fi
+  done
+}
+
+ALL=
+do_stuff "copy"
+do_stuff "link"
+
+# Restore dotfile globbing to its previous value
+if [ "$DOTGLOBOFF" ]; then
+  shopt -u dotglob
+fi
+
+# All done!
+source ~/.bash_profile
+
+echo -e "\nAll done!"
