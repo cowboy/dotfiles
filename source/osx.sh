@@ -1,4 +1,4 @@
-# OSX-only stuff
+# OSX-only stuff. Abort if not OSX.
 if [[ ! "$OSTYPE" =~ ^darwin ]]; then
   return
 fi
