@@ -11,4 +11,4 @@ fi
 
 export VISUAL="$EDITOR"
 
-alias qs="q ~/.bashrc"
+alias qs="q ~/.dotfiles"
