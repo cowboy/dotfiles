@@ -4,6 +4,6 @@ My linux / OS X dotfiles. This is a work in progress, as I'm currently rebuildin
 
 ## License
 Copyright (c) 2011 "Cowboy" Ben Alman  
-Dual licensed under the MIT and GPL licenses.  
+Licensed under the MIT license.  
 <http://benalman.com/about/license/>
 
