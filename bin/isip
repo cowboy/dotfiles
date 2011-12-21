@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Get all bound IPs
+http://benalman.com/
+
+Usage: `basename "$0"` [IP]
+
+If an IP is specified and it is bound to a network interface, echo it,
+otherwise echo nothing.
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+IPLIST=$(ifconfig -u | grep -w "inet" | grep -v "127[.]0[.]0[.]1" | cut -d " " -f 2 | sed 's/^ *//;s/ *$//')
+
+if [ "$1" ]; then
+  if [ "$(echo $IPLIST | grep -w $1)" ]; then
+    echo $1
+  fi
+else
+  echo $IPLIST
+fi

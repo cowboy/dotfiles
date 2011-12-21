@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Get PIDs
+http://benalman.com/
+
+Usage: `basename "$0"` [PID]
+
+Get the PID(s) of matching process(es).
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+echo $(ps auxww | grep -v "grep $@" | grep -v "pid $@" | grep "$@" | sort | awk '{print $2}')

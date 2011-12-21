@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Get WiFi SSID
+http://benalman.com/
+
+Usage: `basename "$0"`
+
+If an SSID is specified and it is the current WiFi network's SSID, echo it,
+otherwise echo nothing.
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep " SSID" | sed "s/.*: //")
+
+if [ "$1" ]; then
+  if [ "$(echo $SSID | grep -w $1)" ]; then
+    echo $1
+  fi
+else
+  echo $SSID
+fi

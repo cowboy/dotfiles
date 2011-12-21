@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Manpage-as-PDF Viewer
+http://benalman.com/
+
+Usage: `basename "$0"` [section] name
+
+View a manpage as PDF in the default viewer (Preview.app). Because sometimes
+you don't want to view manpages in the terminal. Tested in OS X 10.7.
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+
+HELP
+exit; fi
+
+if [ ! "$1" ]; then
+  echo "What manual page do you want?!"
+  exit
+fi
+
+CACHEDIR=~/.dotfiles/caches/manpdf
+
+if [ "$2" ]; then
+  NAME="$2.$1"
+else
+  NAME="$1"
+fi
+
+FILE="$CACHEDIR/$NAME.pdf"
+
+if [ ! -e "$CACHEDIR" ]; then
+  mkdir -p $CACHEDIR;
+fi
+
+if [ ! -e "$FILE" ]; then
+  man -t "$@" | pstopdf -i -o "$FILE" > /dev/null 2>&1
+fi
+
+if [ -e "$FILE" ]; then
+  open "$FILE"
+fi
