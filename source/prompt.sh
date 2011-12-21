@@ -1,26 +1,35 @@
 # My bash prompt
-# 
+#
 # Copyright (c) 2011 "Cowboy" Ben Alman
 # Licensed under the MIT license.
 # http://benalman.com/about/license/
-# 
+#
 # Example:
 # [master:AMU][cowboy@Bens-MacBook-Pro:~/.dotfiles]
 # [11:14:45] $
-# 
+#
 # Screenshot:
 # http://www.flickr.com/photos/rj3/3959554047/sizes/o/
 
 function prompt_git() {
-  local GITDIR=$(git rev-parse --git-dir 2>/dev/null)
-  local HEADSHA=$(git rev-parse --verify HEAD 2>/dev/null)
-  if [[ "$GITDIR" && "$HEADSHA" ]]; then
-    local BRANCH=$(git branch --no-color 2>/dev/null | awk '/^\*/ { print($2) }')
-  else
-    local BRANCH='(new)'
-  fi
-  local STATUS=$(git status 2>/dev/null | awk 'BEGIN {r=""} /^# Changes to be committed:$/ {r=r "A"}\
-    /^# Changes not staged for commit:$/ {r=r "M"} /^# Untracked files:$/ {r=r "U"} END {print(r)}')
+  local BRANCH=$(
+    GITDIR=$(git rev-parse --git-dir 2>/dev/null)
+    HEADSHA=$(git rev-parse --verify HEAD 2>/dev/null)
+    if [[ ! "$GITDIR" ]]; then
+      echo ''
+    elif [[ "$HEADSHA" ]]; then
+      git branch --no-color 2>/dev/null | awk '/^\*/ { print($2) }'
+    else
+      echo '(init)'
+    fi
+  )
+  local STATUS=$(
+    git status 2>/dev/null | awk 'BEGIN {r=""} \
+      /^# Changes to be committed:$/        {r=r "A"}\
+      /^# Changes not staged for commit:$/  {r=r "M"}\
+      /^# Untracked files:$/                {r=r "U"}\
+      END {print(r)}'
+  )
 
   local OUT=$BRANCH
   if [ "$STATUS" ]; then
