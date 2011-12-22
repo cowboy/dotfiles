@@ -13,7 +13,6 @@ directory) with the default web browser.
 Copyright (c) 2011 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
-
 HELP
 exit; fi
 

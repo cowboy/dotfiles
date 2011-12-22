@@ -11,7 +11,6 @@ Get the PID(s) of matching process(es).
 Copyright (c) 2011 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
-
 HELP
 exit; fi
 
