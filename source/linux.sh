@@ -4,11 +4,11 @@ if [[ ! "$OSTYPE" =~ ^linux ]]; then
 fi
 
 # ubuntu package management
-alias update="sudo aptitude update"
-alias install="sudo aptitude install"
-alias upgrade="sudo aptitude safe-upgrade"
-alias remove="sudo aptitude remove"
-alias search="aptitude search"
+alias update="sudo apt-get update"
+alias install="sudo apt-get install"
+alias upgrade="sudo apt-get safe-upgrade"
+alias remove="sudo apt-get remove"
+alias search="apt-cache search"
 
 
 # /===== FROM UBUNTU DEFAULT BASHRC =====\
