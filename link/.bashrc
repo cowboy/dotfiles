@@ -11,6 +11,8 @@ function src() {
 }
 
 # Run dotfiles script, then source.
-alias dotfiles='~/.dotfiles/bin/dotfiles && src'
+function dotfiles() {
+  ~/.dotfiles/bin/dotfiles $@ && src
+}
 
 src
