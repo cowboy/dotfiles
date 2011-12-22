@@ -3,8 +3,9 @@
 My linux / OS X dotfiles. This is a work in progress, as I'm currently rebuilding my system!
 
 ## Structure
-* Files in `link` are linked into `~`
+* Files in `init` are executed at run-time.
 * Files in `copy` are copied into `~`
+* Files in `link` are linked into `~`
 * Files in `bin` are executables (`bin` is added into the path)
 * Files in `source` are sourced when a shell is opened
 * Files in `conf` just sit there
