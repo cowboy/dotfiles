@@ -13,25 +13,39 @@ HELP
 exit; fi
 
 # Logging
-function e_header() { echo -e "\033[1m$@\033[0m"; }
-function e_check()  { echo -e " \033[1;32m✔\033[0m  $@"; }
-function e_x()      { echo -e " \033[1;31m✖\033[0m  $@"; }
-function e_arrow()  { echo -e " \033[1;33m➜\033[0m  $@"; }
+function e_header()   { echo -e "\033[1m$@\033[0m"; }
+function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
+function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
+function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
+
+# Execute something inside an init script, capturing errors.
+# function init_exec() {
+#   local err
+#   err=$("$@" 2>&1 >/dev/null)
+#   if (( $? != 0 )); then
+#     e_error "$err"
+#     return 2
+#   fi
+# }
 
 # Initialize.
-function init_header() { e_header "Initializing..."; }
+function init_header() { e_header "Initializing"; }
 function init_do() {
-  bash "$2"
+  #output=$(source "$2" 2> /dev/null)
+  source "$2"
   local err=$?
-  if (( $err == 0 )); then
-    e_check "Initialized $1."
-  elif (( $err != 1 )); then
-    e_x "An error occured while initializing $1!"
+  if (( $err != 1 )); then
+    echo " Running $1..."
+    if [[ "$output" ]]; then
+      echo "$output"
+    else
+      e_success "Done"
+    fi
   fi
 }
 
 # Copy files.
-function copy_header() { e_header "Copying files into home directory..."; }
+function copy_header() { e_header "Copying files into home directory"; }
 function copy_test() {
   if [[ -e "$2" && ! "$(cmp "$1" "$2" 2> /dev/null)" ]]; then
     echo "same file"
@@ -40,17 +54,17 @@ function copy_test() {
   fi
 }
 function copy_do() {
-  e_check "Copying ~/$1."
+  e_success "Copying ~/$1."
   cp "$2" ~/
 }
 
 # Link files.
-function link_header() { e_header "Linking files into home directory..."; }
+function link_header() { e_header "Linking files into home directory"; }
 function link_test() {
   [[ "$1" -ef "$2" ]] && echo "same file"
 }
 function link_do() {
-  e_check "Linking ~/$1."
+  e_success "Linking ~/$1."
   ln -sf ${2#$HOME/} ~/
 }
 
@@ -67,7 +81,7 @@ function do_stuff() {
     if [[ "$2" ]]; then
       skip="$("$1_test" "$file" "$dest")"
       if [[ "$skip" ]]; then
-        e_x "Skipping ~/$base, $skip."
+        e_error "Skipping ~/$base, $skip."
         continue
       fi
       if [[ -e "$dest" ]]; then
@@ -83,15 +97,25 @@ function do_stuff() {
   done
 }
 
+# If on OSX and git is not installed, install homebrew and git.
+if [[ ! "$(type -p git)" && "$OSTYPE" =~ ^darwin ]]; then
+  if [[ ! "$(type -p brew)" ]]; then
+    e_header "Installing Homebrew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+  fi
+  e_header "Installing Git"
+  brew install git
+fi
+
 # Initialize.
 if [ ! -d ~/.dotfiles ]; then
   # Doesn't exist? Clone it!
-  e_header "Downloading files..."
+  e_header "Downloading files"
   git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
 else
   # Make sure we have the latest files.
-  e_header "Updating files..."
+  e_header "Updating files"
   cd ~/.dotfiles
   git pull origin master
   git submodule update --init --recursive
@@ -104,7 +128,7 @@ shopt -s nullglob
 # Actually do stuff.
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
-do_stuff "init"
+# do_stuff "init"
 do_stuff "copy" 1
 do_stuff "link" 1
 
