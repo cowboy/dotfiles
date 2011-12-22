@@ -6,7 +6,7 @@ fi
 # ubuntu package management
 alias update="sudo apt-get update"
 alias install="sudo apt-get install"
-alias upgrade="sudo apt-get safe-upgrade"
+alias upgrade="sudo apt-get upgrade"
 alias remove="sudo apt-get remove"
 alias search="apt-cache search"
 
