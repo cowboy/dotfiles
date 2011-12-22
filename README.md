@@ -18,7 +18,7 @@ _** these directories are created only when necessary_
 * `src` - (re)source all files in `source` directory
 
 ## Installation
-`bash -c "$(curl -s https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
+`bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
 
 ## Example Output
 ```

@@ -102,9 +102,11 @@ if [[ ! "$(type -p git)" && "$OSTYPE" =~ ^darwin ]]; then
   if [[ ! "$(type -p brew)" ]]; then
     e_header "Installing Homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+    echo
   fi
   e_header "Installing Git"
   brew install git
+  echo
 fi
 
 # Initialize.
