@@ -1,7 +1,5 @@
 # Linux-only stuff. Abort if not linux.
-if [[ ! "$OSTYPE" =~ ^linux ]]; then
-  return
-fi
+[[ "$OSTYPE" =~ ^linux ]] || return 1
 
 # ubuntu package management
 alias update="sudo apt-get update"

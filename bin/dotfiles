@@ -13,7 +13,7 @@ HELP
 exit; fi
 
 # Logging
-function e_header()   { echo -e "\033[1m$@\033[0m"; }
+function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
 function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
@@ -28,20 +28,41 @@ function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 #   fi
 # }
 
+# Given a list of desired items and installed items, return a list
+# of uninstalled items.
+function to_install() {
+  local desired installed i desired_s installed_s remain
+  read -ra desired < <(echo "$1" | tr '\n' ' ')
+  read -ra installed < <(echo "$2" | tr '\n' ' ')
+  # echo "desired: ${#desired[@]} ${desired[@]}"
+  # echo "installed: ${#installed[@]} ${installed[@]}"
+  while read -r; do desired_s[i++]=$REPLY; done < <(
+    printf "%s\n" "${desired[@]}" | sort
+  )
+  unset i
+  while read -r; do installed_s[i++]=$REPLY; done < <(
+    printf "%s\n" "${installed[@]}" | sort
+  )
+  unset i
+  while read -r; do remain[i++]=$REPLY; done < <(
+    comm -13 <(printf "%s\n" "${installed_s[@]}") <(printf "%s\n" "${desired_s[@]}")
+  )
+  echo "${remain[@]}"
+}
+
 # Initialize.
-function init_header() { e_header "Initializing"; }
 function init_do() {
-  #output=$(source "$2" 2> /dev/null)
   source "$2"
-  local err=$?
-  if (( $err != 1 )); then
-    echo " Running $1..."
-    if [[ "$output" ]]; then
-      echo "$output"
-    else
-      e_success "Done"
-    fi
-  fi
+  #output=$(source "$2" 2> /dev/null)
+  # local err=$?
+  # if (( $err != 1 )); then
+  #   echo " Running $1..."
+  #   if [[ "$output" ]]; then
+  #     echo "$output"
+  #   else
+  #     e_success "Done"
+  #   fi
+  # fi
 }
 
 # Copy files.
@@ -73,12 +94,13 @@ function do_stuff() {
   local base dest skip
   local files=(~/.dotfiles/$1/*)
   if (( ${#files[@]} == 0 )); then return; fi
-  echo
-  "$1_header"
+  if [[ $(declare -f "$1_header") ]]; then
+    "$1_header"
+  fi
   for file in ${files[@]}; do
     base="$(basename $file)"
     dest="$HOME/$base"
-    if [[ "$2" ]]; then
+    if [[ $(declare -f "$1_test") ]]; then
       skip="$("$1_test" "$file" "$dest")"
       if [[ "$skip" ]]; then
         e_error "Skipping ~/$base, $skip."
@@ -102,11 +124,9 @@ if [[ ! "$(type -p git)" && "$OSTYPE" =~ ^darwin ]]; then
   if [[ ! "$(type -p brew)" ]]; then
     e_header "Installing Homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
-    echo
   fi
   e_header "Installing Git"
   brew install git
-  echo
 fi
 
 # Initialize.
@@ -130,9 +150,9 @@ shopt -s nullglob
 # Actually do stuff.
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
-# do_stuff "init"
-do_stuff "copy" 1
-do_stuff "link" 1
+do_stuff "init"
+do_stuff "copy"
+do_stuff "link"
 
 # Alert if backups were made.
 if [ "$backup" ]; then
@@ -140,4 +160,4 @@ if [ "$backup" ]; then
 fi
 
 # All done!
-e_header "\nAll done!"
+e_header "All done!"
