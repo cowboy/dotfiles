@@ -76,7 +76,7 @@ function do_stuff() {
         if [ ! -e "$backup_dir" ]; then
           mkdir -p "$backup_dir";
         fi
-        echo mv "$dest" "$backup_dir"
+        mv "$dest" "$backup_dir"
       fi
     fi
     "$1_do" "$base" "$file"
