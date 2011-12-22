@@ -1,7 +1,5 @@
 # OSX-only stuff. Abort if not OSX.
-if [[ ! "$OSTYPE" =~ ^darwin ]]; then
-  return
-fi
+[[ "$OSTYPE" =~ ^darwin ]] || return 1
 
 # Apple, why do you put /usr/bin before /usr/local/bin?!
 PATH=/usr/local/bin:$PATH
