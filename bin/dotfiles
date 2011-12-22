@@ -20,15 +20,16 @@ function e_arrow() { echo -e " \033[1;33m➜\033[0m  $@"; }
 
 # Doesn't exist? Clone it!
 if [ ! -d ~/.dotfiles ]; then
-  header "Downloading files..."
+  e_header "Downloading files..."
   git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
+  echo
 fi
 
 # Gotta start somewhere.
 cd ~/.dotfiles
 
 # Make sure we have the latest files.
-e_header "Checking git for updates..."
+e_header "Updating files..."
 git pull origin master
 git submodule update --init --recursive
 
