@@ -1,0 +1,3 @@
+[submodule "libs/ack"]
+	path = libs/ack
+	url = git://github.com/petdance/ack.git
