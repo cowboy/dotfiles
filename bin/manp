@@ -20,24 +20,24 @@ if [ ! "$1" ]; then
   exit
 fi
 
-CACHEDIR=~/.dotfiles/caches/manpdf
+cache_dir=~/.dotfiles/caches/manpdf
 
 if [ "$2" ]; then
-  NAME="$2.$1"
+  name="$2.$1"
 else
-  NAME="$1"
+  name="$1"
 fi
 
-FILE="$CACHEDIR/$NAME.pdf"
+file="$cache_dir/$name.pdf"
 
-if [ ! -e "$CACHEDIR" ]; then
-  mkdir -p $CACHEDIR;
+if [ ! -e "$cache_dir" ]; then
+  mkdir -p $cache_dir;
 fi
 
-if [ ! -e "$FILE" ]; then
-  man -t "$@" | pstopdf -i -o "$FILE" > /dev/null 2>&1
+if [ ! -e "$file" ]; then
+  man -t "$@" | pstopdf -i -o "$file" > /dev/null 2>&1
 fi
 
-if [ -e "$FILE" ]; then
-  open "$FILE"
+if [ -e "$file" ]; then
+  open "$file"
 fi

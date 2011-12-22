@@ -12,7 +12,7 @@
 # http://www.flickr.com/photos/rj3/3959554047/sizes/o/
 
 function prompt_git() {
-  local BRANCH=$(
+  local branch=$(
     GITDIR=$(git rev-parse --git-dir 2>/dev/null)
     HEADSHA=$(git rev-parse --verify HEAD 2>/dev/null)
     if [[ ! "$GITDIR" ]]; then
@@ -23,23 +23,21 @@ function prompt_git() {
       echo '(init)'
     fi
   )
-  local STATUS=$(
+  local status=$(
     git status 2>/dev/null | awk 'BEGIN {r=""} \
       /^# Changes to be committed:$/        {r=r "A"}\
       /^# Changes not staged for commit:$/  {r=r "M"}\
       /^# Untracked files:$/                {r=r "U"}\
       END {print(r)}'
   )
-
-  local OUT=$BRANCH
-  if [ "$STATUS" ]; then
-    OUT=$OUT$3:$2$STATUS
+  local out=$branch
+  if [ "$status" ]; then
+    out=$out$3:$2$status
   fi
-  if [ "$OUT" ]; then
-    OUT=$4[$2$OUT$4]$1
+  if [ "$out" ]; then
+    out=$4[$2$out$4]$1
   fi
-
-  echo $OUT
+  echo $out
 }
 
 function prompt_svn() {
@@ -64,22 +62,22 @@ function prompt_init() {
   # 36  46  cyan
   # 37  47  white
 
-  local TEXT_COLOR
-  local SIGIL_COLOR='37'
-  local BRACKET_COLOR=$SIGIL_COLOR
+  local text_color
+  local sigil_color='37'
+  local bracket_color=$sigil_color
 
   if [ "$SSH_TTY" ]; then             # connected via ssh
-    TEXT_COLOR=32
+    text_color=32
   elif [ "$USER" == "root" ]; then    # logged in as root
-    TEXT_COLOR=31
+    text_color=31
   else                                # connected locally
-    TEXT_COLOR=36
+    text_color=36
   fi
 
   local C1='\[\e[0m\]'
-  local C2='\[\e[0;'$TEXT_COLOR'm\]'
-  local C3='\[\e[0;'$SIGIL_COLOR'm\]'
-  local C4='\[\e[0;'$BRACKET_COLOR'm\]'
+  local C2='\[\e[0;'$text_color'm\]'
+  local C3='\[\e[0;'$sigil_color'm\]'
+  local C4='\[\e[0;'$bracket_color'm\]'
 
 export PS1="\n\
 \$(prompt_svn '$C1' '$C2' '$C3' '$C4')\

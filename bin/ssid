@@ -15,12 +15,12 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep " SSID" | sed "s/.*: //")
+ssid=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep " SSID" | sed "s/.*: //")
 
 if [ "$1" ]; then
-  if [ "$(echo $SSID | grep -w $1)" ]; then
+  if [ "$(echo $ssid | grep -w $1)" ]; then
     echo $1
   fi
 else
-  echo $SSID
+  echo $ssid
 fi
