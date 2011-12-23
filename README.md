@@ -55,11 +55,15 @@ Any file in the `copy` subdirectory will be copied into `~`. Any file that _need
 Any file in the `link` subdirectory gets symbolically linked with `ln -s` into `~`. Edit these, and you change the file in the repo. Don't link files containing sensitive data, or you might accidentally commit it!
 
 ## What about the "source" directory?
-To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` directory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases](https://github.com/cowboy/dotfiles/tree/master/source).
+To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` directory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](https://github.com/cowboy/dotfiles/tree/master/source). I even have a [fancy prompt](https://github.com/cowboy/dotfiles/blob/master/source/prompt.sh) that shows the current directory, time and git/svn repo status.
+
+## And the "bin" directory?
+In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts](https://github.com/cowboy/dotfiles/tree/master/bin). This includes [ack](https://github.com/petdance/ack), which is a [git submodule](https://github.com/cowboy/dotfiles/tree/master/libs).
 
 ## Inspiration
 <https://github.com/gf3/dotfiles>  
-<https://github.com/mathiasbynens/dotfiles>
+<https://github.com/mathiasbynens/dotfiles>  
+(and 15+ years of accumulated crap)
 
 ## License
 Copyright (c) 2011 "Cowboy" Ben Alman  
@@ -68,7 +72,6 @@ Licensed under the MIT license.
 
 
 ## Sample output on OS X Lion
-
 _(first run, with XCode already installed and a few pre-existing ~/ files)_
 
 Last login: Thu Dec 22 21:47:43 on ttys009  
