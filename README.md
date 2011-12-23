@@ -2,8 +2,10 @@
 
 My linux / OS X dotfiles. This is a work in progress, as I'm currently rebuilding my system!
 
+[dotfiles]: https://github.com/cowboy/dotfiles/blob/master/bin/dotfiles
+
 ## Structure
-When `dotfiles` is run:
+When [dotfiles][dotfiles] is run:
 
 * The `~/.dotfiles` directory is created (first run only)
 * Files in `init` are executed
@@ -21,8 +23,8 @@ In addition:
 _** these directories are created only when necessary_
 
 ## Commands
-* `dotfiles` - (re)initialize dotfiles
-* `src` - (re)source all files in `source` directory
+* [dotfiles][dotfiles] - (re)initialize dotfiles
+* [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-11) - (re)source all files in `source` directory
 
 ## Installation
 `bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
@@ -70,7 +72,7 @@ Licensed under the MIT license.
 _(first run, with XCode already installed and a few pre-existing ~/ files)_
 
 Last login: Thu Dec 22 21:47:43 on ttys009  
-Bens-MacBook-Pro:~ cowboy$ bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc  
+Bens-MacBook-Pro:~ cowboy$ bash -c "$(curl -fsSL <https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles>)" && source ~/.bashrc  
 Dotfiles - "Cowboy" Ben Alman - http://benalman.com/  
   
 **Downloading files**  
