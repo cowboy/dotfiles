@@ -1,5 +1,5 @@
 # Add binaries into the path
-PATH=$PATH:~/.dotfiles/bin
+PATH=~/.dotfiles/bin:$PATH
 export PATH
 
 # Source all files in ~/.dotfiles/source/
@@ -12,7 +12,7 @@ function src() {
 
 # Run dotfiles script, then source.
 function dotfiles() {
-  ~/.dotfiles/bin/dotfiles $@ && src
+  ~/.dotfiles/bin/dotfiles "$@" && src
 }
 
 src
