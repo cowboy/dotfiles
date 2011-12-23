@@ -10,7 +10,7 @@ fi
 
 # Install Homebrew recipes.
 if [[ "$(type -p brew)" ]]; then
-  recipes="git node rbenv tree sl"
+  recipes="git node rbenv tree sl lesspipe"
 
   recipes="$(to_install "$recipes" "$(brew list)")"
   if [[ "$recipes" ]]; then
