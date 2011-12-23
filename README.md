@@ -3,14 +3,20 @@
 My linux / OS X dotfiles. This is a work in progress, as I'm currently rebuilding my system!
 
 ## Structure
-* Files in `init` are executed at run-time.
+When `dotfiles` is run:
+
+* The `~/.dotfiles` directory is created (first run only)
+* Files in `init` are executed
 * Files in `copy` are copied into `~`
 * Files in `link` are linked into `~`
-* Files in `bin` are executables (`bin` is added into the path)
-* Files in `source` are sourced when a shell is opened
-* Files in `conf` just sit there
-* Files in `backups` are backups (from the copy/link process) **
-* Files in `caches` are cached files (used by some scripts) **
+* Files in `backups` are those that would have been overwritten by `copy` or `link` **
+
+In addition:
+
+* Files in `bin` are executable shell scripts (`bin` is added into the path)
+* Files in `source` get sourced when a new shell is opened
+* Files in `conf` just sit there, link to them explicitly
+* Files in `caches` are cached files (only used by some scripts) **
 
 _** these directories are created only when necessary_
 
@@ -21,65 +27,35 @@ _** these directories are created only when necessary_
 ## Installation
 `bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
 
-## Example Output
-```
-[cowboy@Bens-MacBook-Pro:~]
-[22:31:12] $ ssh test.benalman.com
-Welcome to Ubuntu 11.04 (GNU/Linux 2.6.35.4-rscloud x86_64)
+## The "init" step
+In OS X, these things will be installed, but _only_ if they aren't already.
 
-cowboy@totoro:~$ bash -c "$(curl -s https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
-Downloading files...
-Cloning into /home/cowboy/.dotfiles...
-remote: Counting objects: 104, done.
-remote: Compressing objects: 100% (72/72), done.
-remote: Total 104 (delta 49), reused 79 (delta 24)
-Receiving objects: 100% (104/104), 40.11 KiB, done.
-Resolving deltas: 100% (49/49), done.
-Submodule 'libs/ack' (git://github.com/petdance/ack.git) registered for path 'libs/ack'
-Cloning into libs/ack...
-remote: Counting objects: 5367, done.
-remote: Compressing objects: 100% (1450/1450), done.
-remote: Total 5367 (delta 3996), reused 5262 (delta 3903)
-Receiving objects: 100% (5367/5367), 886.48 KiB, done.
-Resolving deltas: 100% (3996/3996), done.
-Submodule path 'libs/ack': checked out 'a1d233a27b76a6b8b19fad00c59828388800b4d6'
+* Homebrew
+  * Git
+  * Node
+  * Npm
+  * RBEnv
+  * Tree
+  * Sl
+* Npm
+  * Nave
+  * JSHint
+  * Uglify-JS
 
-Copying files into home directory...
- ✔  Copying ~/.gitconfig.
+(more to come)
 
-Linking files into home directory...
- ✔  Linking ~/.ackrc.
- ✔  Linking ~/.aprc.
- ✔  Linking ~/.bash_profile.
- ➜  Backing up ~/.bashrc.
- ✔  Linking ~/.bashrc.
- ✔  Linking ~/.toprc.
+I haven't gotten to the linux part yet.
 
-Backups were moved to ~/.dotfiles/backups/2011_12_22-03_33_01/
+## The "copy" step
+Any file in the `copy` subdirectory will be copied into `~`. Any file that _needs_ to be modified with personal information (like [.gitconfig](https://github.com/cowboy/dotfiles/blob/master/copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
 
-All done!
+## The "link" step
+Any file in the `link` subdirectory gets symbolically linked with `ln -s` into `~`. Edit these, and you change the file in the repo. Don't link files containing sensitive data, or you might accidentally commit it!
 
-[cowboy@totoro:~]
-[03:33:01] $ dotfiles
-Updating files...
-From git://github.com/cowboy/dotfiles
- * branch            master     -> FETCH_HEAD
-Already up-to-date.
+## What about the "source" directory?
+To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` directory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases](https://github.com/cowboy/dotfiles/tree/master/source).
 
-Copying files into home directory...
- ✖  Skipping ~/.gitconfig, same file.
-
-Linking files into home directory...
- ✖  Skipping ~/.ackrc, same file.
- ✖  Skipping ~/.aprc, same file.
- ✖  Skipping ~/.bash_profile, same file.
- ✖  Skipping ~/.bashrc, same file.
- ✖  Skipping ~/.toprc, same file.
-
-All done!
-```
-
-## Sources
+## Inspiration
 <https://github.com/gf3/dotfiles>  
 <https://github.com/mathiasbynens/dotfiles>
 

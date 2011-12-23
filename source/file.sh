@@ -13,7 +13,7 @@ fi
 
 # Directory listing
 alias ll='ls -al'
-alias lsd='ls -l | grep "^d"'
+alias lsd='ls -l | grep --color=never "^d"'
 
 # Easier navigation: .., ..., -
 alias ..='cd ..'
@@ -21,7 +21,7 @@ alias ...='cd ../..'
 alias -- -='cd -'
 
 # File size
-alias fs="stat -f \"%z bytes\""
+alias fs="stat -f '%z bytes'"
 alias df="df -h"
 
 # Recursively delete `.DS_Store` files
