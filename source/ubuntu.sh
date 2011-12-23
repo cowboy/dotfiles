@@ -1,5 +1,5 @@
-# Linux-only stuff. Abort if not linux.
-[[ "$OSTYPE" =~ ^linux ]] || return 1
+# Ubuntu-only stuff. Abort if not Ubuntu.
+[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 
 # ubuntu package management
 alias update="sudo apt-get update"
