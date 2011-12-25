@@ -24,7 +24,8 @@ function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 # Given a list of desired items and installed items, return a list
 # of uninstalled items. Arrays in bash are insane (not in a good way).
 function to_install() {
-  local desired installed i desired_s installed_s remain
+  local debug desired installed i desired_s installed_s remain
+  if [[ "$1" == 1 ]]; then debug=1; shift; fi
   # Convert args to arrays, handling both space- and newline-separated lists.
   read -ra desired < <(echo "$1" | tr '\n' ' ')
   read -ra installed < <(echo "$2" | tr '\n' ' ')
@@ -39,6 +40,9 @@ function to_install() {
   unset i; while read -r; do remain[i++]=$REPLY; done < <(
     comm -13 <(printf "%s\n" "${installed_s[@]}") <(printf "%s\n" "${desired_s[@]}")
   )
+  [[ "$debug" ]] && for v in desired desired_s installed installed_s remain; do
+    echo "$v ($(eval echo "\${#$v[*]}")) $(eval echo "\${$v[*]}")"
+  done
   echo "${remain[@]}"
 }
 
@@ -110,22 +114,22 @@ function do_stuff() {
 # Enough with the functions, let's do stuff.
 
 # If on OSX and Git is not installed, install Homebrew, then Git.
-if [[ ! "$(type -p git)" && "$OSTYPE" =~ ^darwin ]]; then
+if [[ ! "$(type -P git)" && "$OSTYPE" =~ ^darwin ]]; then
   # It's easiest to get Git via Homebrew, so get that first.
-  if [[ ! "$(type -p brew)" ]]; then
+  if [[ ! "$(type -P brew)" ]]; then
     e_header "Installing Homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
     brew update
   fi
   # If Homebrew was installed, install Git.
-  if [[ "$(type -p brew)" ]]; then
+  if [[ "$(type -P brew)" ]]; then
     e_header "Installing Git"
     brew install git
   fi
 fi
 
 # If Git isn't installed by now, something exploded. We gots to quit!
-if [[ ! "$(type -p git)" ]]; then
+if [[ ! "$(type -P git)" ]]; then
   e_error "Git should be installed. It isn't. Aborting."
   exit 1
 fi
