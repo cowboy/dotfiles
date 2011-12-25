@@ -10,9 +10,9 @@ fi
 
 # Install Homebrew recipes.
 if [[ "$(type -p brew)" ]]; then
-  recipes="git node rbenv tree sl lesspipe"
+  recipes=(git node rbenv tree sl lesspipe)
 
-  recipes="$(to_install "$recipes" "$(brew list)")"
+  recipes="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$recipes" ]]; then
     e_header "Installing Homebrew recipes: $recipes"
     brew install $recipes
@@ -27,10 +27,10 @@ fi
 
 # Install Npm modules.
 if [[ "$(type -p npm)" ]]; then
-  modules="nave jshint uglify-js"
+  modules=(nave jshint uglify-js)
 
   cd "$(npm config get prefix)/lib/node_modules"; installed=(*); cd - > /dev/null
-  modules="$(to_install "$modules" "${installed[*]}")"
+  modules="$(to_install "${modules[*]}" "${installed[*]}")"
   if [[ "$modules" ]]; then
     e_header "Installing Npm modules: $modules"
     npm install -g $modules
