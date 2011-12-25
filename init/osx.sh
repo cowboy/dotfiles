@@ -19,7 +19,7 @@ if [[ "$(type -P brew)" ]]; then
   fi
 
   # Newer OSX XCode comes with an LLVM gcc which rbenv can't use.
-  if [[ ! "$(type -P gcc)" || "$(brew info gcc > /dev/null || echo 1)" ]]; then
+  if [[ ! "$(type -P gcc)" || ! "$(brew list | grep -w "gcc")" ]]; then
     e_header "Installing Homebrew-alt gcc recipe"
     echo "Note: this step can take ~20 minutes, but is required by rbenv install."
     skip || brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb

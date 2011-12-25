@@ -49,12 +49,12 @@ function to_install() {
 # Offer the user a chance to skip something.
 function skip() {
   REPLY=noskip
-  read -t 5 -n 1 -s -p "To skip, press any key (continuing in 5 seconds). "
-  if [[ "$REPLY" == "noskip" ]]; then
+  read -t 5 -n 1 -s -p "To skip, press X within 5 seconds. "
+  if [[ "$REPLY" =~ ^[Xx]$ ]]; then
+    echo "Skipping!"
+  else
     echo "Continuing..."
     return 1
-  else
-    echo "Skipping!"
   fi
 }
 
