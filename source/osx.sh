@@ -19,3 +19,6 @@ eval "$(lesspipe.sh)"
   gccs=(/usr/local/bin/gcc-*)
   echo "${gccs[0]}"
 )"
+
+# rbenv.
+type -t _rbenv > /dev/null || eval "$(rbenv init -)"
