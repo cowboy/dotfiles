@@ -14,7 +14,7 @@ eval "$(lesspipe.sh)"
 # Hopefully this will get "fixed" soon.
 # https://github.com/sstephenson/ruby-build/issues/109
 # Also see init/osx.sh
-[[ "$CC" ]] || CC="$(
+[[ "$CC" ]] || export CC="$(
   shopt -s nullglob
   gccs=(/usr/local/bin/gcc-*)
   echo "${gccs[0]}"
