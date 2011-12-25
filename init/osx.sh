@@ -19,10 +19,10 @@ if [[ "$(type -P brew)" ]]; then
   fi
 
   # Newer OSX XCode comes with an LLVM gcc which rbenv can't use.
-  # Note: this can take a REALLY long time (15+ mins).
   if [[ ! "$(type -P gcc)" || "$(brew info gcc > /dev/null || echo 1)" ]]; then
     e_header "Installing Homebrew-alt gcc recipe"
-    brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb
+    echo "Note: this step can take ~20 minutes, but is required by rbenv install."
+    skip || brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb
   fi
 fi
 
@@ -33,7 +33,7 @@ if [[ "$(type -P rbenv)" ]]; then
   list="$(to_install "${versions[*]}" "$(rbenv versions | sed 's/^[* ]*//;s/ .*//')")"
   if [[ "$list" ]]; then
     e_header "Installing Ruby versions: $list"
-    [[ "$(type _rbenv 2> /dev/null)" ]] || eval "$(rbenv init -)"
+    type -t _rbenv > /dev/null || eval "$(rbenv init -)"
     # Hopefully this will get "fixed" soon.
     # https://github.com/sstephenson/ruby-build/issues/109
     # Also see source/osx.sh
@@ -58,7 +58,7 @@ fi
 if [[ "$(type -P npm)" ]]; then
   modules=(nave jshint uglify-js)
 
-  cd "$(npm config get prefix)/lib/node_modules"; installed=(*); cd - > /dev/null
+  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
   list="$(to_install "${modules[*]}" "${installed[*]}")"
   if [[ "$list" ]]; then
     e_header "Installing Npm modules: $list"
