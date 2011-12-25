@@ -46,6 +46,18 @@ function to_install() {
   echo "${remain[@]}"
 }
 
+# Offer the user a chance to skip something.
+function skip() {
+  REPLY=noskip
+  read -t 5 -n 1 -s -p "To skip, press any key (continuing in 5 seconds). "
+  if [[ "$REPLY" == "noskip" ]]; then
+    echo "Continuing..."
+    return 1
+  else
+    echo "Skipping!"
+  fi
+}
+
 # Initialize.
 function init_do() {
   source "$2"
@@ -144,8 +156,8 @@ else
   # Make sure we have the latest files.
   e_header "Updating files"
   cd ~/.dotfiles
-  git pull origin master
-  git submodule update --init --recursive
+  git pull
+  git submodule update --recursive
 fi
 
 # Tweak file globbing.

@@ -1,3 +1,3 @@
 
 # rbenv.
-[[ "$(type -P rbenv)" ]] && eval "$(rbenv init -)"
+type -t _rbenv > /dev/null || eval "$(rbenv init -)"
