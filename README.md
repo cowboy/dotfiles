@@ -36,13 +36,18 @@ In OS X, these things will be installed, but _only_ if they aren't already.
   * Git
   * Node
   * Npm
-  * RBEnv
   * Tree
   * Sl
+  * Lesspipe
+  * RBEnv
+  * [non-LVVM gcc](https://github.com/adamv/homebrew-alt/blob/master/duplicates/gcc.rb) (for RBEnv)
 * Npm
   * Nave
   * JSHint
   * Uglify-JS
+* Ruby
+  * 1.9.2-p290 (default)
+  * 1.8.7-p352
 
 (more to come)
 
