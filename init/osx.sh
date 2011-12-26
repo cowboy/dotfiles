@@ -19,9 +19,10 @@ if [[ "$(type -P brew)" ]]; then
   fi
 
   # Newer OSX XCode comes with an LLVM gcc which rbenv can't use.
-  if [[ ! "$(type -P gcc)" || ! "$(brew list | grep -w "gcc")" ]]; then
+  source ~/.dotfiles/source/rbenv.sh
+  if [[ ! "$CC" && ! "$(brew list | grep -w "gcc")" ]]; then
     e_header "Installing Homebrew-alt gcc recipe"
-    echo "Note: this step can take ~20 minutes, but is required by rbenv install."
+    echo "Note: this step can take 15+ minutes, but a non-LLVM gcc is required by rbenv."
     skip || brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb
   fi
 fi
@@ -33,15 +34,7 @@ if [[ "$(type -P rbenv)" ]]; then
   list="$(to_install "${versions[*]}" "$(rbenv versions | sed 's/^[* ]*//;s/ .*//')")"
   if [[ "$list" ]]; then
     e_header "Installing Ruby versions: $list"
-    type -t _rbenv > /dev/null || eval "$(rbenv init -)"
-    # Hopefully this will get "fixed" soon.
-    # https://github.com/sstephenson/ruby-build/issues/109
-    # Also see source/osx.sh
-    [[ "$CC" ]] || export CC="$(
-      shopt -s nullglob
-      gccs=(/usr/local/bin/gcc-*)
-      echo "${gccs[0]}"
-    )"
+    source ~/.dotfiles/source/rbenv.sh
     for version in $list; do rbenv install "$version"; done
     [[ "$(echo "$list" | grep -w "${versions[0]}")" ]] && rbenv global "${versions[0]}"
     rbenv rehash
