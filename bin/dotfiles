@@ -157,7 +157,7 @@ else
   e_header "Updating files"
   cd ~/.dotfiles
   git pull
-  git submodule update --recursive
+  git submodule update --init --recursive --quiet
 fi
 
 # Tweak file globbing.
