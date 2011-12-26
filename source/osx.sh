@@ -10,15 +10,3 @@ alias c="tr -d '\n' | pbcopy"
 
 # Make 'less' more.
 eval "$(lesspipe.sh)"
-
-# Hopefully this will get "fixed" soon.
-# https://github.com/sstephenson/ruby-build/issues/109
-# Also see init/osx.sh
-[[ "$CC" ]] || export CC="$(
-  shopt -s nullglob
-  gccs=(/usr/local/bin/gcc-*)
-  echo "${gccs[0]}"
-)"
-
-# rbenv.
-type -t _rbenv > /dev/null || eval "$(rbenv init -)"
