@@ -96,7 +96,7 @@ function do_stuff() {
   # Run _header function only if declared.
   [[ $(declare -f "$1_header") ]] && "$1_header"
   # Iterate over files.
-  for file in ${files[@]}; do
+  for file in "${files[@]}"; do
     base="$(basename $file)"
     dest="$HOME/$base"
     # Run _test function only if declared.
