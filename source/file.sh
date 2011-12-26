@@ -17,7 +17,7 @@ if [[ "$(type -P tree)" ]]; then
   alias lsd='ll -d'
 else
   alias ll='ls -al'
-  alias lsd='ls -l | grep --color=never "^d"'
+  alias lsd='CLICOLOR_FORCE=1 ll | grep --color=never "^d"'
 fi
 
 # Easier navigation: .., ..., -
