@@ -24,7 +24,7 @@ _** these directories are created only when necessary_
 
 ## Commands
 * [dotfiles][dotfiles] - (re)initialize dotfiles
-* [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-11) - (re)source all files in `source` directory
+* [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-15) - (re)source all files in `source` directory
 
 ## Installation
 `bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
