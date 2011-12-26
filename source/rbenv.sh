@@ -1,7 +1,7 @@
-# If CC isn't set, attempt to set it. This is used by rbenv.
+# Rbenv requires a non-LLVM gcc. So, attempt to find one.
 # Note this issue:
 # https://github.com/sstephenson/ruby-build/issues/109
-[[ "$CC" ]] || export CC="$(
+export RBENV_CC="$(
   shopt -s nullglob
   gccs=(/usr/local/bin/gcc-* /usr/bin/gcc-*)
   gcc=$(type -P gcc)
@@ -16,3 +16,4 @@
 
 # rbenv.
 [[ "$(type -P rbenv)" && ! "$(type -t _rbenv)" ]] && eval "$(rbenv init -)"
+alias rbenv='CC="$RBENV_CC" rbenv'
