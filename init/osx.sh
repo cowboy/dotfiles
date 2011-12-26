@@ -41,6 +41,17 @@ if [[ "$(type -P rbenv)" ]]; then
   fi
 fi
 
+# Install Gems.
+if [[ "$(type -P gem)" ]]; then
+  gems=(bundler awesome_print interactive_editor)
+
+  list="$(to_install "${gems[*]}" "$(gem list | awk '{print $1}')")"
+  if [[ "$list" ]]; then
+    e_header "Installing Ruby gems: $list"
+    gem install $list
+  fi
+fi
+
 # Install Npm (for some reason, the brew recipe doesn't do this).
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
   e_header "Installing Npm"
