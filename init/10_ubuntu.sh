@@ -3,7 +3,7 @@
 
 # Update apt
 e_header "Updating apt"
-sudo apt-get update
+sudo apt-get -qq update
 sudo apt-get -qq upgrade
 
 # Install tools and programs.
