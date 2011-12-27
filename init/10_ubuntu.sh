@@ -2,8 +2,9 @@
 [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 
 # Update apt
-sudo apt-get -qqy update
-sudo apt-get -qqy upgrade
+e_header "Updating apt"
+sudo apt-get update
+sudo apt-get upgrade
 
 # Install tools and programs.
 packages=(
@@ -22,6 +23,6 @@ done
 if (( ${#list[@]} > 0 )); then
   e_header "Installing packages: ${list[*]}"
   for package in "${list[@]}"; do
-    sudo apt-get -qqy install "$package"
+    sudo apt-get -qq install "$package"
   done
 fi
