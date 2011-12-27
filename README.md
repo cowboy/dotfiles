@@ -27,7 +27,18 @@ _** these directories are created only when necessary_
 * [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-15) - (re)source all files in `source` directory
 
 ## Installation
-`bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc`
+OS X:
+
+```sh
+bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
+```
+
+Ubuntu:
+
+```sh
+sudo apt-get update && sudo apt-get upgrade && sudo apt-get -qq install curl
+bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
+```
 
 ## The "init" step
 In OS X, these things will be installed, but _only_ if they aren't already.
@@ -35,23 +46,26 @@ In OS X, these things will be installed, but _only_ if they aren't already.
 * Homebrew
   * Git
   * Node
-  * Npm
   * Tree
   * Sl
   * Lesspipe
-  * RBEnv
   * [non-LVVM gcc](https://github.com/adamv/homebrew-alt/blob/master/duplicates/gcc.rb) (for RBEnv)
+* Nvm
+  * Node latest stable
 * Npm
-  * Nave
   * JSHint
   * Uglify-JS
-* Ruby
-  * 1.9.2-p290 (default)
-  * 1.8.7-p352
+* Rbenv
+  * Ruby 1.9.2-p290 (default)
+  * Ruby 1.8.7-p352
+* Ruby Gems
+  * bundler
+  * awesome_print
+  * interactive_editor
 
 (more to come)
 
-I haven't gotten to the linux part yet.
+I'm working on the Ubuntu part now.
 
 ## The "copy" step
 Any file in the `copy` subdirectory will be copied into `~`. Any file that _needs_ to be modified with personal information (like [.gitconfig](https://github.com/cowboy/dotfiles/blob/master/copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
