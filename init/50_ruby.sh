@@ -1,4 +1,4 @@
-source ~/.dotfiles/source/rbenv.sh
+source ~/.dotfiles/source/50_rbenv.sh
 
 # Install Ruby.
 if [[ "$(type -P rbenv)" ]]; then
