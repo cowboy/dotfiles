@@ -4,3 +4,9 @@
 [submodule "libs/nvm"]
 	path = libs/nvm
 	url = git://github.com/creationix/nvm.git
+[submodule "libs/rbenv"]
+	path = libs/rbenv
+	url = git://github.com/sstephenson/rbenv.git
+[submodule "libs/ruby-build"]
+	path = libs/ruby-build
+	url = git://github.com/sstephenson/ruby-build.git
