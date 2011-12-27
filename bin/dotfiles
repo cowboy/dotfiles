@@ -125,18 +125,26 @@ function do_stuff() {
 
 # Enough with the functions, let's do stuff.
 
-# If on OSX and Git is not installed, install Homebrew, then Git.
-if [[ ! "$(type -P git)" && "$OSTYPE" =~ ^darwin ]]; then
-  # It's easiest to get Git via Homebrew, so get that first.
-  if [[ ! "$(type -P brew)" ]]; then
-    e_header "Installing Homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
-    brew update
-  fi
-  # If Homebrew was installed, install Git.
-  if [[ "$(type -P brew)" ]]; then
+# If Git is not installed...
+if [[ ! "$(type -P git)" ]]; then
+  # OSX
+  if [[ "$OSTYPE" =~ ^darwin ]]; then
+    # It's easiest to get Git via Homebrew, so get that first.
+    if [[ ! "$(type -P brew)" ]]; then
+      e_header "Installing Homebrew"
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+      brew update
+    fi
+    # If Homebrew was installed, install Git.
+    if [[ "$(type -P brew)" ]]; then
+      e_header "Installing Git"
+      brew install git
+    fi
+  # Ubuntu.
+  elif [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]; then
+    # Git is fairly easy.
     e_header "Installing Git"
-    brew install git
+    sudo apt-get install git-core
   fi
 fi
 
