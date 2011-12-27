@@ -7,11 +7,9 @@ sudo apt-get -qqy upgrade
 
 # Install tools and programs.
 packages=(
-  build-essential
+  build-essential libssl-dev
   git-core
-  nodejs
-  ruby rubygems1.8
-  tree sl lesspipe
+  tree sl
 )
 
 list=()

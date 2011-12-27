@@ -1,3 +1,17 @@
+# Install Node.
+if [[ ! "$(type -P node)" ]]; then
+  # From https://github.com/isaacs/nave/blob/master/nave.sh
+  node_stable="$(
+    curl -s http://nodejs.org/dist/ \
+      | egrep -o '[0-9]+\.[2468]\.[0-9]+' \
+      | sort -u -k 1,1n -k 2,2n -k 3,3n -t . \
+      | tail -n1
+  )"
+  e_header "Installing Node v$node_stable"
+  source ~/.dotfiles/libs/nvm/nvm.sh
+  nvm install "v$node_stable" > /dev/null
+fi
+
 # Install Npm.
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
   e_header "Installing Npm"
