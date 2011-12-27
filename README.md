@@ -36,7 +36,7 @@ bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles
 Ubuntu:
 
 ```sh
-sudo apt-get update && sudo apt-get upgrade && sudo apt-get -qq install curl
+sudo apt-get update && sudo apt-get -qq upgrade && sudo apt-get -qq install curl
 bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
