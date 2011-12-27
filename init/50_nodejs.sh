@@ -10,6 +10,7 @@ if [[ ! "$(type -P node)" ]]; then
   e_header "Installing Node v$node_stable"
   source ~/.dotfiles/libs/nvm/nvm.sh
   nvm install "v$node_stable" > /dev/null
+  nvm alias default "v$node_stable"
 fi
 
 # Install Npm.

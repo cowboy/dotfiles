@@ -15,7 +15,7 @@ HELP
 exit; fi
 
 if [ ! "$1" ]; then
-  ps axco pid,tty,user,command | sort -bdfk4
+  ps axo pid,tty,user,command | sort -bdfk4
 else
-  echo $(ps axco pid,tty,user,command | grep -w "$@" | sort -g | awk '{print $1}')
+  echo $(ps axo pid,tty,user,command | grep -w "$@" | sort -g | awk '{print $1}')
 fi
