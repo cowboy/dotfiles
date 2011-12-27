@@ -144,7 +144,7 @@ if [[ ! "$(type -P git)" ]]; then
   elif [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]; then
     # Git is fairly easy.
     e_header "Installing Git"
-    sudo apt-get install git-core
+    sudo apt-get -qqy install git-core
   fi
 fi
 
