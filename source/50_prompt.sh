@@ -54,9 +54,8 @@ function prompt_git() {
   status="$(git status 2>/dev/null)"
   [[ $? != 0 ]] && return;
   output="$(echo "$status" | awk '/# Initial commit/ {print "(init)"}')"
-  if [[ ! "$output" ]]; then
-    output="$(echo "$status" | awk '/# On branch/ {print $4}')"
-  fi
+  [[ "$output" ]] || output="$(echo "$status" | awk '/# On branch/ {print $4}')"
+  [[ "$output" ]] || output="$(git branch | perl -ne '/^\* (.*)/ && print $1')"
   flags="$(
     echo "$status" | awk 'BEGIN {r=""} \
       /^# Changes to be committed:$/        {r=r "+"}\
