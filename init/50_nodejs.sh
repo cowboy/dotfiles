@@ -22,6 +22,8 @@ if [[ ! "$OSTYPE" =~ ^darwin ]]; then
       sudo make && \
       sudo make install
     ) > /dev/null
+    # Update Npm!
+    sudo npm update -g npm
   fi
 fi
 
@@ -29,6 +31,8 @@ fi
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
   e_header "Installing Npm"
   curl http://npmjs.org/install.sh | sh
+  # Update Npm!
+  npm update -g npm
 fi
 
 # Install Npm modules.
