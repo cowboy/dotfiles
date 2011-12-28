@@ -2,7 +2,7 @@
 [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 
 # Update apt
-e_header "Updating apt"
+e_header "Updating APT"
 sudo apt-get -qq update
 sudo apt-get -qq upgrade
 
