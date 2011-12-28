@@ -39,6 +39,10 @@ if [[ "$(type -P npm)" ]]; then
   list="$(to_install "${modules[*]}" "${installed[*]}")"
   if [[ "$list" ]]; then
     e_header "Installing Npm modules: $list"
-    npm install -g $list
+    [[ "$(type -P brew)" ]]; then
+      npm install -g $list
+    else
+      sudo npm install -g $list
+    fi
   fi
 fi
