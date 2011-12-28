@@ -27,13 +27,17 @@ _** these directories are created only when necessary_
 * [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-15) - (re)source all files in `source` directory
 
 ## Installation
-OS X:
+### OS X:
 
 ```sh
 bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
-Ubuntu:
+### Ubuntu:
+Notes:
+
+* If APT hasn't been updated/upgraded recently, it might be a minute before you see anything.
+* You'll have to enter your password for sudo.
 
 ```sh
 sudo apt-get -qq update && sudo apt-get -qq upgrade && sudo apt-get -qq install curl && \
