@@ -1,9 +1,6 @@
 [submodule "libs/ack"]
 	path = libs/ack
 	url = git://github.com/petdance/ack.git
-[submodule "libs/nvm"]
-	path = libs/nvm
-	url = git://github.com/creationix/nvm.git
 [submodule "libs/rbenv"]
 	path = libs/rbenv
 	url = git://github.com/sstephenson/rbenv.git
