@@ -16,8 +16,12 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
+# Get port and file (if specified).
 port=8080; if [[ "$1" =~ ^[0-9]+$ ]]; then port=$1; shift; fi
 file=$1
 
-( { sleep 0.5; open "http://localhost:$port/$file"; } & )
+# If not in an SSH session, open the URL in the default handler.
+[[ "$SSH_TTY" ]] || ( { open "http://localhost:$port/$file"; } & )
+
+# Start web server.
 python -m SimpleHTTPServer $port
