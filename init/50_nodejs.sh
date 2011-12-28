@@ -1,25 +1,16 @@
-# Install Node.
-# From https://github.com/isaacs/nave/blob/master/nave.sh
-node_stable="$(
-  curl -sL "http://nodejs.org/dist/" \
-    | egrep -o '[0-9]+\.[2468]\.[0-9]+' \
-    | sort -u -k 1,1n -k 2,2n -k 3,3n -t . \
-    | tail -n1
-)"
+# If not on OS X, install Node. Hopefully, someday, there will be a more
+# current Node PPA for Ubuntu.
+if [[ ! "$OSTYPE" =~ ^darwin ]]; then
+  # From https://github.com/isaacs/nave/blob/master/nave.sh
+  node_stable="$(
+    curl -sL "http://nodejs.org/dist/" \
+      | egrep -o '[0-9]+\.[2468]\.[0-9]+' \
+      | sort -u -k 1,1n -k 2,2n -k 3,3n -t . \
+      | tail -n1
+  )"
 
-if [[ ! "$(type -P node)" || "$(node --version)" != "v$node_stable" ]]; then
-  e_header "Installing Node v$node_stable"
-
-  if [[ "$OSTYPE" =~ ^darwin ]]; then
-    # OS X is fairly easy.
-    node_url="http://nodejs.org/dist/v$node_stable/node-v$node_stable.pkg"
-    node_pkg="/tmp/node-v$node_stable.pkg"
-    curl --progress-bar "$node_pkg" -o "$node_pkg"
-    # Not sure why Node .pkg installer needs root, but it does.
-    # https://github.com/joyent/node/issues/2427
-    sudo installer -pkg "$node_pkg" -target /
-  else
-    # Linux is a litte more complicated.
+  if [[ ! "$(type -P node)" || "$(node --version)" != "v$node_stable" ]]; then
+    e_header "Installing Node v$node_stable"
     node_url="http://nodejs.org/dist/v$node_stable/node-v$node_stable.tar.gz"
     (
       sudo mkdir -p "/usr/local/src" && \
@@ -32,6 +23,12 @@ if [[ ! "$(type -P node)" || "$(node --version)" != "v$node_stable" ]]; then
       sudo make install
     ) > /dev/null
   fi
+fi
+
+# Install Npm if necessary (the brew recipe doesn't do this).
+if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
+  e_header "Installing Npm"
+  curl http://npmjs.org/install.sh | sh
 fi
 
 # Install Npm modules.
