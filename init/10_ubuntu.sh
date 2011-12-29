@@ -1,6 +1,15 @@
 # Ubuntu-only stuff. Abort if not Ubuntu.
 [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 
+# Installing this sudoers file makes life easier.
+sudoers_file="sudoers-cowboy"
+sudoers_dest="/etc/sudoers.d/$sudoers_file"
+if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "conf/$sudoers_src" ]]; then
+  e_header "Updating sudoers"
+  sudo cp "conf/$sudoers_src" "$sudoers_dest" >/dev/null 2>&1 &&
+  sudo chmod 0440 "$sudoers_dest"
+fi
+
 # Update APT.
 e_header "Updating APT"
 sudo apt-get -qq update
@@ -11,6 +20,7 @@ packages=(
   build-essential libssl-dev
   git-core
   tree sl
+  nmap
 )
 
 list=()
