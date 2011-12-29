@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Scan everything on your subnet(s).
+http://benalman.com/
+
+Usage: `basename "$0"`
+
+Returns a list of IPs that were pingable. Maybe it'll help you find that
+server you lost. It didn't help me.
+
+Copyright (c) 2011 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+HELP
+exit; fi
+
+# Get subnets we care about from ifconfig. Basically, from any network device
+# starting with the letter "e" (en0, en1, eth0, eth1).
+ruby=$(cat <<'RUBY'
+BEGIN {ether = nil; subnets = []}
+if $_ =~ /^(\S)/
+  ether = $1 == "e"
+elsif ether && $_ =~ /inet (?:addr:)?(\d+\.\d+\.\d+)\.\d+/
+  subnets << "#{$1}.*"
+end
+END {puts subnets.uniq}
+RUBY)
+subnets="$(ifconfig | ruby -ne "$ruby")"
+
+echo "Scanning $subnets"
+# Nmap only supports saving greppable output to a file, not STDOUT, so
+# create a tempfile.
+tmp="$(mktemp /tmp/tmp.XXXXX)"
+
+# Scan.
+nmap -sP -oG "$tmp" $subnets >/dev/null 2>&1
+
+# Parse output file.
+ruby=$(cat <<'RUBY'
+if $_ =~ /^Host: (\S+) \((\S*)\).*Status: Up$/
+  puts "#{$1}#{" " * (16 - $1.length)}#{$2}"
+end
+RUBY)
+cat "$tmp" | ruby -ne "$ruby"
+
+# Cleanup.
+rm "$tmp"
