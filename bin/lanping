@@ -1,12 +1,13 @@
 #!/bin/bash
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
-Ping all machines on the LAN.
+Ping all machines on the LAN subnet.
 http://benalman.com/
 
 Usage: `basename "$0"`
 
-Returns a list of IPs that were pingable.
+Returns a list of IPs that were pingable. Maybe it'll help you find that
+server you lost. It didn't help me.
 
 Copyright (c) 2011 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -18,10 +19,8 @@ exit; fi
 tmp="$(mktemp /tmp/tmp.XXXXX)"
 
 # Write en* interfaces to temp file.
-for i in $(ifconfig -l); do
-  if [[ $i =~ ^en ]]; then
-    ifconfig $i | perl -nle'/inet (?:addr:)?(\d+\.\d+\.\d+)\.\d+/ && print $1' >> "$tmp"
-  fi
+for i in $(ifconfig | perl -nle'/^(e\w+)/ && print $1'); do
+  ifconfig $i | perl -nle'/inet (?:addr:)?(\d+\.\d+\.\d+)\.\d+/ && print $1' >> "$tmp"
 done
 
 # Read sorted, uniqued partial IP list into an array.
