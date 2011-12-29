@@ -4,10 +4,12 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Scan everything on your subnet(s).
 http://benalman.com/
 
-Usage: `basename "$0"`
+Usage: $(basename "$0") [full]
 
-Returns a list of IPs that were pingable. Maybe it'll help you find that
-server you lost. It didn't help me.
+Scans your subnet(s) using nmap and displays results in a pretty format.
+Maybe it'll help you find that server you lost. It didn't help me.
+
+Specify "full" for a full subnet port scan.
 
 Copyright (c) 2011 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -28,20 +30,34 @@ END {puts subnets.uniq}
 RUBY)
 subnets="$(ifconfig | ruby -ne "$ruby")"
 
-echo "Scanning $subnets"
 # Nmap only supports saving greppable output to a file, not STDOUT, so
 # create a tempfile.
 tmp="$(mktemp /tmp/tmp.XXXXX)"
 
-# Scan.
-nmap -sP -oG "$tmp" $subnets >/dev/null 2>&1
+if [[ "$1" == "full" ]]; then
+  echo "Scanning $subnets (full scan, be patient)"
+  # The works (full port scan)
+  nmap -sT -oG "$tmp" $subnets >/dev/null 2>&1
+else
+  echo "Scanning $subnets"
+  # Relatively quick scan.
+  nmap -sP -oG "$tmp" $subnets >/dev/null 2>&1
+fi
 
 # Parse output file.
 ruby=$(cat <<'RUBY'
+BEGIN {skip = ''}
 if $_ =~ /^Host: (\S+) \((\S*)\).*Status: Up$/
-  puts "#{$1}#{" " * (16 - $1.length)}#{$2}"
+  puts "#{skip}#{$1}#{" " * (16 - $1.length)}#{$2}"
+elsif $_ =~ /Ports: (.*?)\t/
+  skip = "\n"
+  $1.split(", ").each do |part|
+    parts = part.split "/"
+    printf " :%-5d   %s   %s\n", parts[0], parts[2], parts[4]
+  end
 end
 RUBY)
+echo
 cat "$tmp" | ruby -ne "$ruby"
 
 # Cleanup.
