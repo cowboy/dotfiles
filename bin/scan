@@ -26,8 +26,9 @@ if $_ =~ /^(\S)/
 elsif ether && $_ =~ /inet (?:addr:)?(\d+\.\d+\.\d+)\.\d+/
   subnets << "#{$1}.*"
 end
-END {puts subnets.uniq}
-RUBY)
+END {puts subnets.uniq.join " "}
+RUBY
+)
 subnets="$(ifconfig | ruby -ne "$ruby")"
 
 # Nmap only supports saving greppable output to a file, not STDOUT, so
@@ -56,7 +57,8 @@ elsif $_ =~ /Ports: (.*?)\t/
     printf " :%-5d   %s   %s\n", parts[0], parts[2], parts[4]
   end
 end
-RUBY)
+RUBY
+)
 echo
 cat "$tmp" | ruby -ne "$ruby"
 
