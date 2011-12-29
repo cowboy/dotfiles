@@ -99,7 +99,7 @@ To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely s
 In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts][bin]. This includes [ack](https://github.com/petdance/ack), which is a [git submodule](https://github.com/cowboy/dotfiles/tree/master/libs).
 
 ## Scripts
-* [dotfiles][dotfiles] - (re)initialize dotfiles. On Ubuntu, it might ask your your password (sudo).
+* [dotfiles][dotfiles] - (re)initialize dotfiles. On Ubuntu, it might ask for your password (sudo).
 * [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-15) - (re)source all files in `source` directory
 * Look through the [bin][bin] subdirectory for a few more.
 
