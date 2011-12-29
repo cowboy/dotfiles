@@ -157,12 +157,12 @@ fi
 # Initialize.
 if [ ! -d ~/.dotfiles ]; then
   # ~/.dotfiles doesn't exist? Clone it!
-  e_header "Downloading files"
+  e_header "Downloading dotfiles"
   git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
 else
   # Make sure we have the latest files.
-  e_header "Updating files"
+  e_header "Updating dotfiles"
   cd ~/.dotfiles
   git pull
   git submodule update --init --recursive --quiet
