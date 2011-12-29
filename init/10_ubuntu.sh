@@ -4,10 +4,12 @@
 # Installing this sudoers file makes life easier.
 sudoers_file="sudoers-cowboy"
 sudoers_dest="/etc/sudoers.d/$sudoers_file"
-if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "conf/$sudoers_src" ]]; then
+if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "conf/$sudoers_file" ]]; then
   e_header "Updating sudoers"
-  sudo cp "conf/$sudoers_src" "$sudoers_dest" >/dev/null 2>&1 &&
-  sudo chmod 0440 "$sudoers_dest"
+  {
+    sudo cp "conf/$sudoers_file" "$sudoers_dest" &&
+    sudo chmod 0440 "$sudoers_dest"
+  } >/dev/null 2>&1
 fi
 
 # Update APT.
