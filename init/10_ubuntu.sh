@@ -21,7 +21,7 @@ sudo apt-get -qq upgrade
 packages=(
   build-essential libssl-dev
   git-core
-  tree sl
+  tree sl id3tool
   nmap
 )
 
