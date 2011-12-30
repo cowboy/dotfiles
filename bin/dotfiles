@@ -113,7 +113,7 @@ function do_stuff() {
         # Set backup flag, so a nice message can be shown at the end.
         backup=1
         # Create backup dir if it doesn't already exist.
-        [ -e "$backup_dir" ] || mkdir -p "$backup_dir"
+        [[ -e "$backup_dir" ]] || mkdir -p "$backup_dir"
         # Backup file / link / whatever.
         mv "$dest" "$backup_dir"
       fi
@@ -155,7 +155,8 @@ if [[ ! "$(type -P git)" ]]; then
 fi
 
 # Initialize.
-if [ ! -d ~/.dotfiles ]; then
+if [[ ! -d ~/.dotfiles ]]; then
+  new_dotfiles_install=1
   # ~/.dotfiles doesn't exist? Clone it!
   e_header "Downloading dotfiles"
   git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
@@ -182,8 +183,14 @@ do_stuff "copy"
 do_stuff "link"
 
 # Alert if backups were made.
-if [ "$backup" ]; then
+if [[ "$backup" ]]; then
   echo -e "\nBackups were moved to ~/${backup_dir#$HOME/}"
+fi
+
+# Lest I forget to do a few additional things...
+if [[ "$new_dotfiles_install" && -e "conf/firsttime_reminder.sh" ]]; then
+  e_header "First-Time Reminders"
+  source "conf/firsttime_reminder.sh"
 fi
 
 # All done!
