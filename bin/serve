@@ -23,5 +23,13 @@ file=$1
 # If not in an SSH session, open the URL in the default handler.
 [[ "$SSH_TTY" ]] || ( { open "http://localhost:$port/$file"; } & )
 
+# Doing this instead of -m SimpleHTTPServer allows you to redefine the default
+# content type to something a less annoying than application/octet-stream.
+python=$(cat <<'PYTHON'
+import SimpleHTTPServer
+SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain"
+SimpleHTTPServer.test()
+PYTHON
+)
 # Start web server.
-python -m SimpleHTTPServer $port
+python -c "$python" $port
