@@ -11,6 +11,9 @@ alias c="tr -d '\n' | pbcopy"
 # Make 'less' more.
 eval "$(lesspipe.sh)"
 
+# Start ScreenSaver. This will lock the screen if locking is enabled.
+alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
+
 # Create a new Parallels VM from template, replacing the existing one.
 function vm_template() {
   local vm_dir="$HOME/Documents/Parallels"
