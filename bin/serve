@@ -24,7 +24,7 @@ file=$1
 [[ "$SSH_TTY" ]] || ( { open "http://localhost:$port/$file"; } & )
 
 # Doing this instead of -m SimpleHTTPServer allows you to redefine the default
-# content type to something a less annoying than application/octet-stream.
+# content type to something less annoying than application/octet-stream.
 python=$(cat <<'PYTHON'
 import SimpleHTTPServer
 SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain"
