@@ -23,11 +23,19 @@ file=$1
 # If not in an SSH session, open the URL in the default handler.
 [[ "$SSH_TTY" ]] || ( { open "http://localhost:$port/$file"; } & )
 
-# Doing this instead of -m SimpleHTTPServer allows you to redefine the default
-# content type to something less annoying than application/octet-stream.
+# Redefining the default content-type to text/plain instead of the default
+# application/octet-stream allows "unknown" files to be viewable in-browser
+# as text instead of being downloaded, which makes me happy.
+#
+# Unfortunately, "python -m SimpleHTTPServer" doesn't allow you to redefine
+# the default content-type, but the SimpleHTTPServer module can be executed
+# manually, with just a few lines of code:
 python=$(cat <<'PYTHON'
+# Import the module so it can be used.
 import SimpleHTTPServer
+# Set the default content type.
 SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain"
+# Start the server (the port is still grabbed from sys.argv[1]).
 SimpleHTTPServer.test()
 PYTHON
 )
