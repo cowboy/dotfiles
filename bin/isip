@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Get all bound IPs
 http://benalman.com/
 
-Usage: `basename "$0"` [IP]
+Usage: $(basename "$0") [IP]
 
 If an IP is specified and it is bound to a network interface, echo it,
 otherwise echo nothing.

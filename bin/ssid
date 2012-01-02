@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Get WiFi SSID
 http://benalman.com/
 
-Usage: `basename "$0"`
+Usage: $(basename "$0")
 
 If an SSID is specified and it is the current WiFi network's SSID, echo it,
 otherwise echo nothing.

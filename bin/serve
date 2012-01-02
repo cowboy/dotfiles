@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Serve a file (or the current directory)
 http://benalman.com/
 
-Usage: `basename "$0"` [PORT] [FILE]
+Usage: $(basename "$0") [PORT] [FILE]
 
 If a port isn't specified, use 8080. If a file isn't specified, serve the
 current directory. Once started, open the specified file (or the current
