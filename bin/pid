@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Get PIDs
 http://benalman.com/
 
-Usage: `basename "$0"` [PID]
+Usage: $(basename "$0") [PID]
 
 Get the PID(s) of matching process(es).
 

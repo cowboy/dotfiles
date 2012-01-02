@@ -4,7 +4,7 @@ echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 
-Usage: `basename "$0"`
+Usage: $(basename "$0")
 
 See the README for documentation.
 https://github.com/cowboy/dotfiles

@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Manpage-as-PDF Viewer
 http://benalman.com/
 
-Usage: `basename "$0"` [section] name
+Usage: $(basename "$0") [section] name
 
 View a manpage as PDF in the default viewer (Preview.app). Because sometimes
 you don't want to view manpages in the terminal. Tested in OS X 10.7.
