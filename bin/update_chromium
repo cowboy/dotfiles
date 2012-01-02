@@ -4,7 +4,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Chromium Updater
 http://benalman.com/
 
-Usage: `basename "$0"` [revision]
+Usage: $(basename "$0") [revision]
 
 Download and install the latest Chromium and dev tools, modifying the binary
 to use those custom dev tools (downloaded into ~/.dotfiles/caches/chromium).
@@ -83,7 +83,7 @@ unzip -qo "$tmp/$dev_file" -d "$devtools_path"
 unzip -qo "$tmp/$app_file" -d "$tmp"
 echo "OK"
 
-mv "$tmp/$(basename "$app_file" .zip)/Chromium.app" "$app_path/"
+mv "$tmp/${app_file%.zip}/Chromium.app" "$app_path/"
 
 echo -n "Modifying Chromium bin file to use --debug-devtools-frontend..."
 bin_path="$app_path/Chromium.app/Contents/MacOS"
@@ -92,9 +92,8 @@ mv "$bin_file" "$bin_path/Chromium-bin"
 
 cat > "$bin_file" <<'BASH'
 #!/bin/bash
-bin=$(echo $0 | perl -pe 's/$/-bin/')
 devtools=~/.dotfiles/caches/chromium/devtools
-"$bin" --debug-devtools-frontend="$devtools"
+"$0-bin" --debug-devtools-frontend="$devtools"
 BASH
 chmod +x "$bin_file"
 echo "OK"
