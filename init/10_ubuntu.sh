@@ -22,12 +22,12 @@ packages=(
   build-essential libssl-dev
   git-core
   tree sl id3tool
-  nmap
+  nmap telnet
 )
 
 list=()
 for package in "${packages[@]}"; do
-  if [[ ! "$(dpkg -s "$package" 2> /dev/null)" ]]; then
+  if [[ ! "$(dpkg -l "$package" 2>/dev/null | grep "^ii  $package")" ]]; then
     list=("${list[@]}" "$package")
   fi
 done
