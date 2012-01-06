@@ -1,16 +1,20 @@
 # Ubuntu-only stuff. Abort if not Ubuntu.
 [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 
+# If the old files isn't removed, the duplicate APT alias will break sudo!
+sudoers_old="/etc/sudoers.d/sudoers-cowboy"; [[ -e "$sudoers_old" ]] && sudo rm "$sudoers_old"
+
 # Installing this sudoers file makes life easier.
 sudoers_file="sudoers-dotfiles"
 sudoers_src=~/.dotfiles/conf/ubuntu/$sudoers_file
 sudoers_dest="/etc/sudoers.d/$sudoers_file"
 if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "$sudoers_src" ]]; then
   e_header "Updating sudoers"
-  {
+  visudo -cf "$sudoers_src" >/dev/null && {
     sudo cp "$sudoers_src" "$sudoers_dest" &&
     sudo chmod 0440 "$sudoers_dest"
-  } >/dev/null 2>&1
+  } >/dev/null 2>&1 &&
+  echo "File $sudoers_dest updated."
 fi
 
 # Update APT.
