@@ -14,7 +14,8 @@ if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "$sudoers_src" ]]; then
     sudo cp "$sudoers_src" "$sudoers_dest" &&
     sudo chmod 0440 "$sudoers_dest"
   } >/dev/null 2>&1 &&
-  echo "File $sudoers_dest updated."
+  echo "File $sudoers_dest updated." ||
+  echo "Error updating $sudoers_dest file."
 fi
 
 # Update APT.
