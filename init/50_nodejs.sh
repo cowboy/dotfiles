@@ -27,7 +27,7 @@ if [[ ! "$OSTYPE" =~ ^darwin ]]; then
       # Update Npm!
       echo "Updating Npm" &&
       sudo npm update -g npm
-    ) 
+    )
   fi
 fi
 
