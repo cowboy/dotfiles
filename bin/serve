@@ -33,8 +33,12 @@ file=$1
 python=$(cat <<'PYTHON'
 # Import the module so it can be used.
 import SimpleHTTPServer
-# Set the default content type.
-SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain"
+map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map
+# Set the default content type to text/plain.
+map[""] = "text/plain"
+# Serve everything as UTF-8 by default.
+for key, value in map.items():
+    map[key] = value + ';charset=UTF-8'
 # Start the server (the port is still grabbed from sys.argv[1]).
 SimpleHTTPServer.test()
 PYTHON
