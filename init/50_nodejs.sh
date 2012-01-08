@@ -9,7 +9,7 @@ if [[ ! "$OSTYPE" =~ ^darwin ]]; then
       | tail -n1
   )"
 
-  if [[ ! "$(type -P node)" || "$(node --version)" != "v$node_stable" ]]; then
+  if [[ ! "$(type -P node)" || ! -e "/usr/local/src/node-v$node_stable" ]]; then
     e_header "Installing Node v$node_stable"
     node_url="http://nodejs.org/dist/v$node_stable/node-v$node_stable.tar.gz"
     (
