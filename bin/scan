@@ -1,15 +1,17 @@
 #!/usr/bin/env ruby
 
-if ARGV[0] == "-h" || ARGV[0] == "--help" then puts <<-HELP
-Scan everything on your subnet(s).
+if ARGV.include? '-h' or ARGV.include? '--help' then puts <<-HELP
+Port-scan one machine or everything on your subnet(s).
 http://benalman.com/
 
-Usage: #{File.basename $0} [full]
+Usage: #{File.basename $0} [--full] [host_or_ip_or_wildcard ...]
 
 Scans your subnet(s) using nmap, displaying results in a pretty format. If *
 appears at the end of the line, that IP is currently bound to this machine.
 
-Specify "full" for a full subnet port scan (this can take a while).
+Specify --full for a full subnet port scan (this can take a while), or specify
+one or more hosts, IPs or wildcards on which to perform a full port scan. The
+--full option is implicit when any hosts, IPs or wildcards are specified.
 
 Maybe it'll help you find that server you lost. It didn't help me--but that's
 only because the machine I was looking for wasn't connected. Whoops.
@@ -19,6 +21,12 @@ Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP
 exit; end
+
+# my "test suite"
+%s{
+scans=("" "x" "192.168.0.69" "192.168.0.232" "192.168.0.1" "192.168.0.1 192.168.0.107" "--full"); \
+for s in "${scans[@]}"; do echo -e "===\nargs: $s\n---"; scan $s; echo -e "---\nexit code: $?"; done
+}
 
 ips = []
 subnets = []
@@ -37,27 +45,36 @@ ether = nil
   end
 end
 
-# Get a space-delimited list of unique subnets to be scanned.
-subnets = subnets.uniq.join ' '
+# Parse things to scan from the passed arguments.
+args = ARGV.reject{|a| a =~ /^-/}.join ' '
+# Full scan?
+full = ARGV.include?('--full') || !args.empty?
+# Get a space-delimited list of unique subnets to be scanned, but only if
+# things to scan weren't already passed as arguments.
+things_to_scan = !args.empty? ? args : subnets.uniq.join(' ')
 
 # Since nmap only supports saving greppable output to a file and not STDOUT,
 # create a tempfile.
 require 'tempfile'
 tmp = Tempfile.new 'scan'
 
-if ARGV[0] == 'full'
-  puts "Scanning #{subnets} (full scan, be patient)"
-  opts = '-sT' # The works (full port scan).
+if full
+  puts "Scanning #{things_to_scan} (full scan, be patient)"
+  args = "-sT #{things_to_scan}" # The works (full port scan).
+  # Skip ping if there no wildcards were passed.
+  args = "-PN #{args}" unless things_to_scan.include? '*'
 else
-  puts "Scanning #{subnets}"
-  opts = '-sP' # Relatively quick scan.
+  puts "Scanning #{things_to_scan}"
+  args = "-sP #{things_to_scan}" # Relatively quick scan.
 end
 
 # Actually perform scan.
-%x{nmap #{opts} -oG "#{tmp.path}" #{subnets} >/dev/null 2>&1}
+%x{nmap -oG "#{tmp.path}" -T4 #{args} >/dev/null 2>&1}
+puts
 
 # Parse scan results.
 skip = ''
+exit_code = 0
 tmp.read.each_line do |line|
   if line =~ /^Host: (\S+) \((\S*)\).*Status: Up$/
     # Found an IP.
@@ -72,13 +89,22 @@ tmp.read.each_line do |line|
     # Output the port details.
     $1.split(', ').each do |part|
       parts = part.split '/'
-      printf " :%-5d   %s   %s\n", parts[0], parts[2], parts[4]
+      printf ' :%-5d   %s   %s', parts[0], parts[2], parts[4]
+      print " (#{parts[6]})" if parts[6]
+      puts
     end
     # The next time an IP is displayed, skip a line.
     skip = "\n"
+  elsif line =~ /# Nmap done.* (\d+ IP address.*)/
+    exit_code = 1 if $1.start_with? '0 IP addresses'
+    puts unless $1.include? '(0 hosts up)'
+    puts $1
   end
 end
 
 # Cleanup.
 tmp.close
 tmp.unlink
+
+# Quit.
+exit exit_code
