@@ -35,7 +35,13 @@ if not "SSH_TTY" in os.environ:
 # Redefining the default content-type to text/plain instead of the default
 # application/octet-stream allows "unknown" files to be viewable in-browser
 # as text instead of being downloaded, which makes me happy.
-SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map[""] = "text/plain"
+extensions_map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map
+# Set the default content type to text/plain.
+extensions_map[""] = "text/plain"
+# Serving everything as UTF-8 by default makes funky characters render
+# correctly and shouldn't break anything (per Mathias Bynens).
+for key, value in extensions_map.items():
+  extensions_map[key] = value + "; charset=UTF-8"
 
 # Start the server using the default .test method, because I'm lazy (the port
 # is still grabbed from sys.argv[1]).
