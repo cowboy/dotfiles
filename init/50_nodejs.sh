@@ -41,7 +41,7 @@ fi
 
 # Install Npm modules.
 if [[ "$(type -P npm)" ]]; then
-  modules=(jshint uglify-js)
+  modules=(jshint uglify-js grunt)
 
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
   list="$(to_install "${modules[*]}" "${installed[*]}")"
