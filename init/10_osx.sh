@@ -5,6 +5,11 @@
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+fi
+
+# Update Homebrew.
+if [[ "$(type -P brew)" ]]; then
+  e_header "Updating Homebrew"
   brew update
 fi
 
