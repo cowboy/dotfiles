@@ -105,13 +105,13 @@ In addition to the aforementioned [dotfiles][dotfiles] script, there are a few o
 ## Prompt
 I think [my bash prompt](https://github.com/cowboy/dotfiles/blob/master/source/50_prompt.sh) is awesome. It shows git and svn repo status, a timestamp, error exit codes, and even changes color depending on how you've logged in.
 
-Git repos display as **[branch:flags]** where flags are
+Git repos display as **[branch:flags]** where flags are:
 
 **?** untracked files  
 **!** changed (but unstaged) files  
 **+** staged files
 
-SVN repos display as **[rev1:rev2]** where rev1 and rev2 are
+SVN repos display as **[rev1:rev2]** where rev1 and rev2 are:
 
 **rev1** last changed revision  
 **rev2** revision
