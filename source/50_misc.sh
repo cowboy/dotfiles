@@ -6,3 +6,8 @@ shopt -s nocaseglob
 shopt -s checkwinsize
 
 export GREP_OPTIONS='--color=auto'
+
+# Set the terminal's title bar.
+function titlebar() {
+  echo -n $'\e]0;'"$*"$'\a'
+}
