@@ -1,15 +1,15 @@
 # My bash prompt
 #
-# Copyright (c) 2011 "Cowboy" Ben Alman
+# Copyright (c) 2012 "Cowboy" Ben Alman
 # Licensed under the MIT license.
 # http://benalman.com/about/license/
 #
 # Example:
-# [master:!?][cowboy@Bens-MacBook-Pro:~/.dotfiles]
+# [master:!?][cowboy@CowBook:~/.dotfiles]
 # [11:14:45] $
 #
-# Screenshot:
-# http://www.flickr.com/photos/rj3/3959554047/sizes/o/
+# Read more (and see a screenshot) in the "Prompt" section of
+# https://github.com/cowboy/dotfiles
 
 # ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
 #
