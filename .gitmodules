@@ -7,3 +7,6 @@
 [submodule "libs/ruby-build"]
 	path = libs/ruby-build
 	url = git://github.com/sstephenson/ruby-build.git
+[submodule "libs/git-extras"]
+	path = libs/git-extras
+	url = git://github.com/visionmedia/git-extras.git
