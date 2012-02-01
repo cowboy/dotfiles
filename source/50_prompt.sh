@@ -92,6 +92,9 @@ function prompt_command() {
   [[ "${prompt_stack[0]}" == "prompt_command" ]] && exit_code=0
   prompt_stack=()
 
+  # While the simple_prompt environment var is set, disable the awesome prompt.
+  [[ "$simple_prompt" ]] && PS1='$ ' && return
+
   prompt_getcolors
   # http://twitter.com/cowboy/status/150254030654939137
   PS1="\n"
