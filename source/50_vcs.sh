@@ -4,6 +4,7 @@
 alias g='git'
 alias ga='git add'
 alias gp='git push'
+alias gpa='gp --all'
 alias gu='git pull'
 alias gl='git log'
 alias gg='gl --decorate --oneline --graph --date-order --all'
