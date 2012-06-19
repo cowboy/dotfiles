@@ -35,6 +35,22 @@ function gra() {
   gr add "$1" "git://github.com/$1/$repo"
 }
 
+# git log with per-commit cmd-clickable GitHub URLs (iTerm)
+function gf() {
+  local remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
+  [[ "$remote" ]] || return
+  local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
+  git log $* --name-status --color | awk "$(cat <<AWK
+    /^.*commit [0-9a-f]{40}/ {sha=substr(\$2,1,7)}
+    /^[MA]\t/ {printf "%s\thttps://github.com/$user_repo/blob/%s/%s\n", \$1, sha, \$2; next}
+    /.*/ {print \$0}
+AWK
+  )" | less -F
+}
+
+# Just the last few commits, please!
+for n in {1..5}; do alias gf$n="gf -n $n"; done
+
 # OSX-specific Git shortcuts
 if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias gdk='git ksdiff'
