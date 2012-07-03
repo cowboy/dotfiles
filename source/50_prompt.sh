@@ -117,6 +117,4 @@ function prompt_command() {
   PS1="$PS1 \$ "
 }
 
-# The " || _z -- add" part is a hack to keep z from modifying $PROMPT_COMMAND,
-# and will never actually be executed. See https://github.com/rupa/z/issues/44
-PROMPT_COMMAND="prompt_command || _z --add"
+PROMPT_COMMAND="prompt_command"
