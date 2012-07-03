@@ -36,3 +36,7 @@ alias dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 function md() {
   mkdir -p "$@" && cd "$@"
 }
+
+# Note that z.sh must be sourced after the prompt for it to work correctly!
+_Z_DATA=~/.dotfiles/caches/.z
+. ~/.dotfiles/libs/z/z.sh
