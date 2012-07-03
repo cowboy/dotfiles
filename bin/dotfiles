@@ -173,6 +173,9 @@ fi
 shopt -s dotglob
 shopt -s nullglob
 
+# Create caches directory, if it doesn't already exist.
+mkdir -p "$HOME/.dotfiles/caches"
+
 # If backups are needed, this is where they'll go.
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
