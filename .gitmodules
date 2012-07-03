@@ -10,3 +10,6 @@
 [submodule "libs/git-extras"]
 	path = libs/git-extras
 	url = git://github.com/visionmedia/git-extras.git
+[submodule "libs/z"]
+	path = libs/z
+	url = git://github.com/rupa/z.git
