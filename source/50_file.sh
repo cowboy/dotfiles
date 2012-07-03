@@ -37,6 +37,7 @@ function md() {
   mkdir -p "$@" && cd "$@"
 }
 
-# Note that z.sh must be sourced after the prompt for it to work correctly!
+# Fast directory switching
+_Z_NO_PROMPT_COMMAND=1
 _Z_DATA=~/.dotfiles/caches/.z
 . ~/.dotfiles/libs/z/z.sh
