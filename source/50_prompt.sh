@@ -92,6 +92,9 @@ function prompt_command() {
   [[ "${prompt_stack[0]}" == "prompt_command" ]] && exit_code=0
   prompt_stack=()
 
+  # Manually load z here, after $? is checked, to keep $? from being clobbered.
+  [[ "$(type -t _z)" ]] && _z --add "$(pwd -P 2>/dev/null)" 2>/dev/null
+
   # While the simple_prompt environment var is set, disable the awesome prompt.
   [[ "$simple_prompt" ]] && PS1='\n$ ' && return
 
@@ -114,4 +117,6 @@ function prompt_command() {
   PS1="$PS1 \$ "
 }
 
-PROMPT_COMMAND="prompt_command"
+# The " || _z -- add" part is a hack to keep z from modifying $PROMPT_COMMAND,
+# and will never actually be executed. See https://github.com/rupa/z/issues/44
+PROMPT_COMMAND="prompt_command || _z --add"
