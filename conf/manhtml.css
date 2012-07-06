@@ -1,0 +1,41 @@
+/* Colors from http://ethanschoonover.com/solarized */
+/* Fonts from http://mplus-fonts.sourceforge.jp/mplus-outline-fonts/design/index-en.html */
+
+body {
+  color: #839496;
+  background: #002b36;
+  margin-left: 1.5em;
+  margin-bottom: 2.5em;
+}
+
+h2 {
+  color: #2aa198;
+}
+
+b {
+  color: #93a1a1;
+}
+
+i {
+  font-style: normal;
+  text-decoration: underline;
+  color: #b58900;
+}
+
+h2,
+pre {
+  font-family: mplus-2m-regular, Monaco, monospace;
+}
+
+pre {
+  margin: -0.5em 0 -1.5em;
+}
+
+body > pre:first-child {
+  margin-bottom: -5em;
+}
+
+body > hr,
+body > address {
+  display: none;
+}
