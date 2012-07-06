@@ -1,0 +1,103 @@
+#!/bin/bash
+
+if [[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+
+Usage: $(basename "$0") pull_request_id [ step ]
+
+Copyright (c) 2012 "Cowboy" Ben Alman
+Licensed under the MIT license.
+http://benalman.com/about/license/
+HELP
+[[ "$1" ]]; exit; fi
+
+pr="$1"; shift
+step="$1"
+branch="pr$pr"
+repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)\.git/ && print $1')"
+
+# Is there an easier built-into-bash-etc way to parse JSON?
+json="$(curl -fsSL "https://api.github.com/repos/$repo/pulls/$pr")"
+if [[ $? != 0 || ! "$json" ]]; then
+  echo "Error fetching GitHub API data for $repo PR $pr."
+  exit 2
+fi
+json="print json_decode('$json')"
+remote_url="$(php -r "$json->head->repo->git_url;")"
+remote_ref="$(php -r "$json->head->ref;")"
+local_ref="$(php -r "$json->base->ref;")"
+
+git_dir="$(git rev-parse --show-toplevel)/.git"
+
+function del_branch() {
+  if [[ "$(git branch | grep " $1\$")" ]]; then
+    git checkout "$local_ref" 2>/dev/null
+    git branch -D "$1" 2>/dev/null
+  fi
+}
+
+if [[ ! "$step" ]]; then
+  echo -e "STEP 1: Fetch and rebase $repo PR $pr into \"$branch\" branch\n"
+
+  # Clean up any prior work on this PR.
+  del_branch "$branch"
+  del_branch "$branch-squash"
+
+  # Fetch remote, create a branch, etc.
+  echo -e "Fetching..."
+  git fetch "$remote_url" "$remote_ref"
+  git checkout -b "$branch" FETCH_HEAD
+
+  # Save ref to last PR author commit for later use
+  git tag --force "_${branch}_author_head" FETCH_HEAD
+
+  # Rebase!
+  git rebase "$local_ref"
+  if [[ $? != 0 ]]; then
+    echo "Error while attempting rebase!"
+    exit 3
+  fi
+
+  echo
+  echo "1. Test code and commit fixes. Rinse and repeat."
+  echo "2. Ensure \"$local_ref\" branch is up-to-date."
+  echo "3. Perform squash merge into \"$branch-squash\" branch with: $(basename "$0") $pr 2"
+
+elif [[ "$step" == "2" ]]; then
+  echo -e "STEP 2: Perform squash merge into \"$branch-squash\" branch\n"
+
+  # Clean up any prior squashes for this PR.
+  del_branch "$branch-squash"
+
+  # Create branch and squash merge all commits.
+  git checkout -b "$branch-squash" "$local_ref"
+  git merge --squash "$branch"
+
+  # Append useful information to commit message.
+  squash_msg_file="$git_dir/SQUASH_MSG"
+  echo -e "\nCloses #$pr." >> "$squash_msg_file"
+
+  # Retrieve author name and email from stored commit, and commit.
+  author="$(git log "_${branch}_author_head" -n1 --format="%an <%ae>")"
+  git commit --author="$author"
+
+  echo
+  echo "1. Inspect the commit log, ensuring everything is perfect."
+  echo "2. Perform final merge into \"$local_ref\" branch with: $(basename "$0") $pr 3"
+
+elif [[ "$step" == "3" ]]; then
+  echo -e "STEP 3: Perform final merge into \"$local_ref\" branch\n"
+
+  # Actually merge squashed commits into branch.
+  git checkout "$local_ref"
+  git merge "$branch-squash"
+
+  echo
+  echo "Cleanup temporary branches and tags with: $(basename "$0") $pr 4"
+
+elif [[ "$step" == "4" ]]; then
+  echo -e "STEP 4: Cleanup temporary branches and tags\n"
+
+  del_branch "$branch"
+  del_branch "$branch-squash"
+  git tag -d "_${branch}_author_head"
+fi
