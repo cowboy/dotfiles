@@ -2,7 +2,7 @@
 # Git shortcuts
 
 alias g='git'
-alias ga='git add'
+function ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
 alias gpa='gp --all'
 alias gu='git pull'
