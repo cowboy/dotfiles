@@ -15,16 +15,15 @@ step="$1"
 branch="pr$pr"
 repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)\.git/ && print $1')"
 
-# Is there an easier built-into-bash-etc way to parse JSON?
+# Let's fetch some JSON.
 json="$(curl -fsSL "https://api.github.com/repos/$repo/pulls/$pr")"
 if [[ $? != 0 || ! "$json" ]]; then
   echo "Error fetching GitHub API data for $repo PR $pr."
   exit 2
 fi
-json="print json_decode('$json')"
-remote_url="$(php -r "$json->head->repo->git_url;")"
-remote_ref="$(php -r "$json->head->ref;")"
-local_ref="$(php -r "$json->base->ref;")"
+remote_url="$(node -pe "($json).head.repo.git_url")"
+remote_ref="$(node -pe "($json).head.ref")"
+local_ref="$(node -pe "($json).base.ref")"
 
 git_dir="$(git rev-parse --show-toplevel)/.git"
 
