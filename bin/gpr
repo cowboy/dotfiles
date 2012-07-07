@@ -21,10 +21,14 @@ if [[ $? != 0 || ! "$json" ]]; then
   echo "Error fetching GitHub API data for $repo PR $pr."
   exit 2
 fi
+
+# Let's parse some JSON.
 remote_url="$(node -pe "($json).head.repo.git_url")"
 remote_ref="$(node -pe "($json).head.ref")"
 local_ref="$(node -pe "($json).base.ref")"
+num_commits="$(node -pe "($json).commits")"
 
+# Let's get the project's .git folder.
 git_dir="$(git rev-parse --show-toplevel)/.git"
 
 function del_branch() {
@@ -34,6 +38,7 @@ function del_branch() {
   fi
 }
 
+# Let's do some stuff.
 if [[ ! "$step" ]]; then
   echo -e "STEP 1: Fetch and rebase $repo PR $pr into \"$branch\" branch\n"
 
@@ -42,7 +47,6 @@ if [[ ! "$step" ]]; then
   del_branch "$branch-squash"
 
   # Fetch remote, create a branch, etc.
-  echo -e "Fetching..."
   git fetch "$remote_url" "$remote_ref"
   git checkout -b "$branch" FETCH_HEAD
 
@@ -55,6 +59,10 @@ if [[ ! "$step" ]]; then
     echo "Error while attempting rebase!"
     exit 3
   fi
+
+  echo
+  echo "Changed files in HEAD~$num_commits:"
+  git --no-pager diff --name-only HEAD~"$num_commits"
 
   echo
   echo "1. Test code and commit fixes. Rinse and repeat."
