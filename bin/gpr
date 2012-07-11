@@ -1,73 +1,143 @@
 #!/bin/bash
 
-if [[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
-GitHub Pull Request Helper - "Cowboy" Ben Alman - http://benalman.com/
+verbose=1
 
-Usage: $(basename "$0") pull_request_id [ step ]
+function help() {
+  pr=123
+  local_ref=foo
+  script="$(basename "$0") $pr"
+  cat <<HELP
+-=[ GitHub Pull Request Helper - "Cowboy" Ben Alman - http://benalman.com/ ]=-
 
-== Description ==
+  Usage: $(basename "$0") pull_request_id [ step ]
 
-The "step" argument can be used to force execution of a particular step, but
-by default this script will automatically choose the next step, from STEP 1
-to STEP 2 and finally to STEP 3. You'll have to execute STEP 4 manually, once
-everything is done.
+-=[ Description ]============================================================-
 
-== Detailed workflow example ==
+  The "step" argument can be used to force execution of a particular step,
+  but by default this script will automatically choose the next step, from
+  STEP 1 to STEP 2 and finally to STEP 3. You'll have to execute STEP 4
+  manually, once everything is done.
 
-For this example, assume PR 123 has been filed against the "branch-x" branch.
+-=[ Detailed workflow example ]==============================================-
 
-You run: $(basename "$0") 123
-STEP 1 executes:
- 1. Fetch the repo and branch associated with PR 123.
- 2. Checkout a new "pr123" branch at the HEAD of the fetched branch.
- 3. Create a temporary "_pr123_author_head" tag pointing to that HEAD.
- 4. Rebase "branch-x" branch onto "pr123" branch.
- 5. Display a list of files changed in the PR.
+  For this example, assume PR $pr has been filed against the "$local_ref" branch.
 
-Note that if the PR was made against an older commit of the "branch-x" branch,
-rebase conflicts will need to be resolved.
+  -=[ STEP 1 ]=-
 
-At this point, if the rebase is successful, you should test the PR and commit
-any necessary fixes. Commit as many times as necessary; It doesn't matter
-because all PR-related commits will be squash merged in the next step.
+  You run "$script" and this executes:
 
-You run: $(basename "$0") 123
-STEP 2 executes:
- 1. Checkout a new "pr123-squash" branch from "branch-x" branch.
- 2. Squash merge "pr123" branch into "pr123-squash" branch. (no auto-commit)
- 3. Append "Closes gh-123." to SQUASH_MSG.
- 4. Commit using the PR branch's HEAD author name.
+$(help_step1 1)
+$(help_step1)
 
-At this point, since all the commits in the PR have been squashed into a
-single commit, you will need to edit the commit message to remove a lot of
-cruft. When done, inspect the commit log, ensuring everything is perfect;
-you should see a single, beautiful commit.
+  -=[ STEP 2 ]=-
 
-You run: $(basename "$0") 123
-STEP 3 executes:
- 1. Checkout "branch-x" branch.
- 2. Merge "pr123-squash" branch into "branch-x" branch.
+  You run "$script" and this executes:
 
-If STEP 2 was successful, there should be no conflicts here. If there are,
-you're doing it wrong. Just double-check the commit log and push when done.
+$(help_step2 1)
+$(help_step2)
 
-You run: $(basename "$0") 123 4 (you have to explicitly specify the 4)
-STEP 4 executes:
- 1. Temporary "pr123" and "pr123-squash" branches are deleted.
- 2. Temporary "_pr123_author_head" tag is deleted.
+  -=[ STEP 3 ]=-
 
-Note that at the beginning of STEP 1 and STEP 2, any PR-named branches to
-be created in that step will first be deleted!
+  You run "$script" and this executes:
 
-== License ==
+$(help_step3 1)
+$(help_step3)
 
-Copyright (c) 2012 "Cowboy" Ben Alman
-Licensed under the MIT license.
-http://benalman.com/about/license/
+  -=[ STEP 1 ]=-
+
+  You run "$script 4" (explicitly specifying the 4) and this executes:
+
+$(help_step4 1)
+$(help_step4)
+
+-=[ Very important notes ]===================================================-
+
+  Before running this script, ensure that your local "$local_ref" branch is
+  up-to-date!
+
+  At the beginning of STEP 1, any existing "pr$pr" and "pr$pr-squash"
+  branches will be deleted.
+
+  At the beginning of STEP 2, any existing pr$pr-squash" branch will be
+  deleted.
+
+-=[ License ]================================================================-
+
+  Copyright (c) 2012 "Cowboy" Ben Alman
+  Licensed under the MIT license.
+  http://benalman.com/about/license/
 HELP
-[[ "$1" ]]; exit; fi
+  [[ "$1" ]]; exit
+}
+
+function help_step1() {
+  if [[ "$1" ]]; then
+    echo "  Fetch and rebase PR $pr into \"pr$pr\" branch"
+    return
+  fi
+  cat <<HELP
+   1. Fetch the repo and branch associated with PR $pr.
+   2. Checkout a new "pr$pr" branch at the HEAD of the fetched branch.
+   3. Create a temporary "_pr$pr_author_head" tag pointing to that HEAD.
+   4. Rebase "$local_ref" branch onto "pr$pr" branch.
+   5. Display a list of files changed in the PR.
+
+  Note that if the PR was made against an older commit of the "$local_ref" branch,
+  rebase conflicts will need to be resolved.
+
+  At this point, if the rebase is successful, you should test the PR and
+  commit any necessary fixes. Commit as many times as necessary; It doesn't
+  matter because all PR-related commits will be squash merged in STEP 2.
+HELP
+}
+
+function help_step2() {
+  if [[ "$1" ]]; then
+    echo "  Perform squash merge into \"pr$pr-squash\" branch"
+    return
+  fi
+  cat <<HELP
+   1. Checkout a new "pr$pr-squash" branch from "$local_ref" branch.
+   2. Squash merge "pr$pr" branch into "pr$pr-squash" branch. (no commit)
+   3. Append "Closes gh-$pr." to SQUASH_MSG.
+   4. Commit using the PR branch's HEAD author name.
+
+  At this point, since all the commits in the PR have been squashed into a
+  single commit, you will need to edit the commit message to remove a lot of
+  cruft. When done, inspect the commit log, ensuring everything is perfect;
+  you should see a single, beautiful commit.
+HELP
+}
+
+function help_step3() {
+  if [[ "$1" ]]; then
+    echo "  Perform final merge into \"$local_ref\" branch"
+    return
+  fi
+  cat <<HELP
+   1. Checkout "$local_ref" branch.
+   2. Merge "$pr-squash" branch into "$local_ref" branch.
+
+  If STEP 2 was successful, there should be no conflicts here. If there are,
+  you're doing it wrong. Just double-check the commit log and push when done.
+HELP
+}
+
+function help_step4() {
+  if [[ "$1" ]]; then
+    echo "  Cleanup temporary branches and tags"
+    return
+  fi
+  cat <<HELP
+   1. Temporary "pr$pr" and "pr$pr-squash" branches are deleted.
+   2. Temporary "_pr$pr_author_head" tag is deleted.
+HELP
+}
+
+[[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]] && help $1
 
 pr="$1"; shift
+script="$(basename "$0") $pr"
 branch="pr$pr"
 
 repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)\.git/ && print $1')"
@@ -99,11 +169,12 @@ function del_branch() {
 if [[ "$1" ]]; then
   step=$1
 elif [[ "$(git branch | grep " $branch-squash\$")" ]]; then
+  # STEP 3 should never auto-execute twice.
   if [[ "$(git branch --contains "$(git rev-parse $branch-squash)" | grep " $local_ref\$")" ]]; then
     echo "Error merging branch \"$branch-squash\" into \"$local_ref\" branch! (already done)"
     echo
-    echo "Redo the last step with: $(basename "$0") $pr 3"
-    exit
+    echo "Redo the last step with: $script 3"
+    exit 4
   fi
   step=3
 elif [[ "$(git branch | grep " $branch\$")" ]]; then
@@ -114,7 +185,11 @@ fi
 
 # Let's do some stuff.
 if [[ $step == 1 ]]; then
-  echo -e "STEP 1: Fetch and rebase $repo PR $pr into \"$branch\" branch\n"
+  echo "-=[ STEP 1 Overview ]========================================================-"
+  help_step1 1
+  help_step1
+  echo
+  echo "-=[ Actual ]=================================================================-"
 
   # Clean up any prior work on this PR.
   del_branch "$branch"
@@ -139,14 +214,16 @@ if [[ $step == 1 ]]; then
   git --no-pager diff --name-only HEAD~"$num_commits"
 
   echo
-  echo "1. Test code and commit fixes. Rinse and repeat."
-  echo "2. Ensure \"$local_ref\" branch is up-to-date."
-  echo "3. Perform squash merge into \"$branch-squash\" branch with: $(basename "$0") $pr"
-  echo
-  echo "Or redo the current step with: $(basename "$0") $pr 1"
+  echo "-=[ Next Steps ]=============================================================-"
+  echo "  $(help_step2 1) with: $script"
+  echo "  Or redo the current step with: $script 1"
 
 elif [[ $step == 2 ]]; then
-  echo -e "STEP 2: Perform squash merge into \"$branch-squash\" branch\n"
+  echo "-=[ STEP 2 Overview ]========================================================-"
+  help_step2 1
+  help_step2
+  echo
+  echo "-=[ Actual ]=================================================================-"
 
   # Clean up any prior squashes for this PR.
   del_branch "$branch-squash"
@@ -164,29 +241,37 @@ elif [[ $step == 2 ]]; then
   git commit --author="$author"
 
   echo
-  echo "1. Inspect the commit log, ensuring everything is perfect."
-  echo "2. Perform final merge into \"$local_ref\" branch with: $(basename "$0") $pr"
-  echo
-  echo "Or redo the current step with: $(basename "$0") $pr 2"
+  echo "-=[ Next Steps ]=============================================================-"
+  echo "$(help_step3 1) with: $script"
+  echo "  Or redo the current step with: $script 2"
 
 elif [[ $step == 3 ]]; then
-  echo -e "STEP 3: Perform final merge into \"$local_ref\" branch\n"
+  echo "-=[ STEP 3 Overview ]========================================================-"
+  help_step3 1
+  help_step3
+  echo
+  echo "-=[ Actual ]=================================================================-"
 
   # Actually merge squashed commits into branch.
   git checkout "$local_ref"
   git merge "$branch-squash"
 
   echo
-  echo "Cleanup temporary branches and tags with: $(basename "$0") $pr 4"
-  echo
-  echo "Or redo the current step with: $(basename "$0") $pr 3"
+  echo "-=[ Next Steps ]=============================================================-"
+  echo "$(help_step4 1) with: $script 4"
+  echo "  Or redo the current step with: $script 3"
 
 elif [[ $step == 4 ]]; then
-  echo -e "STEP 4: Cleanup temporary branches and tags\n"
+  echo "-=[ STEP 4 Overview ]========================================================-"
+  help_step4 1
+  help_step4
+  echo
+  echo "-=[ Actual ]=================================================================-"
 
   del_branch "$branch"
   del_branch "$branch-squash"
   git tag -d "_${branch}_author_head" 2>/dev/null
 
+  echo
   echo "All done."
 fi
