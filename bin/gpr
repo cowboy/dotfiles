@@ -1,8 +1,65 @@
 #!/bin/bash
 
 if [[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+GitHub Pull Request Helper - "Cowboy" Ben Alman - http://benalman.com/
 
 Usage: $(basename "$0") pull_request_id [ step ]
+
+== Description ==
+
+The "step" argument can be used to force execution of a particular step, but
+by default this script will automatically choose the next step, from STEP 1
+to STEP 2 and finally to STEP 3. You'll have to execute STEP 4 manually, once
+everything is done.
+
+== Detailed workflow example ==
+
+For this example, assume PR 123 has been filed against the "branch-x" branch.
+
+You run: $(basename "$0") 123
+STEP 1 executes:
+ 1. Fetch the repo and branch associated with PR 123.
+ 2. Checkout a new "pr123" branch at the HEAD of the fetched branch.
+ 3. Create a temporary "_pr123_author_head" tag pointing to that HEAD.
+ 4. Rebase "branch-x" branch onto "pr123" branch.
+ 5. Display a list of files changed in the PR.
+
+Note that if the PR was made against an older commit of the "branch-x" branch,
+rebase conflicts will need to be resolved.
+
+At this point, if the rebase is successful, you should test the PR and commit
+any necessary fixes. Commit as many times as necessary; It doesn't matter
+because all PR-related commits will be squash merged in the next step.
+
+You run: $(basename "$0") 123
+STEP 2 executes:
+ 1. Checkout a new "pr123-squash" branch from "branch-x" branch.
+ 2. Squash merge "pr123" branch into "pr123-squash" branch. (no auto-commit)
+ 3. Append "Closes gh-123." to SQUASH_MSG.
+ 4. Commit using the PR branch's HEAD author name.
+
+At this point, since all the commits in the PR have been squashed into a
+single commit, you will need to edit the commit message to remove a lot of
+cruft. When done, inspect the commit log, ensuring everything is perfect;
+you should see a single, beautiful commit.
+
+You run: $(basename "$0") 123
+STEP 3 executes:
+ 1. Checkout "branch-x" branch.
+ 2. Merge "pr123-squash" branch into "branch-x" branch.
+
+If STEP 2 was successful, there should be no conflicts here. If there are,
+you're doing it wrong. Just double-check the commit log and push when done.
+
+You run: $(basename "$0") 123 4 (you have to explicitly specify the 4)
+STEP 4 executes:
+ 1. Temporary "pr123" and "pr123-squash" branches are deleted.
+ 2. Temporary "_pr123_author_head" tag is deleted.
+
+Note that at the beginning of STEP 1 and STEP 2, any PR-named branches to
+be created in that step will first be deleted!
+
+== License ==
 
 Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -38,6 +95,7 @@ function del_branch() {
   fi
 }
 
+# Use the specified step, otherwise attempt to auto-detect it.
 if [[ "$1" ]]; then
   step=$1
 elif [[ "$(git branch | grep " $branch-squash\$")" ]]; then
