@@ -4,8 +4,8 @@
 body {
   color: #839496;
   background: #002b36;
-  margin-left: 1.5em;
-  margin-bottom: 2.5em;
+  padding: 0;
+  margin: 0 0 3em 1.5em;
 }
 
 h2 {
@@ -29,10 +29,6 @@ pre {
 
 pre {
   margin: -0.5em 0 -1.5em;
-}
-
-body > pre:first-child {
-  margin-bottom: -5em;
 }
 
 body > hr,
