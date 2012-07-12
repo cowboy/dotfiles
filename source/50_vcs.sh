@@ -25,6 +25,18 @@ alias grv='gr -v'
 alias grr='git remote rm'
 alias gcl='git clone'
 
+# open all changed files (that still actually exist) in the editor
+function ged() {
+  local files=()
+  for f in $(git diff --name-only "$@"); do
+    [[ -e "$f" ]] && files=("${files[@]}" "$f")
+  done
+  local n=${#files[@]}
+  echo "Opening $n $([[ "$@" ]] || echo "modified ")file$([[ $n != 1 ]] && \
+    echo s)${@:+ modified in }$@"
+  q "${files[@]}"
+}
+
 # add a github remote by github username
 function gra() {
   if (( "${#@}" != 1 )); then
