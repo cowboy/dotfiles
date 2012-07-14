@@ -1,6 +1,8 @@
 # Install latest Node.js with nave
-e_header "Installing Node.js $(~/.dotfiles/bin/nave latest)"
-~/.dotfiles/bin/nave install latest >/dev/null 2>&1
+node_latest="$(~/.dotfiles/bin/nave latest)"
+e_header "Installing Node.js $node_latest"
+~/.dotfiles/bin/nave install $node_latest >/dev/null 2>&1
+~/.dotfiles/bin/nave use default $node_latest true
 
 # Install Npm if necessary (the brew recipe doesn't do this).
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
