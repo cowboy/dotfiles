@@ -9,7 +9,7 @@ Usage: $(basename "$0") [IP]
 If an IP is specified and it is bound to a network interface, echo it,
 otherwise echo nothing.
 
-Copyright (c) 2011 "Cowboy" Ben Alman
+Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP

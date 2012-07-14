@@ -9,7 +9,7 @@ Usage: $(basename "$0")
 If an SSID is specified and it is the current WiFi network's SSID, echo it,
 otherwise echo nothing.
 
-Copyright (c) 2011 "Cowboy" Ben Alman
+Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP

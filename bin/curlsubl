@@ -14,7 +14,7 @@ The editor will be auto-magically determined by stripping any leading "curl"
 off this script's filename. For example, call this script "curlmate" and "mate"
 will be run.
 
-Copyright (c) 2011 "Cowboy" Ben Alman
+Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP

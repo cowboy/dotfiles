@@ -12,7 +12,7 @@ See ~.dotfiles/conf/update_chromium_etc.sh for sample dev tools customization.
 
 If a revision isn't specified, the latest stable revision will be installed.
 
-Copyright (c) 2011 "Cowboy" Ben Alman
+Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP
