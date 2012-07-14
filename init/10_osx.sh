@@ -1,6 +1,12 @@
 # OSX-only stuff. Abort if not OSX.
 [[ "$OSTYPE" =~ ^darwin ]] || return 1
 
+# XCode and the Command Line Tools really need to be installed first.
+if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+  echo "XCode and the Command Line Tools must be installed first."
+  exit 1
+fi
+
 # Newer OS X XCode comes with an LLVM gcc which some tools (rbenv) can't use.
 function get_non_llvm_gcc() {
   shopt -s nullglob
@@ -21,12 +27,6 @@ if [[ ! "$(get_non_llvm_gcc)" ]]; then
   e_header "Installing non-LLVM GCC from $pkg"
   curl -fSL# -o "/tmp/$pkg" https://github.com/downloads/kennethreitz/osx-gcc-installer/$pkg
   sudo installer -pkg "/tmp/$pkg" -target /
-fi
-
-# Some tools (like "gyp") expect xcode to be installed, even if they don't
-# really need it: https://github.com/joyent/node/issues/3681
-if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
-  sudo xcode-select -switch /
 fi
 
 # Install Homebrew.
