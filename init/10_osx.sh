@@ -2,10 +2,14 @@
 [[ "$OSTYPE" =~ ^darwin ]] || return 1
 
 # XCode and the Command Line Tools really need to be installed first.
-if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+xcode_path="$('xcode-select' -print-path 2>/dev/null)"
+if [[ ! -d "$xcode_path" ]]; then
   echo "XCode and the Command Line Tools must be installed first."
   exit 1
 fi
+
+# Get password prompting out of the way.
+sudo true
 
 # Newer OS X XCode comes with an LLVM gcc which some tools (rbenv) can't use.
 function get_non_llvm_gcc() {
@@ -27,6 +31,8 @@ if [[ ! "$(get_non_llvm_gcc)" ]]; then
   e_header "Installing non-LLVM GCC from $pkg"
   curl -fSL# -o "/tmp/$pkg" https://github.com/downloads/kennethreitz/osx-gcc-installer/$pkg
   sudo installer -pkg "/tmp/$pkg" -target /
+  # For some reason, the installer clears the XCode path. Re-set it.
+  sudo 'xcode-select' -switch "$xcode_path"
 fi
 
 # Install Homebrew.
