@@ -13,3 +13,6 @@ if [[ "$(type -P nave)" ]]; then
     PATH=$node_path:$PATH
   fi
 fi
+
+# Fetch and build the latest stable Node.js, assigning it the alias "default"
+alias nvf='nave use default stable'
