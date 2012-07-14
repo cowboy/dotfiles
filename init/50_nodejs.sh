@@ -1,4 +1,5 @@
 # Install latest Node.js with nave
+source ~/.dotfiles/link/.naverc
 ~/.dotfiles/bin/nave install latest
 
 # Install Npm if necessary (the brew recipe doesn't do this).
