@@ -2,7 +2,7 @@ source ~/.dotfiles/source/50_rbenv.sh
 
 # Install Ruby.
 if [[ "$(type -P rbenv)" ]]; then
-  versions=(1.9.3-p194 1.9.2-p290 1.8.7-p352)
+  versions=(1.9.3-p194 1.9.2-p290)
 
   list="$(to_install "${versions[*]}" "$(rbenv versions | sed 's/^[* ]*//;s/ .*//')")"
   if [[ "$list" ]]; then
