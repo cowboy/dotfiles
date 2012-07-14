@@ -132,7 +132,7 @@ if [[ ! "$(type -P git)" ]]; then
     # It's easiest to get Git via Homebrew, so get that first.
     if [[ ! "$(type -P brew)" ]]; then
       e_header "Installing Homebrew"
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+      /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
       brew update
     fi
     # If Homebrew was installed, install Git.
