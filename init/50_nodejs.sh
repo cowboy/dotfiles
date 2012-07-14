@@ -1,6 +1,6 @@
 # Install latest Node.js with nave
-source ~/.dotfiles/link/.naverc
-~/.dotfiles/bin/nave install latest
+e_header "Installing Node.js $(~/.dotfiles/bin/nave latest)"
+~/.dotfiles/bin/nave install latest >/dev/null 2>&1
 
 # Install Npm if necessary (the brew recipe doesn't do this).
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
