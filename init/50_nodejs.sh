@@ -1,5 +1,5 @@
 # Install latest Node.js with nave
-nave install latest
+~/.dotfiles/bin/nave install latest
 
 # Install Npm if necessary (the brew recipe doesn't do this).
 if [[ "$(type -P node)" && ! "$(type -P npm)" ]]; then
