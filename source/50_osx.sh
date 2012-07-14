@@ -34,6 +34,19 @@ function vm_template() {
   open -g "$vm_dir/$vm_name"
 }
 
+function vm_template_create() {
+  local vm_dir="$HOME/Documents/Parallels"
+  local vm_templates_dir="$vm_dir/Templates"
+  local vm_name="${@%/}"
+  local vm_backup="$vm_templates_dir/$(basename "$vm_name").zip"
+  if [[ -e "$vm_backup" ]]; then
+    echo "VM template \"$vm_name\" already exists, aborting"
+    return 1
+  fi
+  echo "Creating template..." &&
+  zip -r "$vm_backup" "$vm_dir/$vm_name"
+}
+
 # Export Localization.prefPane text substitution rules.
 function txt_sub_backup() {
   local prefs=~/Library/Preferences/.GlobalPreferences.plist
