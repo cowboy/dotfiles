@@ -20,12 +20,26 @@ if [[ "$(type -P brew)" ]]; then
     e_header "Installing Homebrew recipes: $list"
     brew install $list
   fi
+fi
 
-  # Newer OSX XCode comes with an LLVM gcc which rbenv can't use.
-  source ~/.dotfiles/source/50_rbenv.sh
-  if [[ ! "$RBENV_CC" && ! "$(brew list | grep -w "gcc")" ]]; then
-    e_header "Installing Homebrew-alt gcc recipe"
-    echo "Note: this step can take 15+ minutes, but a non-LLVM gcc is required by rbenv."
-    skip || brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb
-  fi
+# Newer OSX XCode comes with an LLVM gcc which rbenv can't use.
+function get_non_llvm_gcc() {
+  shopt -s nullglob
+  local gccs=(/usr/local/bin/gcc-* /usr/bin/gcc-*)
+  shopt -u nullglob
+  local gcc=$(type -P gcc)
+  [[ "$gcc" ]] && gccs=("${gccs[@]}" "$gcc")
+  for gcc in "${gccs[@]}"; do
+    if [[ ! "$("$gcc" --version 2> /dev/null | grep -i LLVM)" ]]; then
+      echo "$gcc"
+      return
+    fi
+  done
+}
+
+if [[ ! "$(get_non_llvm_gcc)" ]]; then
+  pkg="GCC-10.7-v2.pkg"
+  e_header "Installing non-LLVM GCC from $pkg"
+  curl -fSL# -o "/tmp/$pkg" https://github.com/downloads/kennethreitz/osx-gcc-installer/$pkg
+  sudo installer -pkg "/tmp/$pkg" -target /
 fi
