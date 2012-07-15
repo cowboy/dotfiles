@@ -170,6 +170,9 @@ else
   git submodule update --init --recursive --quiet
 fi
 
+# Utilities, helpers.
+source ~/.dotfiles/source/10_misc.sh
+
 # Add binaries into the path
 PATH=~/.dotfiles/bin:$PATH
 export PATH
