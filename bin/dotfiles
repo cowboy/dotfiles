@@ -170,6 +170,10 @@ else
   git submodule update --init --recursive --quiet
 fi
 
+# Add binaries into the path
+PATH=~/.dotfiles/bin:$PATH
+export PATH
+
 # Tweak file globbing.
 shopt -s dotglob
 shopt -s nullglob
