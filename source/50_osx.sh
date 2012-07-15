@@ -16,35 +16,31 @@ alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resou
 
 # Create a new Parallels VM from template, replacing the existing one.
 function vm_template() {
-  local vm_dir="$HOME/Documents/Parallels"
-  local vm_templates_dir="$vm_dir/Templates"
-  local vm_name="$@.pvm"
-  local vm_backup="$vm_templates_dir/$vm_name.zip"
-  if [[ ! "$@" || ! -e "$vm_backup" ]]; then
+  local name="$@"
+  local basename="$(basename "$name" ".zip")"
+  local dest_dir="$HOME/Documents/Parallels"
+  local dest="$dest_dir/$basename"
+  local src_dir="$dest_dir/Templates"
+  local src="$src_dir/$name"
+  if [[ ! "$name" || ! -e "$src" ]]; then
     echo "You must specify a valid VM template from this list:";
-    for f in "$vm_templates_dir"/*.pvm.zip; do
-      echo " * $(basename "$f" ".pvm.zip")"
+    for f in "$src_dir"/*.pvm "$src_dir"/*.pvm.zip; do
+      echo " * $(basename "$f")"
     done
     return 1
   fi
-  rm -rf "$vm_dir/$vm_name"
-  echo "Extracting template..." &&
-  unzip -q "$vm_backup" -d "$vm_dir" &&
-  rm -rf "$vm_dir/__MACOSX" &&
-  open -g "$vm_dir/$vm_name"
-}
-
-function vm_template_create() {
-  local vm_dir="$HOME/Documents/Parallels"
-  local vm_templates_dir="$vm_dir/Templates"
-  local vm_name="${@%/}"
-  local vm_backup="$vm_templates_dir/$(basename "$vm_name").zip"
-  if [[ -e "$vm_backup" ]]; then
-    echo "VM template \"$vm_name\" already exists, aborting"
-    return 1
+  if [[ -e "$dest" ]]; then
+    echo "Deleting old VM"
+    rm -rf "$dest"
   fi
-  echo "Creating template..." &&
-  zip -r "$vm_backup" "$vm_dir/$vm_name"
+  echo "Restoring VM template"
+  if [[ "$name" == "$basename" ]]; then
+    cp -R "$src" "$dest"
+  else
+    unzip -q "$src" -d "$dest_dir" && rm -rf "$dest_dir/__MACOSX"
+  fi && \
+  echo "Starting VM" && \
+  open -g "$dest"
 }
 
 # Export Localization.prefPane text substitution rules.
