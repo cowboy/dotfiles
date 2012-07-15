@@ -155,6 +155,9 @@ if [[ ! "$(type -P git)" ]]; then
   exit 1
 fi
 
+# Update existing sudo time stamp if set, otherwise do nothing.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 # Initialize.
 if [[ ! -d ~/.dotfiles ]]; then
   new_dotfiles_install=1
