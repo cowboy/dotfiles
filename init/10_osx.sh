@@ -18,7 +18,7 @@ if [[ "$(type -P brew)" ]]; then
   brew update
 
   # Install Homebrew recipes.
-  recipes=(git tree sl lesspipe id3tool nmap git-extras htop man2html)
+  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html)
 
   list="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$list" ]]; then
