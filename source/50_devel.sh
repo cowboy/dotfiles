@@ -6,7 +6,7 @@ if [[ "$(type -P nave)" ]]; then
   if [[ "$nave_default" && "$(node --version 2>/dev/null)" != "v$nave_default" ]]; then
     node_path=~/.nave/installed/$nave_default/bin
     if [[ -d "$node_path" ]]; then
-      PATH=$node_path:$PATH
+      PATH=$node_path:$(path_remove ~/.nave/installed/*/bin)
     fi
   fi
 fi
@@ -26,7 +26,9 @@ function nave_stable_2() {
 }
 
 # rbenv init.
+PATH=$(path_remove ~/.dotfiles/libs/rbenv/bin):~/.dotfiles/libs/rbenv/bin
+PATH=$(path_remove ~/.dotfiles/libs/ruby-build/bin):~/.dotfiles/libs/ruby-build/bin
+
 if [[ "$(type -P rbenv)" && ! "$(type -t _rbenv)" ]]; then
   eval "$(rbenv init -)"
-  PATH=$PATH:~/.dotfiles/libs/rbenv/bin:~/.dotfiles/libs/ruby-build/bin
 fi
