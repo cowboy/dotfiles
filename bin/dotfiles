@@ -125,6 +125,12 @@ function do_stuff() {
 
 # Enough with the functions, let's do stuff.
 
+# Ensure that we can actually, like, compile anything.
+if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
+  echo "XCode or the XCode Command Line Tools must be installed first."
+  exit 1
+fi
+
 # If Git is not installed...
 if [[ ! "$(type -P git)" ]]; then
   # OSX
