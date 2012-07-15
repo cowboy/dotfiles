@@ -1,10 +1,17 @@
 # OSX-only stuff. Abort if not OSX.
 [[ "$OSTYPE" =~ ^darwin ]] || return 1
 
-# XCode and the Command Line Tools really need to be installed first.
-if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
-  echo "XCode and the Command Line Tools must be installed first."
+# XCode (or at the very least, the CLT) should REALLY be installed by default.
+if [[ ! "$(type -P gcc)" ]]; then
+  echo "XCode or the XCode Command Line Tools must be installed first."
   exit 1
+fi
+
+# Some tools look for XCode, even though they don't need it.
+# https://github.com/joyent/node/issues/3681
+# https://github.com/mxcl/homebrew/issues/10245
+if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+  sudo xcode-select -switch /usr/bin
 fi
 
 # Install Homebrew.
