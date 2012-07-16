@@ -1,3 +1,6 @@
+# Load npm_globals, add the default node into the path.
+source ~/.dotfiles/source/50_devel.sh
+
 # Install Node.js.
  if [[ "$(type -P nave)" ]]; then
   nave_stable="$(nave stable)"
