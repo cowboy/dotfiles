@@ -35,8 +35,8 @@ Note:
 ### OS X
 Notes:
 
-* You may need to be an administrator.
-* You may need to install XCode first.
+* You need to be an administrator (for `sudo`).
+* You need to have installed [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a separate, optional (and _much smaller_) download from XCode.
 
 ```sh
 bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
@@ -45,8 +45,8 @@ bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles
 ### Ubuntu
 Notes:
 
-* If APT hasn't been updated/upgraded recently, it might be a minute before you see anything.
-* You'll have to enter your password for sudo.
+* You need to be an administrator (for `sudo`).
+* If APT hasn't been updated or upgraded recently, it will probably be a few minutes before you see anything.
 
 ```sh
 sudo apt-get -qq update && sudo apt-get -qq upgrade && sudo apt-get -qq install curl && echo &&
@@ -59,11 +59,14 @@ These things will be installed, but _only_ if they aren't already.
 ### OS X
 * Homebrew
   * git
-  * node
   * tree
   * sl
   * lesspipe
-  * [non-LVVM gcc](https://github.com/adamv/homebrew-alt/blob/master/duplicates/gcc.rb) (OS X only)
+  * id3tool
+  * nmap
+  * git-extras
+  * htop-osx
+  * apple-gcc42 (via [homebrew-dupes](https://github.com/Homebrew/homebrew-dupes/blob/master/apple-gcc42.rb))
 
 ### Ubuntu
 * APT
@@ -72,15 +75,20 @@ These things will be installed, but _only_ if they aren't already.
   * git-core
   * tree
   * sl
-* Node (built from source)
+  * id3tool
+  * nmap
+  * telnet
+  * htop
 
 ### Both
-* Npm
-  * JSHint
-  * Uglify-JS
+* Nave
+  * Npm (latest stable)
+    * Grunt
+    * JSHint
+    * Uglify-JS
 * Rbenv
+  * Ruby 1.9.3-p194 (default)
   * Ruby 1.9.2-p290 (default)
-  * Ruby 1.8.7-p352
 * Ruby Gems
   * bundler
   * awesome_print
@@ -98,7 +106,7 @@ To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely s
 ## Scripts
 In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts][bin]. This includes [ack](https://github.com/petdance/ack), which is a [git submodule](https://github.com/cowboy/dotfiles/tree/master/libs).
 
-* [dotfiles][dotfiles] - (re)initialize dotfiles. On Ubuntu, it might ask for your password (sudo).
+* [dotfiles][dotfiles] - (re)initialize dotfiles. It might ask for your password (for `sudo`).
 * [src](https://github.com/cowboy/dotfiles/blob/master/link/.bashrc#L6-15) - (re)source all files in `source` directory
 * Look through the [bin][bin] subdirectory for a few more.
 
