@@ -114,7 +114,7 @@ function help_step4() {
   [[ "$1" ]] && return
   cat <<HELP
    1. Temporary "pr$pr" and "pr$pr-squash" branches are deleted.
-   2. Temporary "_pr$pr_author_head" tag is deleted.
+   2. Temporary "_pr${pr}_author_head" tag is deleted.
 HELP
 }
 
