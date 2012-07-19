@@ -35,7 +35,7 @@ fi
 if [[ "$(type -P rbenv)" ]]; then
   versions=(1.9.3-p194 1.9.2-p290)
 
-  list="$(to_install "${versions[*]}" $(rbenv whence ruby))"
+  list="$(to_install "${versions[*]}" "$(rbenv whence ruby)")"
   if [[ "$list" ]]; then
     e_header "Installing Ruby versions: $list"
     for version in $list; do rbenv install "$version"; done
