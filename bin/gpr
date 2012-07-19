@@ -38,7 +38,7 @@ $(help_step2)
 
 $(help_step3)
 
-  -=[ STEP 1 ]=-
+  -=[ STEP 4 ]=-
 
   You run "$script 4" (explicitly specifying the 4) and this executes:
 
