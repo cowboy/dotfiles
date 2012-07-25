@@ -25,6 +25,19 @@ function nave_stable_2() {
   fi
 }
 
+# Publish module to Npm registry, but don't update "latest" unless the version
+# is an actual release version!
+function npm_publish() {
+  local version="$(node -pe 'require("./package.json").version' 2>/dev/null)"
+  if [[ "${version#v}" =~ [a-z] ]]; then
+    echo "Publishing dev version $version with --tag=devel"
+    npm publish --tag=devel "$@"
+  else
+    echo "Publishing new latest version $version"
+    npm publish "$@"
+  fi
+}
+
 # rbenv init.
 PATH=$(path_remove ~/.dotfiles/libs/rbenv/bin):~/.dotfiles/libs/rbenv/bin
 PATH=$(path_remove ~/.dotfiles/libs/ruby-build/bin):~/.dotfiles/libs/ruby-build/bin
