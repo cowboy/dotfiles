@@ -30,8 +30,8 @@ function nave_stable_2() {
 function npm_publish() {
   local version="$(node -pe 'require("./package.json").version' 2>/dev/null)"
   if [[ "${version#v}" =~ [a-z] ]]; then
-    echo "Publishing dev version $version with --tag=devel"
-    npm publish --tag=devel "$@"
+    echo "Publishing dev version $version with --tag=devel --force"
+    npm publish --tag=devel --force "$@"
   else
     echo "Publishing new latest version $version"
     npm publish "$@"
