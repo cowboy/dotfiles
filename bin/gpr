@@ -131,6 +131,22 @@ function header() {
 
 [[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]] && help $1
 
+# Generate and store an OAUTH token.
+if [[ "$1" == "auth" ]]; then
+  read -p 'Enter GitHub username: '
+  json="$(curl -fsSL --data '{"note":"gpr","scopes":["repo"]}' https://api.github.com/authorizations -u "$REPLY")"
+  if [[ "$json" ]]; then
+    token="$(node -pe "($json).token")"
+    git config --global --remove-section gpr 2>/dev/null
+    git config --global --add gpr.token $token
+    echo "Authorization successful, token saved."
+    exit
+  else
+    echo "Error authorizing with GitHub, please try again."
+    exit 5
+  fi
+fi
+
 pr="$1"; shift
 script="$(basename "$0") $pr"
 branch="pr$pr"
@@ -138,9 +154,12 @@ branch="pr$pr"
 repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)\.git/ && print $1')"
 
 # Let's fetch some JSON.
-json="$(curl -fsSL "https://api.github.com/repos/$repo/pulls/$pr")"
+token="$(git config --get gpr.token)"
+json="$(curl -fsSL "https://api.github.com/repos/$repo/pulls/$pr?access_token=$token" 2>/dev/null)"
 if [[ $? != 0 || ! "$json" ]]; then
   echo "Error fetching GitHub API data for $repo PR $pr!"
+  echo "If you're trying to access a private repo and haven't yet done so, please run"
+  echo "the \"$(basename "$0") auth\" command to generate a GitHub auth token."
   exit 2
 fi
 
