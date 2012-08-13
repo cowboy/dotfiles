@@ -147,6 +147,7 @@ fi
 # Let's parse some JSON.
 remote_url="$(node -pe "($json).head.repo.git_url")"
 remote_ref="$(node -pe "($json).head.ref")"
+local_url="$(node -pe "($json).base.repo.git_url")"
 local_ref="$(node -pe "($json).base.ref")"
 num_commits="$(node -pe "($json).commits")"
 
@@ -187,7 +188,11 @@ if [[ $step == 1 ]]; then
   del_branch "$branch-squash"
 
   # Fetch remote, create a branch, etc.
-  git fetch "$remote_url" "$remote_ref"
+  if [[ "$remote_url" == "$local_url" ]]; then
+    git fetch origin "$remote_ref"
+  else
+    git fetch "$remote_url" "$remote_ref"
+  fi
   git checkout -b "$branch" FETCH_HEAD
 
   # Save ref to last PR author commit for later use
