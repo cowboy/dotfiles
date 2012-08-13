@@ -138,5 +138,13 @@
 		<key>with</key>
 		<string>⇧-</string>
 	</dict>
+	<dict>
+		<key>on</key>
+		<integer>1</integer>
+		<key>replace</key>
+		<string>frunt</string>
+		<key>with</key>
+		<string>grunt</string>
+	</dict>
 </array>
 </plist>
