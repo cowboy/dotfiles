@@ -24,6 +24,7 @@ alias grv='gr -v'
 #alias gra='git remote add'
 alias grr='git remote rm'
 alias gcl='git clone'
+alias gcd='git rev-parse 2>/dev/null && cd "./$(git rev-parse --show-cdup)"'
 
 # open all changed files (that still actually exist) in the editor
 function ged() {
