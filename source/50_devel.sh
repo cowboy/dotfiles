@@ -38,6 +38,24 @@ function npm_publish() {
   fi
 }
 
+# I needed to find a way to look at a project's package.json and figure out
+# what dependencies could be updated. This seemed easiest.
+function npm_update() {
+  local deps='JSON.parse(require("fs").readFileSync("package.json")).dependencies'
+  # Install the latest version of all dependencies listed in package.json.
+  echo 'Installing @latest version of all dependencies...'
+  npm install $(node -pe "Object.keys($deps).map(function(m){return m+'@latest'}).join(' ')");
+  # List all dependencies that are now invalid, along with their (new) version.
+  if npm ls | grep invalid >/dev/null; then
+    echo -e '\nINVALID DEPENDENCIES\n'
+    echo 'Module name:                   @latest:             package.json:'
+    npm ls | perl -ne "m/.{10}(.+)@(.+?) invalid\$/ && printf \"%-30s %-20s %s\", \$1, \$2, \`node -pe '$deps[\"\$1\"]'\`"
+    return 99
+  else
+    echo -e '\nNo invalid dependencies.'
+  fi
+}
+
 # rbenv init.
 PATH=$(path_remove ~/.dotfiles/libs/rbenv/bin):~/.dotfiles/libs/rbenv/bin
 PATH=$(path_remove ~/.dotfiles/libs/ruby-build/bin):~/.dotfiles/libs/ruby-build/bin
