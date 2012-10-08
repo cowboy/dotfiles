@@ -39,6 +39,28 @@ function npm_publish() {
   fi
 }
 
+# Crazy-ass, cross-repo npm linking. Used to inter-link projects where each
+# project exists in a subdirectory of a single parent.
+function npm_linkall() {
+  local dirs=()
+  local dels=()
+  local d
+  for d in */; do
+    d="${d%/}"
+    dirs=("${dirs[@]}" "$d")
+    dels=("${dels[@]}" "node_modules/$d")
+  done
+  echo 'DELETING LINKS'
+  (cd "$(npm prefix -g)/lib" && rm -rf "${dels[@]}")
+  echo 'CREATING LINKS'
+  eachdir "rm -rf node_modules; npm install; npm link"
+  echo 'LINKING'
+  eachdir "rm -rf ${dels[@]}; npm install --link"
+}
+
+# Run commands in each subdirectory.
+alias owner-all='eachdir "npm owner ls 2>/dev/null | sort"'
+
 # Look at a project's package.json and figure out what dependencies can be
 # updated. While the "npm outdated" command only lists versions that are valid
 # per the version string in package.json, this looks at the @latest tag in npm.

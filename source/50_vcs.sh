@@ -26,14 +26,7 @@ alias grr='git remote rm'
 alias gcl='git clone'
 alias gcd='git rev-parse 2>/dev/null && cd "./$(git rev-parse --show-cdup)"'
 
-# do something inside each directory under the current directory
-function eachdir() {
-  for d in */; do
-    echo "==> $(tput smul)${d%/}$(tput rmul) <=="
-    (cd "$d"; eval $*)
-  done
-}
-
+# Run commands in each subdirectory.
 alias gu-all='eachdir git pull'
 alias gp-all='eachdir git push'
 alias gs-all='eachdir git status'

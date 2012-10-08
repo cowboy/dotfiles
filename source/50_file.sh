@@ -37,6 +37,27 @@ function md() {
   mkdir -p "$@" && cd "$@"
 }
 
+# Do something inside each directory under the current directory.
+function eachdir() {
+  local h1="$(tput smul)"
+  local h2="$(tput rmul)"
+  local nops=()
+  local d
+  for d in */; do
+    d="${d%/}"
+    local output="$( (cd "$d"; eval $*) 2>&1 )"
+    if [[ "$output" ]]; then
+      echo -e "${h1}${d}${h2}\n$output\n"
+    else
+      nops=("${nops[@]}" "$d")
+    fi
+  done
+  if [[ ${#nops[@]} > 0 ]]; then
+    echo "${h1}no output from${h2}"
+    for d in "${nops[@]}"; do echo "${d}"; done
+  fi
+}
+
 # Fast directory switching
 _Z_NO_PROMPT_COMMAND=1
 _Z_DATA=~/.dotfiles/caches/.z
