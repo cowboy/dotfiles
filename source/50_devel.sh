@@ -11,7 +11,7 @@ if [[ "$(type -P nave)" ]]; then
   fi
 fi
 
-npm_globals=(grunt jshint uglify-js codestream)
+npm_globals=(grunt linken jshint uglify-js codestream)
 
 # Fetch and build the latest stable Node.js, assigning it the alias "default"
 alias nave_stable='nave use default stable nave_stable_2 $(node --version 2>/dev/null); src'
@@ -39,24 +39,12 @@ function npm_publish() {
   fi
 }
 
-# Crazy-ass, cross-repo npm linking. Used to inter-link projects where each
-# project exists in a subdirectory of a single parent.
-function npm_linkall() {
-  local dirs=()
-  local dels=()
-  local d
-  for d in */; do
-    d="${d%/}"
-    dirs=("${dirs[@]}" "$d")
-    dels=("${dels[@]}" "node_modules/$d")
-  done
-  echo 'DELETING LINKS'
-  (cd "$(npm prefix -g)/lib" && rm -rf "${dels[@]}")
-  echo 'CREATING LINKS'
-  eachdir "rm -rf node_modules; npm install; npm link"
-  echo 'LINKING'
-  eachdir "rm -rf ${dels[@]}; npm install --link"
-}
+# Crazy-ass, cross-repo npm linking.
+
+# Inter-link all projects, where each project exists in a subdirectory of
+# the current parent directory. Uses https://github.com/cowboy/node-linken
+alias npm_linkall='eachdir rm -rf node_modules; linken */ --src .; eachdir npm install'
+alias npm_link='linken . --src ..'
 
 # Run commands in each subdirectory.
 alias owner-all='eachdir "npm owner ls 2>/dev/null | sort"'
