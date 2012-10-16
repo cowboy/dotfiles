@@ -44,7 +44,7 @@ function npm_publish() {
 # Inter-link all projects, where each project exists in a subdirectory of
 # the current parent directory. Uses https://github.com/cowboy/node-linken
 alias npm_linkall='eachdir rm -rf node_modules; linken */ --src .; eachdir npm install'
-alias npm_link='linken . --src ..'
+alias npm_link='rm -rf node_modules; linken . --src ..; npm install'
 
 # Run commands in each subdirectory.
 alias owner-all='eachdir "npm owner ls 2>/dev/null | sort"'
