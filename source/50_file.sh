@@ -37,42 +37,6 @@ function md() {
   mkdir -p "$@" && cd "$@"
 }
 
-# Do something inside each directory under the current directory.
-function eachdir() {
-  local d dashes
-  local dirs=()
-  # dirs defaults to */ but you can do this:
-  # eachdir dir1 dir2 [etc] -- arg1 arg2 [etc]
-  for d in "$@"; do
-    if [[ "$d" == "--" ]]; then
-      dashes=1
-      shift $(( ${#dirs[@]} + 1 ))
-      break
-    fi
-    dirs=("${dirs[@]}" "$d")
-  done
-  [[ "$dashes" ]] || dirs=(*/)
-  local h1="$(tput smul)"
-  local h2="$(tput rmul)"
-  local nops=()
-  # Do stuff for each specified dir, in each dir. Non-dirs are ignored.
-  for d in "${dirs[@]}"; do
-    [[ ! -d "$d" ]] && continue
-    d="${d%/}"
-    local output="$( (cd "$d"; eval "$@") 2>&1 )"
-    if [[ "$output" ]]; then
-      echo -e "${h1}${d}${h2}\n$output\n"
-    else
-      nops=("${nops[@]}" "$d")
-    fi
-  done
-  # List any dirs that had no output.
-  if [[ ${#nops[@]} > 0 ]]; then
-    echo "${h1}no output from${h2}"
-    for d in "${nops[@]}"; do echo "${d}"; done
-  fi
-}
-
 # Fast directory switching
 _Z_NO_PROMPT_COMMAND=1
 _Z_DATA=~/.dotfiles/caches/.z
