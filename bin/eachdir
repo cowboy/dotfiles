@@ -1,10 +1,12 @@
 #!/bin/bash
 
+function _eachdir() {
+
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 eachdir
 http://benalman.com/
 
-Usage: $(basename "$0") [dirs --] commands
+Usage: eachdir [dirs --] commands
 
 Run one or more commands in one or more dirs.
 
@@ -14,34 +16,37 @@ before it. All remaining args are the command(s) to be executed for each dir.
 
 Multiple commands must be specified as a single string argument.
 
+In bash, aliasing like this allows you to specify aliases/functions:
+  alias eachdir=". eachdir"
+
 Both of these print the working directory of every subdir of the current dir:
-  $(basename "$0") pwd
-  $(basename "$0") * -- pwd
+  eachdir pwd
+  eachdir * -- pwd
 
 Perform a "git pull" inside all subdirs starting with repo-:
-  $(basename "$0") repo-* -- git pull
+  eachdir repo-* -- git pull
 
 Perform a few git-related commands inside all subdirs starting with repo-:
-  $(basename "$0") repo-* -- 'git fetch && git merge'
+  eachdir repo-* -- 'git fetch && git merge'
 
 Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP
-exit; fi
+return; fi
 
 if [ ! "$1" ]; then
   echo 'You must specify one or more commands to run.'
-  exit 1
+  return 1
 fi
 
 # For underlining headers.
-h1="$(tput smul)"
-h2="$(tput rmul)"
+local h1="$(tput smul)"
+local h2="$(tput rmul)"
 
 # Store any dirs passed before -- in an array.
-dashes=
-dirs=()
+local dashes d
+local dirs=()
 for d in "$@"; do
   if [[ "$d" == "--" ]]; then
     dashes=1
@@ -54,7 +59,7 @@ done
 # If -- wasn't specified, default to all subdirs of the current dir.
 [[ "$dashes" ]] || dirs=(*/)
 
-nops=()
+local nops=()
 # Do stuff for each specified dir, in each dir. Non-dirs are ignored.
 for d in "${dirs[@]}"; do
   # Skip non-dirs.
@@ -77,3 +82,10 @@ if [[ ${#nops[@]} > 0 ]]; then
   echo "${h1}no output from${h2}"
   for d in "${nops[@]}"; do echo "$d"; done
 fi
+
+}
+
+# By putting the above code inside a function, if this file is sourced (which
+# is required for external aliases/functions to be used as commands), vars
+# can be local and return can be used to exit.
+_eachdir "$@"
