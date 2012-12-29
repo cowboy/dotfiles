@@ -1,9 +1,6 @@
 [user]
   name = Ben Alman
   email = EMAIL
-[github]
-  user = cowboy
-  token = TOKEN
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
