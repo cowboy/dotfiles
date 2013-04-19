@@ -40,8 +40,9 @@ packages=(
   build-essential libssl-dev
   git-core
   tree sl id3tool
-  nmap telnet
+  nmap
   htop
+  tmux
 )
 
 list=()

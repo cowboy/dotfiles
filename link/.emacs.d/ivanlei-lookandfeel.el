@@ -21,4 +21,4 @@
 
 ; Highlight lines
 (global-hl-line-mode t) ;; To enable
-(set-face-background 'hl-line "gray8")
+; (set-face-background 'hl-line "gray8")

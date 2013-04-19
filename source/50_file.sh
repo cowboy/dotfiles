@@ -18,6 +18,7 @@ fi
 alias ls="ls $LS_OPTIONS"
 alias ll='ls -A'
 alias lsd='CLICOLOR_FORCE=1 ll | grep --color=never "^d"'
+alias l='ls'
 
 # Easier navigation: .., ..., -
 alias ..='cd ..'
