@@ -108,7 +108,11 @@ function do_stuff() {
         continue
       fi
       # Destination file already exists in ~/. Back it up!
+      # Destination file already exists in ~/. Back it up!
       if [[ -e "$dest" ]]; then
+        if [[ -d "$dest" ]]; then
+          continue
+        fi
         e_arrow "Backing up ~/$base."
         # Set backup flag, so a nice message can be shown at the end.
         backup=1
