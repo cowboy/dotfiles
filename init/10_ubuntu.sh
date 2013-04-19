@@ -33,11 +33,11 @@ fi
 # Update APT.
 e_header "Updating APT"
 sudo apt-get -qq update
-sudo apt-get -qq upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
 
 # Install APT packages.
 packages=(
-  build-essential libssl-dev
+  build-essential
   git-core
   tree sl id3tool
   nmap
