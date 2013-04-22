@@ -7,3 +7,6 @@
 [submodule "libs/emacs-for-python"]
 	path = libs/emacs-for-python
 	url = git://github.com/gabrielelanaro/emacs-for-python.git
+[submodule "libs/tmux_setup"]
+	path = libs/tmux_setup
+	url = git://github.com/adnichols/tmux_setup.git

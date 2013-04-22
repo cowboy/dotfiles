@@ -1,0 +1,12 @@
+#!/bin/sh
+# Attach to existing ssh session
+
+# Get new ssh vars
+grabssh
+
+# Attach to running tmux session
+if [ ${1} ] ; then
+  tmux -L ${1} attach-session
+else 
+  tmux -L dev attach-session
+fi

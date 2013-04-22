@@ -1,0 +1,10 @@
+#!/bin/sh
+# This is run instead of ssh directly because it ensures that
+# the correct ssh key info is sourced for this new tmux
+# window
+
+# Setup ssh-agent stuff
+. $HOME/bin/fixssh
+
+# Run ssh command
+ssh -ttA $1
