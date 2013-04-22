@@ -4,7 +4,7 @@
 # window
 
 # Setup ssh-agent stuff
-. $HOME/bin/fixssh
+. ~/.fixssh
 
 # Run ssh command
 ssh -ttA $1

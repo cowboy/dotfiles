@@ -9,4 +9,4 @@ WHICH_SSH=`which ssh`
 HOST=`grep -o '^\([0-9]\+\.\)\{3\}[0-9]\+\|^[^.]\+' <<<"${1}"`
 
 # Start tmux window
-tmux new-window -n ${HOST} "echo 'Using: $WHICH_SSH' ; ~/bin/sc-ssh ${1}"
+tmux new-window -n ${HOST} "echo 'Using: $WHICH_SSH' ; sc-ssh ${1}"

@@ -17,4 +17,6 @@ s() {
     sc $SSH_TARGET
 }
 
+alias fix_ssh="source ~/.fixssh"
+grabssh
 

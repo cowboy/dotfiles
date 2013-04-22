@@ -8,5 +8,5 @@ for x in ${SSHVARS} ; do
     (eval echo $x=\$$x) | sed  's/=/="/
                                 s/$/"/
                                 s/^/export /'
-done 1>$HOME/bin/fixssh
-chmod 600 $HOME/bin/fixssh
+done 1> ~/.fixssh
+chmod 600 ~/.fixssh
