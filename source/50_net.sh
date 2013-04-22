@@ -16,12 +16,12 @@ alias renewdhcp="sudo ipconfig set en0 DHCP"
 #    shell -$SHELL
 s() {
     local SSH_TARGET=$1; if [[ -z $SSH_TARGET ]]; then SSH_TARGET="dev"; fi
-    ssh -ttA $SSH_TARGET tmux
+    ssh -ttA $SSH_TARGET
 }
 
 # ssh to a dev machine.  ssh to 'dev' if no param is specified
 ss() {
     local SSH_TARGET=$1; if [[ -z $SSH_TARGET ]]; then SSH_TARGET="dev"; fi
-    ssh -ttA $SSH_TARGET tmux
+    ssh -ttA $SSH_TARGET
 }
 
