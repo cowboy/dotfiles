@@ -27,3 +27,4 @@
 ; Cheetah specific enhancements
 (load-library "ivanlei-cheetah")
 
+(setq auto-mode-alist (cons '("\\.pp$" . ruby-mode) auto-mode-alist))
