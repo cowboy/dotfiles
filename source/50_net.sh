@@ -14,9 +14,6 @@ alias renewdhcp="sudo ipconfig set en0 DHCP"
 # ssh to a dev machine.
 s() {
     local SSH_TARGET=$1; if [[ -z $SSH_TARGET ]]; then SSH_TARGET="dev"; fi
-    sc $SSH_TARGET
+    ssh -ttA $SSH_TARGET tmux attach
 }
-
-alias fix_ssh="source ~/.fixssh"
-grabssh
 
