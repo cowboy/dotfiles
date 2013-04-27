@@ -11,9 +11,8 @@ alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET
 # Renew DHCP
 alias renewdhcp="sudo ipconfig set en0 DHCP"
 
-# ssh to a dev machine.
 s() {
     local SSH_TARGET=$1; if [[ -z $SSH_TARGET ]]; then SSH_TARGET="dev"; fi
-    ssh -ttA $SSH_TARGET tmux attach
+    ssh -tt $SSH_TARGET tmux attach
 }
 
