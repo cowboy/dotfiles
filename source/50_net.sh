@@ -13,6 +13,6 @@ alias renewdhcp="sudo ipconfig set en0 DHCP"
 
 s() {
     local SSH_TARGET=$1; if [[ -z $SSH_TARGET ]]; then SSH_TARGET="dev"; fi
-    ssh -tt $SSH_TARGET tmux attach
+    ssh -tt $SSH_TARGET agenttmux attach
 }
 
