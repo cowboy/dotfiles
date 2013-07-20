@@ -19,7 +19,7 @@ if [[ "$(type -P brew)" ]]; then
   brew update
 
   # Install Homebrew recipes.
-  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html tmux)
+  recipes=(git brew-cask tree sl lesspipe id3tool nmap git-extras htop-osx man2html tmux ack alfred ctags emacs gnupg google-chrome iterm2 openssl size-up the_silver_searcher wget)
 
   list="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$list" ]]; then
