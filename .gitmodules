@@ -10,3 +10,12 @@
 [submodule "libs/tmux_setup"]
 	path = libs/tmux_setup
 	url = git://github.com/adnichols/tmux_setup.git
+[submodule ".vagrant.d/modules/stdlib"]
+	path = .vagrant.d/modules/stdlib
+	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule ".vagrant.d/modules/vcsrepo"]
+	path = .vagrant.d/modules/vcsrepo
+	url = git://github.com/puppetlabs/puppetlabs-vcsrepo.git
+[submodule ".vagrant.d/modules/apt"]
+	path = .vagrant.d/modules/apt
+	url = git://github.com/puppetlabs/puppetlabs-apt.git
