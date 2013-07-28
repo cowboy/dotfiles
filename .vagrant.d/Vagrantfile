@@ -3,22 +3,20 @@ Vagrant.configure("2") do |config|
   ##################
   # Ubuntu 10.04.4 #
   ##################
-  config.vm.define "ubuntu-server-10044-x64-fusion503" do |v|
-    v.vm.box = "ubuntu-server-10044-x64-fusion503"
-    v.vm.box_url = "https://s3-us-west-1.amazonaws.com/vagaries/ubuntu-server-10044-x64-fusion503.box"
-    v.vm.synced_folder ".", "/vagrant"
-  end
+  #config.vm.define "ubuntu-server-10044-x64-fusion503" do |v|
+  #  v.vm.box = "ubuntu-server-10044-x64-fusion503"
+  #  v.vm.box_url = "https://s3-us-west-1.amazonaws.com/vagaries/ubuntu-server-10044-x64-fusion503.box"
+  #  v.vm.synced_folder ".", "/vagrant"
+  #end
 
   ##################
   # Kail 1.0.3     #
   ##################
-  config.vm.define "kali-10-x64-vf503-nocm" do |v|
-    v.vm.box = "kali-10-x64-vf503-nocm"
-    v.vm.box_url = "https://s3-us-west-1.amazonaws.com/vagaries/kali-10-x64-vf503-nocm.box"
-    v.vm.guest = "debian"
-    #v.vm.synced_folder ".", "/vagrant"
-    #v.vm.network :private_network, ip: "192.168.100.100"
-  end
+  #config.vm.define "kali-10-x64-vf503-nocm" do |v|
+  #  v.vm.box = "kali-10-x64-vf503-nocm"
+  #  v.vm.box_url = "https://s3-us-west-1.amazonaws.com/vagaries/kali-10-x64-vf503-nocm.box"
+  #  v.vm.guest = "debian"
+  #end
 
   ##################
   # VirtualBox     #
@@ -50,7 +48,7 @@ Vagrant.configure("2") do |config|
     #vf.vmx["guestOS"] = "debian6-64"
     #vf.vmx["logging"] = "True"
     #vf.vmx["serial0.present"] = "False"
-    #vf.vmx["serial1.present"] = "False"    
+    #vf.vmx["serial1.present"] = "False" 
 
     vf.vmx["memsize"] = "8192"
     vf.vmx["numvcpus"] = "8"
@@ -58,9 +56,8 @@ Vagrant.configure("2") do |config|
     vf.vmx["sound.present"] = "False"
   end
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "~/.vagrant.d/manifests"
-    puppet.module_path = "~/.vagrant.d/modules"
-    #puppet.manifest_file = "default.pp"
-  end
+  #config.vm.provision :puppet do |puppet|
+    #puppet.manifests_path = "~/.vagrant.d/manifests"
+    #puppet.module_path = "~/.vagrant.d/modules"
+  #end
 end
