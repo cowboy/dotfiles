@@ -3,3 +3,5 @@
 [user]
 	name = Ivan Leichtling
 	email = ivanlei@yelp.com
+[push]
+	default = current
