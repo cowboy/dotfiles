@@ -27,7 +27,7 @@ if [[ "$(type -P npm)" ]]; then
   list="$(to_install "${npm_globals[*]}" "${installed[*]}")"
   if [[ "$list" ]]; then
     e_header "Installing Npm modules: $list"
-    npm install -g $list
+    sudo npm install -g $list
   fi
 fi
 
