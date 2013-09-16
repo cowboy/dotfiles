@@ -52,6 +52,7 @@ if [[ "$(type -P gem)" ]]; then
   if [[ "$list" ]]; then
     e_header "Installing Ruby gems: $list"
     gem install $list
+    rbenv rehash
   fi
 fi
 
