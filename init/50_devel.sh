@@ -46,7 +46,7 @@ fi
 
 # Install Gems.
 if [[ "$(type -P gem)" ]]; then
-  gems=(bundler awesome_print interactive_editor)
+  gems=(bundler awesome_print pry lolcat)
 
   list="$(to_install "${gems[*]}" "$(gem list | awk '{print $1}')")"
   if [[ "$list" ]]; then
