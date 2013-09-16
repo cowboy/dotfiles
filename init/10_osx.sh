@@ -11,15 +11,16 @@ fi
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
-  true | /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 fi
 
 if [[ "$(type -P brew)" ]]; then
   e_header "Updating Homebrew"
+  brew doctor
   brew update
 
   # Install Homebrew recipes.
-  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html)
+  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html hub cowsay)
 
   list="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$list" ]]; then
