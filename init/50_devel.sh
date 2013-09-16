@@ -33,7 +33,7 @@ fi
 
 # Install Ruby.
 if [[ "$(type -P rbenv)" ]]; then
-  versions=(1.9.3-p194 1.9.2-p290)
+  versions=(2.0.0-p247)
 
   list="$(to_install "${versions[*]}" "$(rbenv whence ruby)")"
   if [[ "$list" ]]; then
