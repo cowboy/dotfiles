@@ -55,10 +55,10 @@ bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles
 ```
 
 ## The "init" step
-These things will be installed, but _only_ if they aren't already.
+A whole bunch of things will be installed, but _only_ if they aren't already.
 
 ### OS X
-* Homebrew
+* Homebrew recipes
   * git
   * tree
   * sl
@@ -67,33 +67,41 @@ These things will be installed, but _only_ if they aren't already.
   * nmap
   * git-extras
   * htop-osx
+  * man2html
+  * hub
+  * cowsay
+  * ssh-copy-id
   * apple-gcc42 (via [homebrew-dupes](https://github.com/Homebrew/homebrew-dupes/blob/master/apple-gcc42.rb))
 
 ### Ubuntu
-* APT
+* APT packages
   * build-essential
   * libssl-dev
   * git-core
   * tree
   * sl
   * id3tool
+  * cowsay
   * nmap
   * telnet
   * htop
 
 ### Both
 * Nave
-  * Npm (latest stable)
-    * Grunt
-    * JSHint
-    * Uglify-JS
-* Rbenv
-  * Ruby 1.9.3-p194 (default)
-  * Ruby 1.9.2-p290 (default)
-* Ruby Gems
+  * node (latest stable)
+    * npm
+    * grunt-cli
+    * linken
+    * bower
+    * node-inspector
+    * yo
+* rbenv
+  * ruby 2.0.0-p247
+* gems
   * bundler
   * awesome_print
-  * interactive_editor
+  * pry
+  * lolcat
 
 ## The ~/ "copy" step
 Any file in the `copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [.gitconfig](https://github.com/cowboy/dotfiles/blob/master/copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
