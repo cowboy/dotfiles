@@ -6,7 +6,6 @@ source ~/.bashrc
 # forgot to setup Git and GitHub.
 
 cat <<EOF
-SSH Keys (if this is a server)
- 1. (main) scp ~/.ssh/id_rsa.pub $USER@$(wanip):~/.ssh/
- 2. (here) cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+If this is a remote server, run:
+ssh-copy-id $USER@$(wanip) && ssh $USER@$(wanip)
 EOF
