@@ -24,9 +24,11 @@ function vm_template() {
   local src="$src_dir/$name"
   if [[ ! "$name" || ! -e "$src" ]]; then
     echo "You must specify a valid VM template from this list:";
+    shopt -s nullglob
     for f in "$src_dir"/*.pvm "$src_dir"/*.pvm.zip; do
       echo " * $(basename "$f")"
     done
+    shopt -u nullglob
     return 1
   fi
   if [[ -e "$dest" ]]; then
