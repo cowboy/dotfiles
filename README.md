@@ -32,24 +32,25 @@ Note:
 * Files in `caches` are cached files, only used by some scripts. This folder will only be created if necessary.
 
 ## Installation
-### OS X
-Notes:
+### OS X Notes
 
 * You need to be an administrator (for `sudo`).
 * You need to have installed [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a separate, optional (and _much smaller_) download from XCode.
 
-```sh
-bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
-```
-
-### Ubuntu
-Notes:
+### Ubuntu Notes
 
 * You need to be an administrator (for `sudo`).
-* If APT hasn't been updated or upgraded recently, it will probably be a few minutes before you see anything.
+* You should probably update/upgrade APT with `sudo apt-get -qq update && sudo apt-get -qq upgrade` first.
+
+### Actual Installation
 
 ```sh
-sudo apt-get -qq update && sudo apt-get -qq upgrade && sudo apt-get -qq install curl && echo &&
+bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
+```
+
+If, for some reason, [bit.ly](https://bit.ly/) is down, you can use the canonical URL.
+
+```sh
 bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
