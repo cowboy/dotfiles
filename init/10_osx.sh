@@ -20,12 +20,17 @@ if [[ "$(type -P brew)" ]]; then
   brew update
 
   # Install Homebrew recipes.
-  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html hub cowsay ssh-copy-id)
+  recipes=(git tree sl lesspipe id3tool nmap git-extras htop-osx man2html hub cowsay ssh-copy-id bash)
 
   list="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$list" ]]; then
     e_header "Installing Homebrew recipes: $list"
     brew install $list
+
+    if [[ ! "$(to_install "bash" "$list")" && ! "$(to_install "bash" "$(brew list)")" ]]; then
+      e_header "Adding bash to /etc/shells (requires sudo)"
+      echo "$(which bash)" | sudo tee -a /etc/shells >/dev/null
+    fi
 
     if [[ ! "$(to_install "htop-osx" "$list")" && ! "$(to_install "htop-osx" "$(brew list)")" ]]; then
       e_header "Updating htop permissions (requires sudo)"
