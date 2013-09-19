@@ -26,6 +26,12 @@ if [[ "$(type -P brew)" ]]; then
   if [[ "$list" ]]; then
     e_header "Installing Homebrew recipes: $list"
     brew install $list
+
+    if [[ ! "$(to_install "htop-osx" "$list")" && ! "$(to_install "htop-osx" "$(brew list)")" ]]; then
+      e_header "Updating htop permissions (requires sudo)"
+      sudo chown root:wheel "$(which htop)"
+      sudo chmod u+s "$(which htop)"
+    fi
   fi
 
   if [[ ! "$(type -P gcc-4.2)" ]]; then
