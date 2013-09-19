@@ -40,7 +40,8 @@ Note:
 ### Ubuntu Notes
 
 * You need to be an administrator (for `sudo`).
-* You should probably update/upgrade APT with `sudo apt-get -qq update && sudo apt-get -qq dist-upgrade` first.
+* You might want to set up your ubuntu server [like I do it](/cowboy/dotfiles/wiki/ubuntu-setup), but then again, you might not.
+* Either way, you should at least update/upgrade APT with `sudo apt-get -qq update && sudo apt-get -qq dist-upgrade` first.
 
 ### Actual Installation
 
