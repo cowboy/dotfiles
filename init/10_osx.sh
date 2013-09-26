@@ -51,10 +51,9 @@ if [[ "$(type -P brew)" ]]; then
     echo "$binroot/bash" | sudo tee -a /etc/shells >/dev/null
   fi
   if [[ "$SHELL" != "$binroot/bash" ]]; then
-    e_header "Making $binroot/bash the default shell"
-    if sudo chsh -s "$binroot/bash" "$USER" 2>&1 | grep -q "no changes made"; then
-      e_arrow "PLEASE EXIT AND RESTART ALL YOUR SHELLS. REALLY."
-    fi
+    e_header "Making $binroot/bash your default shell"
+    sudo chsh -s "$binroot/bash" "$USER" >/dev/null 2>&1
+    e_arrow "Please exit and restart all your shells."
   fi
 
   # i don't remember why i needed this?!
