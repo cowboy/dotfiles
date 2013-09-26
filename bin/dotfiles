@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
 
