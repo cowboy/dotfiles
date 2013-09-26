@@ -11,7 +11,7 @@ if [[ "$(type -P nave)" ]]; then
   fi
 fi
 
-npm_globals=(grunt-cli linken bower node-inspector yo)
+npm_globals=(grunt-cli grunt-init linken bower node-inspector yo)
 
 # Fetch and build the latest stable Node.js, assigning it the alias "default"
 alias nave_stable='nave use default stable nave_stable_2 $(node --version 2>/dev/null); src'
