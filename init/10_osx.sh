@@ -36,7 +36,7 @@ if [[ "$(type -P brew)" ]]; then
 
     if [[ ! "$(to_install "bash" "$list")" && ! "$(to_install "bash" "$(brew list)")" ]]; then
       e_header "Adding bash to /etc/shells (requires sudo)"
-      echo "$(which bash)" | sudo tee -a /etc/shells >/dev/null
+      which bash | sudo tee -a /etc/shells >/dev/null
     fi
 
     if [[ ! "$(to_install "htop-osx" "$list")" && ! "$(to_install "htop-osx" "$(brew list)")" ]]; then
