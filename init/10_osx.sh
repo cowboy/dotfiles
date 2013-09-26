@@ -35,21 +35,26 @@ if [[ "$(type -P brew)" ]]; then
     brew install $list
   fi
 
+  # This is where brew stores its binary symlinks
+  local binroot="$(brew --config | awk '/HOMEBREW_PREFIX/ {print $2}')"/bin
+
   # htop
-  if [[ "$(type -P htop)" && "$(stat -L -f "%Su:%Sg" "$(which htop)")" != "root:wheel" || ! "$(($(stat -L -f "%DMp" "$(which htop)") & 4))" ]]; then
+  if [[ "$(type -P $binroot/htop)" && "$(stat -L -f "%Su:%Sg" "$binroot/htop")" != "root:wheel" || ! "$(($(stat -L -f "%DMp" "$binroot/htop") & 4))" ]]; then
     e_header "Updating htop permissions"
-    sudo chown root:wheel "$(which htop)"
-    sudo chmod u+s "$(which htop)"
+    sudo chown root:wheel "$binroot/htop"
+    sudo chmod u+s "$binroot/htop"
   fi
 
   # bash
-  if [[ "$(which bash)" != "/bin/bash" && "$(cat /etc/shells | grep -q "$(which bash)")" ]]; then
-    e_header "Adding $(which bash) to the list of acceptable shells"
-    which bash | sudo tee -a /etc/shells >/dev/null
+  if [[ "$(type -P $binroot/bash)" && "$(cat /etc/shells | grep -q "$binroot/bash")" ]]; then
+    e_header "Adding $binroot/bash to the list of acceptable shells"
+    echo "$binroot/bash" | sudo tee -a /etc/shells >/dev/null
   fi
-  if [[ "$(which bash)" != "/bin/bash" && "$(which bash)" != "$SHELL" ]]; then
-    e_header "Making $(which bash) the default shell, you should restart your shell(s)"
-    sudo chsh -s "$(which bash)" "$USER"
+  if [[ "$SHELL" != "$binroot/bash" ]]; then
+    e_header "Making $binroot/bash the default shell"
+    if sudo chsh -s "$binroot/bash" "$USER" 2>&1 | grep -q "no changes made"; then
+      e_arrow "PLEASE EXIT AND RESTART ALL YOUR SHELLS. REALLY."
+    fi
   fi
 
   # i don't remember why i needed this?!
