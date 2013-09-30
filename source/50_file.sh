@@ -44,3 +44,11 @@ function md() {
 _Z_NO_PROMPT_COMMAND=1
 _Z_DATA=~/.dotfiles/caches/.z
 . ~/.dotfiles/libs/z/z.sh
+
+# Run a command with non-superuser privileges.
+function unsudo() {
+  [[ "$1" == "-s" ]] && shift || echo "Running \"$@\" as $SUDO_USER."
+  sudo -u "$SUDO_USER" bash -c 'sudo -k'
+  sudo -u "$SUDO_USER" "$@"
+}
+export -f unsudo
