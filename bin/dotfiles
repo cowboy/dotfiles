@@ -127,7 +127,7 @@ function do_stuff() {
 
 # Ensure that we can actually, like, compile anything.
 if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
-  e_error "XCode or the XCode Command Line Tools must be installed first."
+  e_error "XCode or the Command Line Tools for XCode must be installed first."
   exit 1
 fi
 
