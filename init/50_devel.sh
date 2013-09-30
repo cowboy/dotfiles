@@ -21,13 +21,13 @@ source ~/.dotfiles/source/50_devel.sh
 # Install Npm modules.
 if [[ "$(type -P npm)" ]]; then
   e_header "Updating Npm"
-  unsudo npm update -g npm
+  unsudo -k npm update -g npm
 
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
   list="$(to_install "${npm_globals[*]}" "${installed[*]}")"
   if [[ "$list" ]]; then
     e_header "Installing Npm modules: $list"
-    unsudo npm install -g $list
+    unsudo -k npm install -g $list
   fi
 fi
 
@@ -51,7 +51,7 @@ if [[ "$(type -P gem)" ]]; then
   list="$(to_install "${gems[*]}" "$(gem list | awk '{print $1}')")"
   if [[ "$list" ]]; then
     e_header "Installing Ruby gems: $list"
-    unsudo gem install $list
+    unsudo -k gem install $list
     unsudo rbenv rehash
   fi
 fi

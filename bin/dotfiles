@@ -32,9 +32,12 @@ else
 fi
 
 # Run a command with non-superuser privileges.
+# (duplicated in source/50_file.sh)
 function unsudo() {
-  [[ "$1" == "-s" ]] && shift || e_arrow "Running \"$@\" as $SUDO_USER."
-  sudo -u "$SUDO_USER" bash -c 'sudo -k'
+  local opts; while [[ $1 == -* ]]; do opts="$opts${1:1}"; shift; done
+  local print=echo; [[ "$(type e_arrow)" ]] && print=e_arrow
+  [[ ! "$opts" =~ s ]] && print "Running \"$@\" as $SUDO_USER."
+  [[ "$opts" =~ k ]] && sudo -u "$SUDO_USER" bash -c 'sudo -k'
   sudo -u "$SUDO_USER" "$@"
 }
 export -f unsudo
@@ -169,7 +172,7 @@ if [[ ! -d ~/.dotfiles ]]; then
   e_header "Downloading dotfiles"
   unsudo git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
-  git checkout sudo # TODO: REMOVE BEFORE MERGING INTO MASTER
+  unsudo git checkout sudo # TODO: REMOVE BEFORE MERGING INTO MASTER
 else
   # Make sure we have the latest files.
   e_header "Updating dotfiles"

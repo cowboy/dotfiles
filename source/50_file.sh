@@ -46,9 +46,12 @@ _Z_DATA=~/.dotfiles/caches/.z
 . ~/.dotfiles/libs/z/z.sh
 
 # Run a command with non-superuser privileges.
+# (duplicated in bin/dotfiles)
 function unsudo() {
-  [[ "$1" == "-s" ]] && shift || echo "Running \"$@\" as $SUDO_USER."
-  sudo -u "$SUDO_USER" bash -c 'sudo -k'
+  local opts; while [[ $1 == -* ]]; do opts="$opts${1:1}"; shift; done
+  local print=echo; [[ "$(type e_arrow)" ]] && print=e_arrow
+  [[ ! "$opts" =~ s ]] && print "Running \"$@\" as $SUDO_USER."
+  [[ "$opts" =~ k ]] && sudo -u "$SUDO_USER" bash -c 'sudo -k'
   sudo -u "$SUDO_USER" "$@"
 }
 export -f unsudo

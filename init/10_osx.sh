@@ -11,7 +11,7 @@ fi
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
-  homebrew=$(unsudo -s mktemp /tmp/homebrew.XXXXXX.rb)
+  homebrew=$(unsudo -s mktemp /tmp/homebrew.XXXXXX)
   unsudo curl -fsSL -o $homebrew https://raw.github.com/mxcl/homebrew/go
   unsudo ruby $homebrew
   rm $homebrew
