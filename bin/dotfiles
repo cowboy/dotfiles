@@ -21,6 +21,24 @@ function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 
+# TODO: REMOVE THIS NOTE TO SELF
+# sudo bash -c "$(curl -fsSL https://raw.github.com/cowboy/dotfiles/sudo/bin/dotfiles)" && source ~/.bashrc
+if [[ "$UID" != 0 ]]; then
+  e_error 'This script needs root access. Re-running script with sudo.\n'
+  sudo "$0" "$@"
+  exit $?
+else
+  e_success 'Root access OK.'
+fi
+
+# Run a command with non-superuser privileges.
+function unsudo() {
+  e_arrow "!!! Running \"$@\" as $SUDO_USER."
+  sudo -u "$SUDO_USER" bash -c 'sudo -k'
+  sudo -u "$SUDO_USER" "$@"
+}
+export -f unsudo
+
 # Given a list of desired items and installed items, return a list
 # of uninstalled items. Arrays in bash are insane (not in a good way).
 function to_install() {
@@ -74,7 +92,7 @@ function copy_test() {
 }
 function copy_do() {
   e_success "Copying ~/$1."
-  cp "$2" ~/
+  unsudo cp "$2" ~/
 }
 
 # Link files.
@@ -84,7 +102,7 @@ function link_test() {
 }
 function link_do() {
   e_success "Linking ~/$1."
-  ln -sf ${2#$HOME/} ~/
+  unsudo ln -sf ${2#$HOME/} ~/
 }
 
 # Copy, link, init, etc.
@@ -144,22 +162,20 @@ if [[ ! "$(type -P git)" ]]; then
   exit 1
 fi
 
-# Update existing sudo time stamp if set, otherwise do nothing.
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 # Initialize.
 if [[ ! -d ~/.dotfiles ]]; then
   new_dotfiles_install=1
   # ~/.dotfiles doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
+  unsudo git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
+  git checkout sudo # TODO: REMOVE BEFORE MERGING INTO MASTER
 else
   # Make sure we have the latest files.
   e_header "Updating dotfiles"
   cd ~/.dotfiles
-  git pull
-  git submodule update --init --recursive --quiet
+  unsudo git pull
+  unsudo git submodule update --init --recursive --quiet
 fi
 
 # Utilities, helpers.
@@ -174,7 +190,7 @@ shopt -s dotglob
 shopt -s nullglob
 
 # Create caches directory, if it doesn't already exist.
-mkdir -p "$HOME/.dotfiles/caches"
+unsudo mkdir -p "$HOME/.dotfiles/caches"
 
 # If backups are needed, this is where they'll go.
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"

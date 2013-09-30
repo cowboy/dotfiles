@@ -10,3 +10,11 @@ function path_remove() {
   # output the new array
   echo "${t[*]}"
 }
+
+# Run a command with non-superuser privileges.
+function unsudo() {
+  e_arrow "!!! Running \"$@\" as $SUDO_USER."
+  sudo -u "$SUDO_USER" bash -c 'sudo -k'
+  sudo -u "$SUDO_USER" "$@"
+}
+export -f unsudo

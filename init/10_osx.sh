@@ -11,13 +11,16 @@ fi
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
-  true | ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+  homebrew=$(unsudo mktemp /tmp/homebrew.XXXXXX.rb)
+  unsudo curl -fsSL -o $homebrew https://raw.github.com/mxcl/homebrew/go
+  unsudo ruby $homebrew
+  rm $homebrew
 fi
 
 if [[ "$(type -P brew)" ]]; then
   e_header "Updating Homebrew"
-  brew doctor
-  brew update
+  unsudo brew doctor
+  unsudo brew update
 
   # Install Homebrew recipes.
   recipes=(
@@ -32,7 +35,7 @@ if [[ "$(type -P brew)" ]]; then
   list="$(to_install "${recipes[*]}" "$(brew list)")"
   if [[ "$list" ]]; then
     e_header "Installing Homebrew recipes: $list"
-    brew install $list
+    unsudo brew install $list
   fi
 
   # This is where brew stores its binary symlinks
@@ -59,6 +62,6 @@ if [[ "$(type -P brew)" ]]; then
   # i don't remember why i needed this?!
   if [[ ! "$(type -P gcc-4.2)" ]]; then
     e_header "Installing Homebrew dupe recipe: apple-gcc42"
-    brew install https://raw.github.com/Homebrew/homebrew-dupes/master/apple-gcc42.rb
+    unsudo brew install https://raw.github.com/Homebrew/homebrew-dupes/master/apple-gcc42.rb
   fi
 fi
