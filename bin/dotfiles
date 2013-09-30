@@ -131,28 +131,11 @@ if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
   exit 1
 fi
 
-# If Git is not installed...
-if [[ ! "$(type -P git)" ]]; then
-  # OSX
-  if [[ "$OSTYPE" =~ ^darwin ]]; then
-    # It's easiest to get Git via Homebrew, so get that first.
-    if [[ ! "$(type -P brew)" ]]; then
-      e_header "Installing Homebrew"
-      true | /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
-    fi
-    # If Homebrew was installed, install Git.
-    if [[ "$(type -P brew)" ]]; then
-      e_header "Updating Homebrew"
-      brew update
-      e_header "Installing Git"
-      brew install git
-    fi
-  # Ubuntu.
-  elif [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]; then
-    # Git is fairly easy.
-    e_header "Installing Git"
-    sudo apt-get -qq install git-core
-  fi
+# If Git is not installed, install it (Ubuntu only, since Git comes standard
+# with recent XCode or CLT)
+if [[ ! "$(type -P git)" && "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]; then
+  e_header "Installing Git"
+  sudo apt-get -qq install git-core
 fi
 
 # If Git isn't installed by now, something exploded. We gots to quit!
