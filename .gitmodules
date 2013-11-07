@@ -13,3 +13,7 @@
 [submodule "libs/silver_searcher"]
 	path = libs/silver_searcher
 	url = git://github.com/ggreer/the_silver_searcher.git
+[submodule "libs/puppet-syntax-emacs"]
+	path = libs/puppet-syntax-emacs
+	url = https://github.com/puppetlabs/puppet-syntax-emacs.git
+

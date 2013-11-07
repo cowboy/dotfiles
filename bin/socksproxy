@@ -1,0 +1,15 @@
+# !/bin/sh
+# SSH SOCKS proxy script for Mac OS X
+
+localport=8888
+
+if [ "$1" == "on" ]; then 
+	echo "Listening on localhost:$localport. Modifying network settings.."
+	sudo networksetup -setsocksfirewallproxy Wi-Fi 127.0.0.1 $localport off
+fi
+
+if [ "$1" == "off" ]; then
+	echo "Disabling proxy in network settings."
+	sudo networksetup -setsocksfirewallproxystate Wi-Fi off
+	echo "Done!"
+fi

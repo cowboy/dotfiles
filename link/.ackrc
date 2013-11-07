@@ -5,4 +5,5 @@
 --sort-files
 --type-set=puppet=.pp
 --type-set=po=.po
+--type-set=objc=.m
 

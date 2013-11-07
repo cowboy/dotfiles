@@ -125,12 +125,6 @@ function do_stuff() {
 
 # Enough with the functions, let's do stuff.
 
-# Ensure that we can actually, like, compile anything.
-if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
-  e_error "The XCode Command Line Tools must be installed first."
-  exit 1
-fi
-
 # If Git is not installed...
 if [[ ! "$(type -P git)" ]]; then
   # OSX
@@ -155,21 +149,12 @@ if [[ ! "$(type -P git)" ]]; then
   fi
 fi
 
-# If Git isn't installed by now, something exploded. We gots to quit!
-if [[ ! "$(type -P git)" ]]; then
-  e_error "Git should be installed. It isn't. Aborting."
-  exit 1
-fi
-
-# Update existing sudo time stamp if set, otherwise do nothing.
-#while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 # Initialize.
 if [[ ! -d ~/.dotfiles ]]; then
   new_dotfiles_install=1
   # ~/.dotfiles doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
+  git clone --recursive git://github.com/ivanlei/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
 else
   # Make sure we have the latest files.

@@ -27,4 +27,9 @@
 ; Cheetah specific enhancements
 (load-library "ivanlei-cheetah")
 
-(setq auto-mode-alist (cons '("\\.pp$" . ruby-mode) auto-mode-alist))
+; Puppet specific enhancements
+(load-library "puppet-syntax-emacs/puppet-mode")
+(load-library "puppet-syntax-emacs/puppet-mode-init")
+
+; Vagrant can use ruby
+(setq auto-mode-alist (cons '("Vagrantfile$" . ruby-mode) auto-mode-alist))

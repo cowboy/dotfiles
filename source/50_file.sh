@@ -29,8 +29,8 @@ alias ......='cd ../../../../..'
 alias -- -='cd -'
 
 # Silent pushd/popd
-alias pushd="pushd $@ > /dev/null"
-alias popd="popd $@ > /dev/null"
+# alias pushd="pushd $@ > /dev/null"
+# alias popd="popd $@ > /dev/null"
 
 # File size
 alias fs="stat -f '%z bytes'"

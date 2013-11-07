@@ -5,8 +5,8 @@ if [[ ! "$SSH_TTY" && "$OSTYPE" =~ ^darwin ]]; then
   export LESSEDIT='subl %f'
   alias q='subl'
 else
-  export EDITOR=$(type nano pico vi vim emacs 2>/dev/null | sed 's/ .*$//;q')
-  alias q="$EDITOR -w -z"
+  export EDITOR='emacs'
+  alias q="$EDITOR"
 fi
 
 export VISUAL="$EDITOR"

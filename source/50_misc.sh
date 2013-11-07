@@ -21,5 +21,7 @@ if [[ -e ~/.ssh/known_hosts ]]; then
 fi
 
 alias psu="ps -u $USER"
-alias screen="TERM=screen-256color screen"
+alias screen="TERM=xterm-256color screen"
+export TERM='xterm-256color'
+
 
