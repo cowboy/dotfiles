@@ -7,8 +7,8 @@
 (defun customize-py-tabs ()
   (setq tab-width 4
         py-indent-offset 4
-		python-indent-offset 4
-        indent-tabs-mode t
+                python-indent-offset 4
+        indent-tabs-mode nil
         py-smart-indentation nil
         python-indent 4))
 (add-hook 'python-mode-hook 'customize-py-tabs)
@@ -20,12 +20,12 @@
 
 (require 'python)
 (defun python--add-debug-highlight ()
-  "Adds a highlighter for use by `python--pdb-breakpoint-string'"
+  "Adds a highlighter for use by `python--pudb-breakpoint-string'"
   (highlight-lines-matching-regexp "## DEBUG ##\\s-*$" 'hi-red-b))
  
 (add-hook 'python-mode-hook 'python--add-debug-highlight)
  
-(defvar python--pdb-breakpoint-string "import pdb; pdb.set_trace() ## DEBUG ##"
+(defvar python--pudb-breakpoint-string "import pudb; pudb.set_trace() ## DEBUG ##"
   "Python breakpoint string used by `python-insert-breakpoint'")
  
 (defun python-insert-breakpoint ()
@@ -37,5 +37,3 @@
   (split-line)
   (insert python--pdb-breakpoint-string))
 (define-key python-mode-map (kbd "C-c <f5>") 'python-insert-breakpoint)
-
-

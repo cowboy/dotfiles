@@ -4,3 +4,7 @@ link/.ssh/authorized_keys
 link/.ssh/id_*
 link/.ssh/known_hosts
 *LOCAL*
+link/.emacs.d/auto-save-list/
+link/.emacs.d/emacs_backups/
+link/.emacs.d/eproject.lst
+link/.emacs.d/ac-comphist.dat

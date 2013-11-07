@@ -10,3 +10,6 @@
 [submodule "libs/tmux_setup"]
 	path = libs/tmux_setup
 	url = git://github.com/adnichols/tmux_setup.git
+[submodule "libs/silver_searcher"]
+	path = libs/silver_searcher
+	url = git://github.com/ggreer/the_silver_searcher.git
