@@ -35,5 +35,5 @@
   ;; this preserves the correct indentation in case the line above
   ;; point is a nested block
   (split-line)
-  (insert python--pdb-breakpoint-string))
+  (insert python--pudb-breakpoint-string))
 (define-key python-mode-map (kbd "C-c <f5>") 'python-insert-breakpoint)
