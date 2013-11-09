@@ -1,6 +1,5 @@
-[user]
-  name = Ben Alman
-  email = EMAIL
+[include]
+  path = .gitconfig.local
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
