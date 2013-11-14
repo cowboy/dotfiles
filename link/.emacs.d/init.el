@@ -5,8 +5,6 @@
 (progn (cd "~/.emacs.d")
        (normal-top-level-add-subdirs-to-load-path))
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
-
 ; Store backups in their own directory instead of littering the
 ; whole filesystem with goddamn ~ files.
 (setq backup-by-copying t ; don't clobber symlinks
@@ -36,4 +34,4 @@
 ; Vagrant can use ruby
 (setq auto-mode-alist (cons '("Vagrantfile$" . ruby-mode) auto-mode-alist))
 
-(load-theme 'solarized-dark t)
+(setq indent-tabs-mode nil)
