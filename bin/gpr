@@ -151,7 +151,7 @@ pr="$1"; shift
 script="$(basename "$0") $pr"
 branch="pr$pr"
 
-repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)\.git/ && print $1')"
+repo="$(git remote show -n origin | perl -ne '/Fetch URL: .*github\.com[:\/](.*\/.*)((\.git)|$)/ && print $1')"
 
 # Let's fetch some JSON.
 token="$(git config --get gpr.token)"
