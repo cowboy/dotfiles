@@ -164,9 +164,9 @@ if [[ $? != 0 || ! "$json" ]]; then
 fi
 
 # Let's parse some JSON.
-remote_url="$(node -pe "($json).head.repo.git_url")"
+remote_url="$(node -pe "($json).head.repo.clone_url")"
 remote_ref="$(node -pe "($json).head.ref")"
-local_url="$(node -pe "($json).base.repo.git_url")"
+local_url="$(node -pe "($json).base.repo.clone_url")"
 local_ref="$(node -pe "($json).base.ref")"
 num_commits="$(node -pe "($json).commits")"
 
