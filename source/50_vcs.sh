@@ -73,7 +73,7 @@ for n in {1..5}; do alias gf$n="gf -n $n"; done
 if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias gdk='git ksdiff'
   alias gdkc='gdk --cached'
-  alias gt='gittower -s'
+  alias gt='gittower -s; gittower -s'
   if [[ ! "$SSH_TTY" ]]; then
     alias gd='gdk'
   fi
