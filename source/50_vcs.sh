@@ -19,6 +19,7 @@ alias gba='git branch -a'
 function gc() { git checkout "${@:-master}"; } # Checkout master by default
 alias gco='gc'
 alias gcb='gc -b'
+alias gbc='gc -b' # Dyslexia
 alias gr='git remote'
 alias grv='gr -v'
 #alias gra='git remote add'
