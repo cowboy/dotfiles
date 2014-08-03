@@ -1,3 +1,5 @@
+export PATH=/home/tom/local/lib/node_modules:$PATH
+export PATH=$HOME/local/bin:$PATH
 tagForDeployment(){ #function is needed for passing params when using aliases
     git tag -a $1 -m "Tag for deployment"
 }
@@ -29,3 +31,5 @@ alias gtp="git push origin --tags" # push the tags to origin
 alias gcma=commitAddWithComment # Git commit with comment
 alias cmpu="composer update -vvv" #composer update
 alias gtap=createNewTag #get tags, increment a new tag
+alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
+alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
