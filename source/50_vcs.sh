@@ -95,7 +95,4 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias gdk='git ksdiff'
   alias gdkc='gdk --cached'
   alias gt='gittower "$(git rev-parse --show-toplevel)"'
-  if [[ ! "$SSH_TTY" ]]; then
-    alias gd='gdk'
-  fi
 fi
