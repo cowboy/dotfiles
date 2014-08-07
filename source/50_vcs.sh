@@ -82,10 +82,10 @@ AWK
 function gfu() {
   local n="${@:-1}"
   n=$((n-1))
-  open $(git log -n 1 --skip=$n --pretty=oneline | awk "{printf \"$(gurl)/commit/%s\", substr(\$1,1,7)}")
+  git web--browse  $(git log -n 1 --skip=$n --pretty=oneline | awk "{printf \"$(gurl)/commit/%s\", substr(\$1,1,7)}")
 }
 # open current branch + path in GitHub, in the browser.
-alias gpu='open $(gurlp)'
+alias gpu='git web--browse $(gurlp)'
 
 # Just the last few commits, please!
 for n in {1..5}; do alias gf$n="gf -n $n"; done
