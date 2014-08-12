@@ -27,6 +27,7 @@ if [[ ! "${prompt_colors[@]}" ]]; then
     "36" # information color
     "37" # bracket color
     "31" # error color
+    "32" #green
   )
 
   if [[ "$SSH_TTY" ]]; then
@@ -66,7 +67,7 @@ function prompt_git() {
   if [[ "$flags" ]]; then
     output="$output$c1:$c0$flags"
   fi
-  echo "$c1[$c0$output$c1]$c9"
+  echo "$c3[$c3$output$c3]$c9"
 }
 
 # hg status.
@@ -120,18 +121,17 @@ function prompt_command() {
   [[ "$simple_prompt" ]] && PS1='\n$ ' && return
 
   prompt_getcolors
-  # http://twitter.com/cowboy/status/150254030654939137
   PS1="\n"
+  # misc: [cmd#:hist#]
+  # PS1="$PS1$c1[$c0#\#$c1:$c0!\!$c1]$c9"
+  # path: [user@host:path]
+  PS1="$PS1$c1[$c0\u$c1@$c0\h$c1:$c0\w$c1]$c9"
   # svn: [repo:lastchanged]
   PS1="$PS1$(prompt_svn)"
   # git: [branch:flags]
   PS1="$PS1$(prompt_git)"
   # hg:  [branch:flags]
   PS1="$PS1$(prompt_hg)"
-  # misc: [cmd#:hist#]
-  # PS1="$PS1$c1[$c0#\#$c1:$c0!\!$c1]$c9"
-  # path: [user@host:path]
-  PS1="$PS1$c1[$c0\u$c1@$c0\h$c1:$c0\w$c1]$c9"
   PS1="$PS1\n"
   # date: [HH:MM:SS]
   PS1="$PS1$c1[$c0$(date +"%H$c1:$c0%M$c1:$c0%S")$c1]$c9"
