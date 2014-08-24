@@ -59,13 +59,15 @@ function prompt_git() {
   [[ "$output" ]] || output="$(git branch | perl -ne '/^\* (.*)/ && print $1')"
   flags="$(
     echo "$status" | awk 'BEGIN {r=""} \
-      /^# Changes to be committed:$/        {r=r "+"}\
-      /^# Changes not staged for commit:$/  {r=r "!"}\
-      /^# Untracked files:$/                {r=r "?"}\
+      /^Your branch is ahead of.*$/       {r=r "^"}\
+      /^You have unmerged paths\.$/       {r=r ">"}\
+      /^Changes to be committed:$/        {r=r "+"}\
+      /^Changes not staged for commit:$/  {r=r "!"}\
+      /^Untracked files:$/                {r=r "?"}\
       END {print r}'
   )"
   if [[ "$flags" ]]; then
-    output="$output$c1:$c0$flags"
+    output="$output$c1:$c2$flags$c0"
   fi
   echo "$c3[$c3$output$c3]$c9"
 }
