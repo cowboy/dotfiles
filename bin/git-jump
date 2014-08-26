@@ -131,7 +131,7 @@ function next() {
     # Abort if no more commits
     echo "Already at last commit in $git_branch. Congratulations!"
   else
-    # Checkout branch by name if at its head
+    # Checkout branch by name if at its HEAD
     if [[ "$next_sha" == "$(git_branch_sha)" ]]; then
       next_sha="$git_branch"
     fi
