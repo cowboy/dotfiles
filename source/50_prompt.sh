@@ -50,12 +50,12 @@ function prompt_exitcode() {
 # Git status.
 function prompt_git() {
   prompt_getcolors
-  local status output flags
+  local status output flags branch
   status="$(git status 2>/dev/null)"
   [[ $? != 0 ]] && return;
   output="$(echo "$status" | awk '/# Initial commit/ {print "(init)"}')"
   [[ "$output" ]] || output="$(echo "$status" | awk '/# On branch/ {print $4}')"
-  [[ "$output" ]] || output="$(git branch | perl -ne '/^\* (.*)/ && print $1')"
+  [[ "$output" ]] || output="$(git branch | perl -ne '/^\* \(detached from (.*)\)$/ ? print "($1)" : /^\* (.*)/ && print $1')"
   flags="$(
     echo "$status" | awk 'BEGIN {r=""} \
       /^# Changes to be committed:$/        {r=r "+"}\
