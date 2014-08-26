@@ -147,7 +147,7 @@ function prev() {
     # Abort if no more commits
     echo "Already at first commit in $git_branch."
   else
-    echo "Jumping ahead to previous commit."
+    echo "Jumping back to previous commit."
     restore $prev_sha
   fi
 }
