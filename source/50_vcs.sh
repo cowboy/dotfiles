@@ -90,6 +90,9 @@ alias gpu='git web--browse $(gurlp)'
 # Just the last few commits, please!
 for n in {1..5}; do alias gf$n="gf -n $n"; done
 
+function gj() { git-jump "${@:-next}"; }
+alias gj-='gj prev'
+
 # OSX-specific Git shortcuts
 if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias gdk='git ksdiff'
