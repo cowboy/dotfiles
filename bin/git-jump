@@ -45,10 +45,10 @@ function git_head_sha() {
   git rev-parse --short HEAD
 }
 function git_prev_sha() {
-  git rev-parse --short HEAD^ 2>/dev/null
+  git log --format='%h' "$git_branch" "$@" | awk "/^$(git_head_sha)/{getline; print}"
 }
 function git_next_sha() {
-  git log --format='%h' --reverse --ancestry-path HEAD.."$git_branch" | head -n 1
+  git_prev_sha --reverse
 }
 
 # Get absolute path to root of Git repo
@@ -127,7 +127,7 @@ function clean_all_tags() {
 # Jump to next commit
 function next() {
   local next_sha=$(git_next_sha)
-  if [[ ! "$next_sha" ]]; then
+  if [[ "$next_sha" == "$(git_head_sha)" ]]; then
     # Abort if no more commits
     echo "Already at last commit in $git_branch. Congratulations!"
   else
@@ -143,7 +143,7 @@ function next() {
 # Jump to previous commit
 function prev() {
   local prev_sha=$(git_prev_sha)
-  if [[ ! "$prev_sha" ]]; then
+  if [[ "$prev_sha" == "$(git_head_sha)" ]]; then
     # Abort if no more commits
     echo "Already at first commit in $git_branch."
   else
