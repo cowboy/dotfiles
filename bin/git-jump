@@ -70,7 +70,7 @@ function save() {
   # Add all files in repo
   git add "$(git_repo_toplevel)"
   # Commit changes (if there were any)
-  git commit -m "Git Jump: saved changes for $head_sha" >/dev/null
+  git commit --no-verify -m "Git Jump: saved changes for $head_sha" >/dev/null
   # If the commit was successful, tag it (overwriting any previous tag)
   if [[ $? == 0 ]]; then
     status="*"
