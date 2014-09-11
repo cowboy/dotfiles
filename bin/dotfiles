@@ -7,7 +7,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/ronaldocpontes/dotfiles
 
 Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -15,14 +15,25 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
+
 # Logging stuff.
-function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
+# ----------------
+
+function e_header()   {
+  echo;
+  echo -e "\n\033[1m$@\033[0m";
+  echo -e "-------------------"
+}
+
 function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 
+
 # Given a list of desired items and installed items, return a list
 # of uninstalled items. Arrays in bash are insane (not in a good way).
+# ----------------
+
 function to_install() {
   local debug desired installed i desired_s installed_s remain
   if [[ "$1" == 1 ]]; then debug=1; shift; fi
@@ -46,7 +57,11 @@ function to_install() {
   echo "${remain[@]}"
 }
 
+
+
 # Offer the user a chance to skip something.
+# ----------------
+
 function skip() {
   REPLY=noskip
   read -t 5 -n 1 -s -p "To skip, press X within 5 seconds. "
@@ -58,13 +73,22 @@ function skip() {
   fi
 }
 
+
 # Initialize.
+# ----------------
+
+function init_header() { e_header "Initing $1 files"; }
+function init_test() { :; }
 function init_do() {
+  e_success "Sourcing ${2#$HOME/}."
   source "$2"
 }
 
+
 # Copy files.
-function copy_header() { e_header "Copying files into home directory"; }
+# ----------------
+
+function copy_header() { e_header "Copying $1 files into home directory"; }
 function copy_test() {
   if [[ -e "$2" && ! "$(cmp "$1" "$2" 2> /dev/null)" ]]; then
     echo "same file"
@@ -73,59 +97,93 @@ function copy_test() {
   fi
 }
 function copy_do() {
-  e_success "Copying ~/$1."
-  cp "$2" ~/
+  e_success "Copying ${2#$HOME/} to ~/$1."
+  cp "$2" ~/$1
 }
 
+
 # Link files.
-function link_header() { e_header "Linking files into home directory"; }
+# ----------------
+
+function link_header() { e_header "Linking $1 files into home directory"; }
 function link_test() {
   [[ "$1" -ef "$2" ]] && echo "same file"
 }
 function link_do() {
-  e_success "Linking ~/$1."
-  ln -sf ${2#$HOME/} ~/
+  if [[ -d "${2#$HOME/}" ]]; then
+    e_arrow "Directory ${2#$HOME/}..."
+  else
+    e_success "Linking ${2#$HOME/} to ~/$1."
+    ln -sf "$2" ~/"$1"
+  fi
 }
 
-# Copy, link, init, etc.
-function do_stuff() {
+
+
+# Copy, link, init, etc.    .
+# ----------------
+
+function iterate_function() {
   local base dest skip
-  local files=(~/.dotfiles/$1/*)
+  local source=(~/$1/$2)
+  #local files=(~/$1/$2/*)
+  local files=`find ~/"$1/$2" -type f`
+
   # No files? abort.
   if (( ${#files[@]} == 0 )); then return; fi
   # Run _header function only if declared.
-  [[ $(declare -f "$1_header") ]] && "$1_header"
+  [[ $(declare -f "$2_header") ]] && "$2_header" "$1"
+
   # Iterate over files.
-  for file in "${files[@]}"; do
-    base="$(basename $file)"
+  for file in $files; do
+    base="${file#$source/}" # file to be manipulated
     dest="$HOME/$base"
+
     # Run _test function only if declared.
-    if [[ $(declare -f "$1_test") ]]; then
+    if [[ $(declare -f "$2_test") ]]; then
+
       # If _test function returns a string, skip file and print that message.
-      skip="$("$1_test" "$file" "$dest")"
+      skip="$("$2_test" "$file" "$dest")"
       if [[ "$skip" ]]; then
         e_error "Skipping ~/$base, $skip."
         continue
       fi
+
       # Destination file already exists in ~/. Back it up!
       if [[ -e "$dest" ]]; then
-        e_arrow "Backing up ~/$base."
+
         # Set backup flag, so a nice message can be shown at the end.
         backup=1
+
         # Create backup dir if it doesn't already exist.
         [[ -e "$backup_dir" ]] || mkdir -p "$backup_dir"
+
         # Backup file / link / whatever.
-        mv "$dest" "$backup_dir"
+        if [ "$3" = "replace" ]; then
+            e_arrow "Moving ~/$base to Backup dir."
+            mv "$dest" "$backup_dir"
+        else
+            e_arrow "Copying ~/$base to Backup dir."
+            cp -R "$dest" "$backup_dir"
+        fi
       fi
+
+      # Do stuff.
+      "$2_do" "$base" "$file"
+
     fi
-    # Do stuff.
-    "$1_do" "$base" "$file"
+
   done
 }
 
+
+
+##
 # Enough with the functions, let's do stuff.
+############################################
 
 # Ensure that we can actually, like, compile anything.
+###
 if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
   e_error "XCode or the Command Line Tools for XCode must be installed first."
   exit 1
@@ -133,68 +191,82 @@ fi
 
 # If Git is not installed, install it (Ubuntu only, since Git comes standard
 # with recent XCode or CLT)
+###
 if [[ ! "$(type -P git)" && "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]; then
   e_header "Installing Git"
   sudo apt-get -qq install git-core
 fi
 
 # If Git isn't installed by now, something exploded. We gots to quit!
+###
 if [[ ! "$(type -P git)" ]]; then
   e_error "Git should be installed. It isn't. Aborting."
   exit 1
 fi
 
 # Update existing sudo time stamp if set, otherwise do nothing.
+###
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Initialize.
+# Update dotfiles project from Git repository
+###
 if [[ ! -d ~/.dotfiles ]]; then
   new_dotfiles_install=1
   # ~/.dotfiles doesn't exist? Clone it!
-  e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
+  e_header "Cloning dotfiles project from Github..."
+  git clone --recursive git://github.com/ronaldocpontes/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
 else
   # Make sure we have the latest files.
-  e_header "Updating dotfiles"
+  e_header "Updating dotfiles repository from Github..."
   cd ~/.dotfiles
   git pull
   git submodule update --init --recursive --quiet
 fi
 
 # Utilities, helpers.
+###
 source ~/.dotfiles/source/10_misc.sh
 
 # Add binaries into the path
+###
 PATH=~/.dotfiles/bin:$PATH
 export PATH
 
 # Tweak file globbing.
+###
 shopt -s dotglob
 shopt -s nullglob
 
 # Create caches directory, if it doesn't already exist.
+###
 mkdir -p "$HOME/.dotfiles/caches"
 
 # If backups are needed, this is where they'll go.
+###
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
 
 # Execute code for each file in these subdirectories.
-do_stuff "init"
-do_stuff "copy"
-do_stuff "link"
+###
+iterate_function ".dotfiles" "init"
+iterate_function ".dotfiles" "copy"
+iterate_function ".dotfiles" "link"
+iterate_function ".privatefiles" "link"
 
 # Alert if backups were made.
+###
 if [[ "$backup" ]]; then
   echo -e "\nBackups were moved to ~/${backup_dir#$HOME/}"
 fi
 
 # Lest I forget to do a few additional things...
+###
 if [[ "$new_dotfiles_install" && -e "conf/firsttime_reminder.sh" ]]; then
   e_header "First-Time Reminders"
   source "conf/firsttime_reminder.sh"
 fi
 
 # All done!
+###
 e_header "All done!"
