@@ -9,6 +9,7 @@ Usage: $(basename "$0") [command]
 
 Commands:
   next       Jump forward to the next commit in this branch
+  peek       Peek forward showing the next commit in this branch
   prev       Jump backward to the next commit in this branch
   clean      Remove current unstaged changes/untracked files**
   cleanall   Remove all saved tags, unstaged changes and untracked files**
@@ -31,7 +32,7 @@ HELP
 }
 
 function usage() {
-  echo "Usage: $(basename "$0") [next | prev | clean | cleanall]"
+  echo "Usage: $(basename "$0") [next | peek | prev | clean | cleanall]"
 }
 
 # Get branch stored in Git config or default to master
@@ -140,6 +141,22 @@ function next() {
   fi
 }
 
+# Peek to next commit
+function peek() {
+  local next_sha=$(git_next_sha)
+  if [[ "$next_sha" == "$(git_head_sha)" ]]; then
+    # Abort if no more commits
+    echo "Already at last commit in $git_branch. Congratulations!"
+  else
+    # Print branch by name if at its HEAD
+    if [[ "$next_sha" == "$(git_branch_sha)" ]]; then
+      next_sha="$git_branch"
+    fi
+    echo "Peeking ahead to next commit."
+    echo "HEAD will be $next_sha, $(git_commit_subject $next_sha)"
+  fi
+}
+
 # Jump to previous commit
 function prev() {
   local prev_sha=$(git_prev_sha)
@@ -169,6 +186,8 @@ fi
 # Handle CLI arguments
 if [[ "$1" == "next" ]]; then
   next
+elif [[ "$1" == "peek" ]]; then
+  peek
 elif [[ "$1" == "prev" ]]; then
   prev
 elif [[ "$1" == "clean" ]]; then
