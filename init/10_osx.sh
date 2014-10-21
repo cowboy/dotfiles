@@ -106,7 +106,6 @@ if [[ "$(type -P brew)" ]]; then
     steam
     synology-assistant
     teamspeak-client
-    teamviewer
     the-unarchiver
     todoist
     totalfinder
