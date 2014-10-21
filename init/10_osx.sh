@@ -37,12 +37,19 @@ if [[ "$(type -P brew)" ]]; then
   recipes=(
     bash
     ssh-copy-id
-    git git-extras hub
+    git
+    git-extras
+    hub
     the_silver_searcher
     mercurial
-    tree sl id3tool cowsay
-    lesspipe nmap
-    htop-osx man2html
+    tree
+    sl
+    id3tool
+    cowsay
+    lesspipe
+    nmap
+    htop-osx
+    man2html
     brew-cask
   )
 
