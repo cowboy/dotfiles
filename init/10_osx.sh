@@ -25,11 +25,11 @@ if [[ "$(type -P brew)" ]]; then
     homebrew/games
     caskroom/cask
   )
-  list="$(to_install "${kegs[*]}" "$(brew tap)")"
-  if [[ "$list" ]]; then
-    e_header "Tapping Homebrew kegs: $list"
-    for k in "${list[@]}"; do
-      brew tap $k
+  kegs=($(to_install "${kegs[*]}" "$(brew tap)"))
+  if [[ ${#kegs[@]} != 0 ]]; then
+    e_header "Tapping Homebrew kegs: $kegs"
+    for keg in "${kegs[@]}"; do
+      brew tap $keg
     done
   fi
 
@@ -52,11 +52,12 @@ if [[ "$(type -P brew)" ]]; then
     man2html
     brew-cask
   )
-
-  list="$(to_install "${recipes[*]}" "$(brew list)")"
-  if [[ "$list" ]]; then
-    e_header "Installing Homebrew recipes: $list"
-    brew install $list
+  recipes=($(to_install "${recipes[*]}" "$(brew list)"))
+  if [[ ${#recipes[@]} != 0 ]]; then
+    e_header "Installing Homebrew recipes: $recipes"
+    for recipe in "${recipes[@]}"; do
+      brew install $recipe
+    done
   fi
 
   # This is where brew stores its binary symlinks
@@ -114,12 +115,11 @@ if [[ "$(type -P brew)" ]]; then
     vlc
     whatsize
   )
-
-  list="$(to_install "${casks[*]}" "$(brew cask list)")"
-  if [[ "$list" ]]; then
-    e_header "Installing Homebrew casks: $list"
-    for c in "${list[@]}"; do
-      brew cask install $c
+  casks=($(to_install "${casks[*]}" "$(brew cask list)"))
+  if [[ ${#casks[@]} != 0 ]]; then
+    e_header "Installing Homebrew casks: $casks"
+    for cask in "${casks[@]}"; do
+      brew cask install $cask
     done
   fi
 fi
