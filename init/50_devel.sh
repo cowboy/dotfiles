@@ -56,3 +56,7 @@ if [[ "$(type -P gem)" ]]; then
   fi
 fi
 
+# Download Vim plugins.
+if [[ "$(type -P vim)" ]]; then
+  vim +PlugInstall +qall
+fi
