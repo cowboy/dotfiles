@@ -1,6 +1,9 @@
 # Load npm_globals, add the default node into the path.
 source ~/.dotfiles/source/50_devel.sh
 
+# Opt-out of installing Node.
+if [[ ! "$no_node" ]]; then
+
 # Install Node.js.
 if [[ "$(type -P nave)" ]]; then
   nave_stable="$(nave stable)"
@@ -31,6 +34,11 @@ if [[ "$(type -P npm)" ]]; then
   fi
 fi
 
+fi ### NODE OPT-OUT
+
+# Opt-out of installing ruby.
+if [[ ! "$no_ruby" ]]; then
+
 # Install Ruby.
 if [[ "$(type -P rbenv)" ]]; then
   versions=(2.1.3 2.0.0-p576 1.9.3-p547)
@@ -55,6 +63,8 @@ if [[ "$(type -P gem)" ]]; then
     rbenv rehash
   fi
 fi
+
+fi ### RUBY OPT-OUT
 
 # Download Vim plugins.
 if [[ "$(type -P vim)" ]]; then
