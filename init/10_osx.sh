@@ -11,7 +11,7 @@ fi
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
-  true | ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+  true | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 if [[ "$(type -P brew)" ]]; then
@@ -25,6 +25,7 @@ if [[ "$(type -P brew)" ]]; then
     macvim
     ssh-copy-id
     git git-extras hub
+    hg
     tree sl id3tool cowsay
     lesspipe nmap
     htop-osx man2html
