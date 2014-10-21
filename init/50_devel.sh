@@ -2,7 +2,7 @@
 source ~/.dotfiles/source/50_devel.sh
 
 # Install Node.js.
- if [[ "$(type -P nave)" ]]; then
+if [[ "$(type -P nave)" ]]; then
   nave_stable="$(nave stable)"
   if [[ "$(node --version 2>/dev/null)" != "v$nave_stable" ]]; then
     e_header "Installing Node.js $nave_stable"
