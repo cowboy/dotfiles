@@ -19,6 +19,20 @@ if [[ "$(type -P brew)" ]]; then
   brew doctor
   brew update
 
+  # Tap Homebrew kegs.
+  kegs=(
+    homebrew/dupes
+    homebrew/games
+    caskroom/cask
+  )
+  list="$(to_install "${kegs[*]}" "$(brew tap)")"
+  if [[ "$list" ]]; then
+    e_header "Tapping Homebrew kegs: $list"
+    for k in "${list[@]}"; do
+      brew tap $k
+    done
+  fi
+
   # Install Homebrew recipes.
   recipes=(
     bash
@@ -29,6 +43,7 @@ if [[ "$(type -P brew)" ]]; then
     tree sl id3tool cowsay
     lesspipe nmap
     htop-osx man2html
+    brew-cask
   )
 
   list="$(to_install "${recipes[*]}" "$(brew list)")"
@@ -56,6 +71,49 @@ if [[ "$(type -P brew)" ]]; then
     e_header "Making $binroot/bash your default shell"
     sudo chsh -s "$binroot/bash" "$USER" >/dev/null 2>&1
     e_arrow "Please exit and restart all your shells."
+  fi
+
+  # Install Homebrew casks.
+  casks=(
+    a-better-finder-rename
+    bettertouchtool
+    charles
+    chromium
+    chronosync
+    dropbox
+    fastscripts
+    firefox
+    google-chrome
+    gyazo
+    hex-fiend
+    iterm2
+    launchbar
+    macvim
+    moom
+    reaper
+    remote-desktop-connection
+    rftg
+    sonos
+    spotify
+    steam
+    synology-assistant
+    teamspeak-client
+    teamviewer
+    the-unarchiver
+    todoist
+    totalfinder
+    tower
+    transmission-remote-gui
+    vlc
+    whatsize
+  )
+
+  list="$(to_install "${casks[*]}" "$(brew cask list)")"
+  if [[ "$list" ]]; then
+    e_header "Installing Homebrew casks: $list"
+    for c in "${list[@]}"; do
+      brew cask install $c
+    done
   fi
 fi
 
