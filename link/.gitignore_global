@@ -57,3 +57,9 @@ Desktop.ini
 
 # NPM
 .npmignore
+
+# Vim
+.swp
+.swo
+.*.swp
+.*.swo

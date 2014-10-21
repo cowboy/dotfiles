@@ -22,6 +22,7 @@ if [[ "$(type -P brew)" ]]; then
   # Install Homebrew recipes.
   recipes=(
     bash
+    macvim
     ssh-copy-id
     git git-extras hub
     tree sl id3tool cowsay
