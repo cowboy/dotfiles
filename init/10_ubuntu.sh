@@ -39,6 +39,7 @@ sudo apt-get -qq dist-upgrade
 packages=(
   build-essential libssl-dev
   git-core
+  silversearcher-ag
   tree sl id3tool cowsay
   nmap telnet
   htop

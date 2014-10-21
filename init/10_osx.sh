@@ -25,6 +25,7 @@ if [[ "$(type -P brew)" ]]; then
     macvim
     ssh-copy-id
     git git-extras hub
+    the_silver_searcher
     hg
     tree sl id3tool cowsay
     lesspipe nmap
