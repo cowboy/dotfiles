@@ -181,9 +181,9 @@ backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
 
 # Execute code for each file in these subdirectories.
-do_stuff "init"
 do_stuff "copy"
 do_stuff "link"
+do_stuff "init"
 
 # Alert if backups were made.
 if [[ "$backup" ]]; then
