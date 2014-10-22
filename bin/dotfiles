@@ -15,7 +15,8 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-# Attempt to keep-alive sudo for the duration of this script.
+# Attempt to keep-alive sudo for the duration of this script. This is probably
+# the most anti-anti-pattern in the universe. Don't ever use it. Ever.
 sudo_pipe=
 sudo_rnd=$(python -c 'import os;print "-".join(str(ord(x)) for x in os.urandom(9))')
 sudo_already=0; [[ ! "$(sudo -n test 2>&1)" ]] && sudo_already=1
@@ -27,7 +28,7 @@ function sudo() {
     command sudo bash -c "$fns; sudo_daemon $$ $sudo_rnd $sudo_pipe $sudo_already $USER $(tty)"
   fi
   sudo_enable
-  command sudo "$*"
+  command sudo bash -c "$*"
   sudo_disable
 }
 
@@ -41,7 +42,7 @@ function sudo_daemon() {
   local sudo_rnd="$2"
   local sudo_pipe=$3
   local sudo_already=$4
-  local sudo_file sudo_dir d tty
+  local sudo_file sudo_dir d tty cmd quit
   # Yes, I looked at the sudo source code.
   for d in /var/db /var/lib /var/adm /usr/adm; do
     [[ -d "$d" ]] && sudo_dir="$d/sudo/$5" && break
@@ -51,20 +52,24 @@ function sudo_daemon() {
   # This might only apply to Ubuntu 12.04, dunno about other OSes.
   tty="${6##/dev/pts/}"; [[ -e "$sudo_dir/$tty" ]] && sudo_file="$sudo_dir/$tty"
   # Read commands from the pipe.
-  while read cmd; do
-    echo "??? $cmd"
+  while read rawcmd; do
+    cmd="${rawcmd#$sudo_rnd-}"
+    echo "??? $cmd ($rawcmd)"
+    # Quit, but refresh/remove sudo timestamp first.
+    if [[ "$cmd" == "quit" ]]; then
+      quit=1
+      [[ $sudo_already == 1 ]] && cmd="enable" || cmd="disable"
+    fi
     # Refresh sudo timestamp.
-    if [[ "$cmd" == "$sudo_rnd-enable" ]]; then
+    if [[ "$cmd" == "enable" ]]; then
       [[ ! -d "$sudo_dir" ]] && mkdir "$sudo_dir"
       touch "$sudo_file"
     # Remove sudo timestamp.
-    elif [[ "$cmd" == "$sudo_rnd-disable" ]]; then
+    elif [[ "$cmd" == "disable" ]]; then
       touch -t 196912310000 "$sudo_file"
-    # Quit.
-    elif [[ "$cmd" == "$sudo_rnd-quit" ]]; then
-      [[ $sudo_already == 1 ]] && touch "$sudo_file"
-      break
     fi
+    # Quit.
+    [[ "$quit" ]] && break
   done <>$sudo_pipe >/dev/null 2>&1 &
   # Kill daemon when parent script exits, otherwise refresh sudo timestamp.
   while true; do
