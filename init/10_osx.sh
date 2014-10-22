@@ -8,6 +8,9 @@ if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
   sudo xcode-select -switch /usr/bin
 fi
 
+# Opt-out of installing Homebrew.
+if [[ ! "$no_brew" ]]; then
+
 # Install Homebrew.
 if [[ ! "$(type -P brew)" ]]; then
   e_header "Installing Homebrew"
@@ -81,6 +84,9 @@ if [[ "$(type -P brew)" ]]; then
     e_arrow "Please exit and restart all your shells."
   fi
 
+  # Opt-out of installing Homebrew casks.
+  if [[ ! "$no_brew_casks" ]]; then
+
   # Install Homebrew casks.
   casks=(
     a-better-finder-rename
@@ -121,7 +127,11 @@ if [[ "$(type -P brew)" ]]; then
       brew cask install $cask
     done
   fi
+
+  fi ### BREW CASKS OPT-OUT
 fi
+
+fi ### BREW OPT-OUT
 
 # Copy fonts
 fonts=()
