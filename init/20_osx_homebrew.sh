@@ -103,13 +103,15 @@ if [[ ${#recipes[@]} != 0 ]]; then
 fi
 
 # Install Homebrew casks.
-casks=($(to_install "${casks[*]}" "$(brew cask list)"))
-if [[ ${#casks[@]} != 0 ]]; then
-  e_header "Installing Homebrew casks: ${casks[@]}"
-  for cask in "${casks[@]}"; do
-    brew cask install $cask
-  done
-  brew cask cleanup
+if [[ "$(brew ls --versions brew-cask)" ]]; then
+  casks=($(to_install "${casks[*]}" "$(brew cask list)"))
+  if [[ ${#casks[@]} != 0 ]]; then
+    e_header "Installing Homebrew casks: ${casks[@]}"
+    for cask in "${casks[@]}"; do
+      brew cask install $cask
+    done
+    brew cask cleanup
+  fi
 fi
 
 # Fix or further initialize Homebrew-installed items.
