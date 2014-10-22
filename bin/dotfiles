@@ -15,69 +15,6 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-# Attempt to keep-alive sudo for the duration of this script. This is probably
-# the most anti-anti-pattern in the universe. Don't ever use it. Ever.
-sudo_pipe=
-sudo_rnd=$(python -c 'import os;print "-".join(str(ord(x)) for x in os.urandom(9))')
-sudo_already=0; [[ ! "$(sudo -n test 2>&1)" ]] && sudo_already=1
-function sudo() {
-  if [[ ! "$sudo_pipe" ]]; then
-    sudo_pipe=$(mktemp -d /tmp/sudo.XXXXXX)/pipe
-    mkfifo $sudo_pipe
-    local fns="$(declare -f sudo_enable sudo_disable sudo_quit sudo_daemon)"
-    command sudo bash -c "$fns; sudo_daemon $$ $sudo_rnd $sudo_pipe $sudo_already $USER $(tty)"
-  fi
-  sudo_enable
-  command sudo bash -c "$*"
-  sudo_disable
-}
-
-function sudo_enable()  { echo "$sudo_rnd-enable"  > $sudo_pipe; }
-function sudo_disable() { echo "$sudo_rnd-disable" > $sudo_pipe; }
-function sudo_quit()    { echo "$sudo_rnd-quit"    > $sudo_pipe; }
-
-function sudo_daemon() {
-  [[ ! "$5" ]] && echo 'Error: no $USER environment variable?' && exit 1
-  local parent_pid=$1
-  local sudo_rnd="$2"
-  local sudo_pipe=$3
-  local sudo_already=$4
-  local sudo_file sudo_dir d tty cmd quit
-  # Yes, I looked at the sudo source code.
-  for d in /var/db /var/lib /var/adm /usr/adm; do
-    [[ -d "$d" ]] && sudo_dir="$d/sudo/$5" && break
-  done
-  [[ ! "$sudo_dir" ]] && echo 'Error: sudo timestamp directory not found.' && exit 1
-  sudo_file="$sudo_dir"
-  # This might only apply to Ubuntu 12.04, dunno about other OSes.
-  tty="${6##/dev/pts/}"; [[ -e "$sudo_dir/$tty" ]] && sudo_file="$sudo_dir/$tty"
-  # Read commands from the pipe.
-  while read rawcmd; do
-    cmd="${rawcmd#$sudo_rnd-}"
-    echo "??? $cmd ($rawcmd)"
-    # Quit, but refresh/remove sudo timestamp first.
-    if [[ "$cmd" == "quit" ]]; then
-      quit=1
-      [[ $sudo_already == 1 ]] && cmd="enable" || cmd="disable"
-    fi
-    # Refresh sudo timestamp.
-    if [[ "$cmd" == "enable" ]]; then
-      [[ ! -d "$sudo_dir" ]] && mkdir "$sudo_dir"
-      touch "$sudo_file"
-    # Remove sudo timestamp.
-    elif [[ "$cmd" == "disable" ]]; then
-      touch -t 196912310000 "$sudo_file"
-    fi
-    # Quit.
-    [[ "$quit" ]] && break
-  done <>$sudo_pipe >/dev/null 2>&1 &
-  # Kill daemon when parent script exits, otherwise refresh sudo timestamp.
-  while true; do
-    sleep 1
-    if kill -0 "$parent_pid"; then sudo_enable; else sudo_quit; break; fi
-  done >/dev/null 2>&1 &
-}
-
 # Logging stuff.
 function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
 function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
