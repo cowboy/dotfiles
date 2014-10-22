@@ -68,7 +68,8 @@ if [[ "$no_brew_casks" ]]; then
   casks=()
 else
   kegs=("${kegs[@]}" caskroom/cask)
-  recipes=("${recipes[@]}" brew-cask)
+  # brew-cask should be installed first.
+  recipes=(brew-cask "${recipes[@]}")
 fi
 
 # Install Homebrew.
@@ -99,6 +100,10 @@ if [[ ${#recipes[@]} != 0 ]]; then
   e_header "Installing Homebrew recipes: ${recipes[@]}"
   for recipe in "${recipes[@]}"; do
     brew install $recipe
+    # Hack to show the first-run brew-cask password prompt immediately.
+    if [[ "$recipe" == "brew-cask" ]]; then
+      brew cask info this-is-somewhat-annoying 2>/dev/null
+    fi
   done
 fi
 
