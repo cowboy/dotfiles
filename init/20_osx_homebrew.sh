@@ -48,7 +48,7 @@ casks=(
   moom
   reaper
   remote-desktop-connection
-  rftg
+  race-for-the-galaxy
   sonos
   spotify
   steam
