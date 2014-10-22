@@ -87,7 +87,7 @@ brew update
 # Tap Homebrew kegs.
 kegs=($(to_install "${kegs[*]}" "$(brew tap)"))
 if [[ ${#kegs[@]} != 0 ]]; then
-  e_header "Tapping Homebrew kegs: $kegs"
+  e_header "Tapping Homebrew kegs: ${kegs[@]}"
   for keg in "${kegs[@]}"; do
     brew tap $keg
   done
@@ -96,7 +96,7 @@ fi
 # Install Homebrew recipes.
 recipes=($(to_install "${recipes[*]}" "$(brew list)"))
 if [[ ${#recipes[@]} != 0 ]]; then
-  e_header "Installing Homebrew recipes: $recipes"
+  e_header "Installing Homebrew recipes: ${recipes[@]}"
   for recipe in "${recipes[@]}"; do
     brew install $recipe
   done
@@ -105,7 +105,7 @@ fi
 # Install Homebrew casks.
 casks=($(to_install "${casks[*]}" "$(brew cask list)"))
 if [[ ${#casks[@]} != 0 ]]; then
-  e_header "Installing Homebrew casks: $casks"
+  e_header "Installing Homebrew casks: ${casks[@]}"
   for cask in "${casks[@]}"; do
     brew cask install $cask
   done
