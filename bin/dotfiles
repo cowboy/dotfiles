@@ -58,6 +58,7 @@ function skip() {
 }
 
 # Display a fancy menu.
+# From http://serverfault.com/a/298312
 function menu() {
   local i prompt nums
   if [[ "$2" ]]; then
