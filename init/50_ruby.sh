@@ -16,15 +16,3 @@ if [[ "$(type -P rbenv)" ]]; then
     rbenv rehash
   fi
 fi
-
-# Install Gems.
-if [[ "$(type -P gem)" ]]; then
-  gems=(bundler awesome_print pry lolcat)
-
-  list="$(to_install "${gems[*]}" "$(gem list | awk '{print $1}')")"
-  if [[ "$list" ]]; then
-    e_header "Installing Ruby gems: $list"
-    gem install $list
-    rbenv rehash
-  fi
-fi
