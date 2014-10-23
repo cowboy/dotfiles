@@ -35,8 +35,8 @@ function to_install() {
   # Get the difference.
   remain=($(grep -Fxv "${installed[*]}" <<< "${desired[*]}"))
   IFS="$oldifs"
-  [[ "$debug" ]] && for v in desired installed remain; do
-    echo "$v ($(eval echo "\${#$v[*]}")) $(eval echo "\${$v[*]}")"
+  [[ "$debug$dotfiles_debug" ]] && for v in desired installed remain; do
+    echo "$v ($(eval echo "\${#$v[*]}")) $(eval echo "\${$v[*]}")" 1>&2
   done
   echo "${remain[@]}"
 }
