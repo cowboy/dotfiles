@@ -31,11 +31,16 @@ recipes=(
 
 # Homebrew casks
 casks=(
+  # Password required
+  chronosync
+  remote-desktop-connection
+  totalfinder
+  transmission-remote-gui
+  # No password required
   a-better-finder-rename
   bettertouchtool
   charles
   chromium
-  chronosync
   dropbox
   fastscripts
   firefox
@@ -47,7 +52,6 @@ casks=(
   macvim
   moom
   reaper
-  remote-desktop-connection
   race-for-the-galaxy
   sonos
   spotify
@@ -56,9 +60,7 @@ casks=(
   teamspeak-client
   the-unarchiver
   todoist
-  totalfinder
   tower
-  transmission-remote-gui
   vlc
   whatsize
 )
