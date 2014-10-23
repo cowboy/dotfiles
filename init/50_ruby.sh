@@ -13,6 +13,5 @@ if [[ "$(type -P rbenv)" ]]; then
     e_header "Installing Ruby versions: $list"
     for version in $list; do rbenv install "$version"; done
     [[ "$(echo "$list" | grep -w "${versions[0]}")" ]] && rbenv global "${versions[0]}"
-    rbenv rehash
   fi
 fi
