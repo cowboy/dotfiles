@@ -36,7 +36,7 @@ function to_install() {
   if [[ ${#installed[*]} == 0 ]]; then
     remain=("${desired[*]}")
   else
-    remain=($(grep -Fxv "${installed[*]}" <<< "${desired[*]}"))
+    remain=($(grep -Fxv "${installed[*]}"$'\n' <<< "${desired[*]}"))
   fi
   IFS="$oldifs"
   [[ "$debug$dotfiles_debug" ]] && for v in desired installed remain; do
