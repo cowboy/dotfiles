@@ -63,7 +63,7 @@ fi
 if [[ ! "$(type -P git-extras)" ]]; then
   e_header "Installing Git Extras"
   (
-    cd ~/.dotfiles/libs/git-extras &&
+    cd ~/.dotfiles/vendor/git-extras &&
     sudo make install
   )
 fi
