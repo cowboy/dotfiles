@@ -57,7 +57,46 @@ function skip() {
   fi
 }
 
+# Display a fancy menu.
+function menu() {
+  local i prompt nums
+  if [[ "$2" ]]; then
+    menu_choices=()
+    for i in ${!menu_options[@]}; do menu_choices[i]=$2; done
+  fi
+  prompt="Toggle options (Separate options with spaces, ENTER when done): "
+  while _menu "$1" 1>&2 && read -rp "$prompt" nums && [[ "$nums" ]]; do
+    for n in $nums; do
+      if [[ $n =~ ^[0-9]+$ ]] && (( n > 0 && n <= ${#menu_options[@]} )); then
+        menu_choices[n-1]=$((1-menu_choices[n-1]))
+      fi
+    done
+  done
+  for i in ${!menu_options[@]}; do
+    [[ "${menu_choices[i]}" == 1 ]] && echo "${menu_options[i]}"
+  done
+}
+
+function _menu() {
+  e_header "$1"
+  local i mode
+  for i in ${!menu_options[@]}; do
+    [[ "${menu_choices[i]}" == 1 ]] && mode=e_success || mode=e_error
+    $mode "$(printf "%2d) %s\n" $((i+1)) "${menu_options[i]}")"
+  done
+}
+
 # Initialize.
+function init_files() {
+  local i f
+  f=("$@")
+  menu_options=()
+  for i in "${!f[@]}"; do menu_options[i]="$(basename "${f[i]}")"; done
+  f=($(menu "Init scripts to run?" 1))
+  for i in "${!f[@]}"; do echo "$(dirname "$1")/${f[i]}"; done
+}
+# Prompt for init scripts to run if $init_prompt is set.
+[[ "$init_prompt" ]] || unset init_files
 function init_do() {
   source "$2"
 }
@@ -90,6 +129,7 @@ function link_do() {
 function do_stuff() {
   local base dest skip
   local files=(~/.dotfiles/$1/*)
+  [[ $(declare -f "$1_files") ]] && files=($($1_files "${files[@]}"))
   # No files? abort.
   if (( ${#files[@]} == 0 )); then return; fi
   # Run _header function only if declared.
