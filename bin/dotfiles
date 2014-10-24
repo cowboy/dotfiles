@@ -45,6 +45,7 @@ function init_files() {
   done
 }
 function init_do() {
+  e_header "Sourcing $(basename "$2")"
   source "$2"
 }
 
