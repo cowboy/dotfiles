@@ -10,6 +10,7 @@ done
 if [[ ${#fonts[@]} != 0 ]]; then
   e_header "Copying fonts (${#fonts[@]})"
   for f in "${fonts[@]}"; do
+    e_arrow "$(basename "$f")"
     cp "$f" "$HOME/Library/Fonts/"
   done
 fi
