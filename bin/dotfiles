@@ -60,44 +60,72 @@ function skip() {
 # Display a fancy menu.
 # From http://serverfault.com/a/298312
 function menu() {
-  local i prompt nums
+  local exitcode prompt choices nums i n
   if [[ "$2" ]]; then
-    menu_choices=()
-    for i in ${!menu_options[@]}; do menu_choices[i]=$2; done
-  fi
+    _menu_render "$1"
+    read -t $2 -n 1 -sp "To edit this list, press any key within $2 seconds. "
+    exitcode=$?
+    echo ""
+    [[ "$exitcode" != 0 ]] && return
+  fi 1>&2
   prompt="Toggle options (Separate options with spaces, ENTER when done): "
-  while _menu "$1" 1>&2 && read -rp "$prompt" nums && [[ "$nums" ]]; do
-    for n in $nums; do
-      if [[ $n =~ ^[0-9]+$ ]] && (( n > 0 && n <= ${#menu_options[@]} )); then
-        menu_choices[n-1]=$((1-menu_choices[n-1]))
-      fi
-    done
-  done
+  while _menu_render "$1" 1 && read -rp "$prompt" nums && [[ "$nums" ]]; do
+    _menu_result=()
+    _menu_iter _menu_add_result $nums
+    menu_selects=("${_menu_result[@]}")
+  done 1>&2
+}
+
+function _menu_iter() {
+  local i sel state
+  local fn=$1; shift
   for i in ${!menu_options[@]}; do
-    [[ "${menu_choices[i]}" == 1 ]] && echo "${menu_options[i]}"
+    state=0
+    for sel in ${menu_selects[@]}; do
+      [[ "$sel" == "${menu_options[i]}" ]] && state=1 && break
+    done
+    $fn $state $i "$@"
   done
 }
 
-function _menu() {
+function _menu_render() {
   e_header "$1"
-  local i mode
-  for i in ${!menu_options[@]}; do
-    [[ "${menu_choices[i]}" == 1 ]] && mode=e_success || mode=e_error
-    $mode "$(printf "%2d) %s\n" $((i+1)) "${menu_options[i]}")"
+  _menu_iter _menu_render_item "$2"
+}
+
+function _menu_render_item() {
+  local modes=(error success)
+  if [[ "$3" ]]; then
+    e_${modes[$1]} "$(printf "%2d) %s\n" $(($2+1)) "${menu_options[$2]}")"
+  else
+    e_${modes[$1]} "${menu_options[$2]}"
+  fi
+}
+
+function _menu_add_result() {
+  local state i n keep match
+  state=$1; shift
+  i=$1; shift
+  for n in "$@"; do
+    if [[ $n =~ ^[0-9]+$ ]] && (( n-1 == i )); then
+      match=1; [[ "$state" == 0 ]] && keep=1
+    fi
   done
+  [[ ! "$match" && "$state" == 1 || "$keep" ]] || return
+  _menu_result=("${_menu_result[@]}" "${menu_options[i]}")
 }
 
 # Initialize.
 function init_files() {
-  local i f
+  local i f dirname
+  dirname="$(dirname "$1")"
   f=("$@")
   menu_options=()
   for i in "${!f[@]}"; do menu_options[i]="$(basename "${f[i]}")"; done
-  f=($(menu "Init scripts to run?" 1))
-  for i in "${!f[@]}"; do echo "$(dirname "$1")/${f[i]}"; done
+  menu_selects=("${menu_options[@]}")
+  menu "Run the following init scripts?" 10
+  for i in "${!menu_selects[@]}"; do echo "$dirname/${menu_selects[i]}"; done
 }
-# Prompt for init scripts to run if $init_prompt is set.
-[[ "$init_prompt" ]] || unset init_files
 function init_do() {
   source "$2"
 }
