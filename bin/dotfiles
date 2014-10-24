@@ -148,7 +148,7 @@ else
 fi
 
 # Utilities, helpers.
-source ~/.dotfiles/conf/init_helpers.sh
+source ~/.dotfiles/conf/init/helpers.sh
 for f in ~/.dotfiles/source/10_*.sh; do source "$f"; done
 
 # Add binaries into the path
