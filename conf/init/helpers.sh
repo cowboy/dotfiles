@@ -1,23 +1,16 @@
 # Given a list of desired items and installed items, return a list
 # of uninstalled items. Arrays in bash are insane (not in a good way).
-# From http://stackoverflow.com/a/1617326/142339
+# From http://stackoverflow.com/a/1617303/142339
 function to_install() {
-  local debug oldifs desired installed remain
+  local debug oldifs desired installed remain a
   if [[ "$1" == 1 ]]; then debug=1; shift; fi
   # Convert args to arrays.
-  desired=($1)
-  installed=($2)
-  oldifs="$IFS"
-  IFS=$'\n'
-  # Get the difference.
-  if [[ ${#installed[*]} == 0 ]]; then
-    remain=("${desired[*]}")
-  else
-    remain=($(grep -Fxv "${installed[*]}"$'\n' <<< "${desired[*]}"))
-  fi
-  IFS="$oldifs"
-  [[ "$debug$dotfiles_debug" ]] && for v in desired installed remain; do
-    echo "$v ($(eval echo "\${#$v[*]}")) $(eval echo "\${$v[*]}")" 1>&2
+  desired=($1); installed=($2); remain=()
+  for a in "${desired[@]}"; do
+    [[ "${installed[*]}" =~ (^| )$a($| ) ]] || remain=("${remain[@]}" "$a")
+  done
+  [[ "$debug$dotfiles_debug" ]] && for a in desired installed remain; do
+    echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
   done
   echo "${remain[@]}"
 }
