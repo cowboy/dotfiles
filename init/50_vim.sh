@@ -2,3 +2,6 @@
 if [[ "$(type -P vim)" ]]; then
   vim +PlugInstall +qall
 fi
+
+# Backups, swaps and undos are stored here.
+mkdir -p ~/.dotfiles/caches/vim
