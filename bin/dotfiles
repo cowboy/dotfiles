@@ -27,16 +27,24 @@ function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 init_file=$dotfiles_dir/caches/init/init_files
 init_delay=5
 function init_files() {
-  local i f dirname
+  local i f dirname oses os opt remove
   dirname="$(dirname "$1")"
   f=("$@")
-  menu_options=()
+  menu_options=(); menu_selects=()
   for i in "${!f[@]}"; do menu_options[i]="$(basename "${f[i]}")"; done
-  # Read cache file if possible, otherwise default to all scripts.
   if [[ -e "$init_file" ]]; then
+    # Read cache file if possible
     IFS=$'\n' read -d '' -r -a menu_selects < "$init_file"
   else
-    menu_selects=("${menu_options[@]}")
+    # Otherwise default to all scripts not specifically for other OSes
+    oses=($(not_os))
+    for opt in "${menu_options[@]}"; do
+      remove=
+      for os in "${oses[@]}"; do
+        [[ "$opt" =~ (^|[^a-z])$os($|[^a-z]) ]] && remove=1 && break
+      done
+      [[ "$remove" ]] || menu_selects=("${menu_selects[@]}" "$opt")
+    done
   fi
   menu "Run the following init scripts?" $init_delay
   # Write out cache file for future reading.
