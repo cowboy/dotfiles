@@ -2,7 +2,7 @@
 [[ "$OSTYPE" =~ ^darwin ]] || return 1
 
 # Exit if Homebrew is not installed.
-[[ "$(type -P brew)" ]] || return 1
+[[ ! "$(type -P brew)" ]] && e_error "Brew casks need Homebrew to install." && return 1
 
 # Ensure the cask keg and recipe are installed.
 kegs=(caskroom/cask)
@@ -11,7 +11,7 @@ recipes=(brew-cask)
 brew_install_recipes
 
 # Exit if, for some reason, cask is not installed.
-[[ "$(brew ls --versions brew-cask)" ]] || return 1
+[[ ! "$(brew ls --versions brew-cask)" ]] && e_error "Brew-cask failed to install." && return 1
 
 # Hack to show the first-run brew-cask password prompt immediately.
 brew cask info this-is-somewhat-annoying 2>/dev/null
