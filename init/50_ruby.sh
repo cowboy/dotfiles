@@ -1,6 +1,3 @@
-# Opt-out of installing Ruby.
-[[ "$no_ruby" ]] && return 1
-
 # Initialize rbenv.
 source ~/.dotfiles/source/50_ruby.sh
 

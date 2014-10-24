@@ -1,6 +1,3 @@
-# Opt-out of installing Node.
-[[ "$no_node" ]] && return 1
-
 # Load npm_globals, add the default node into the path.
 source ~/.dotfiles/source/50_node.sh
 
