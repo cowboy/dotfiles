@@ -116,15 +116,26 @@ function _menu_add_result() {
 }
 
 # Initialize.
+init_file=~/.dotfiles/caches/init/init_files
 function init_files() {
   local i f dirname
   dirname="$(dirname "$1")"
   f=("$@")
   menu_options=()
   for i in "${!f[@]}"; do menu_options[i]="$(basename "${f[i]}")"; done
-  menu_selects=("${menu_options[@]}")
-  menu "Run the following init scripts?" 10
-  for i in "${!menu_selects[@]}"; do echo "$dirname/${menu_selects[i]}"; done
+  # Read cache file if possible, otherwise default to all scripts.
+  if [[ -e "$init_file" ]]; then
+    IFS=$'\n' read -d '' -r -a menu_selects < "$init_file"
+  else
+    menu_selects=("${menu_options[@]}")
+  fi
+  menu "Run the following init scripts?" 5
+  # Write out cache file for future reading.
+  rm "$init_file" 2>/dev/null
+  for i in "${!menu_selects[@]}"; do
+    echo "${menu_selects[i]}" >> "$init_file"
+    echo "$dirname/${menu_selects[i]}"
+  done
 }
 function init_do() {
   source "$2"
@@ -238,8 +249,8 @@ export PATH
 shopt -s dotglob
 shopt -s nullglob
 
-# Create caches directory, if it doesn't already exist.
-mkdir -p "$HOME/.dotfiles/caches"
+# Create caches dir and init subdir, if they don't already exist.
+mkdir -p "$HOME/.dotfiles/caches/init"
 
 # If backups are needed, this is where they'll go.
 backup_dir="$HOME/.dotfiles/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
