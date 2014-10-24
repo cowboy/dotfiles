@@ -23,6 +23,7 @@ function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 
 # Initialize.
 init_file=~/.dotfiles/caches/init/init_files
+init_delay=5
 function init_files() {
   local i f dirname
   dirname="$(dirname "$1")"
@@ -35,7 +36,7 @@ function init_files() {
   else
     menu_selects=("${menu_options[@]}")
   fi
-  menu "Run the following init scripts?" 5
+  menu "Run the following init scripts?" $init_delay
   # Write out cache file for future reading.
   rm "$init_file" 2>/dev/null
   for i in "${!menu_selects[@]}"; do
@@ -132,6 +133,7 @@ fi
 # Initialize.
 if [[ ! -d ~/.dotfiles ]]; then
   new_dotfiles_install=1
+  init_delay=15
   # ~/.dotfiles doesn't exist? Clone it!
   e_header "Downloading dotfiles"
   git clone --recursive git://github.com/cowboy/dotfiles.git ~/.dotfiles
