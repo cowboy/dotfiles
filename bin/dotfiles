@@ -15,7 +15,7 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
-dotfiles_dir=~/.dotfiles
+export dotfiles_dir=~/.dotfiles
 
 # Logging stuff.
 function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
