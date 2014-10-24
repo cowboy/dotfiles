@@ -8,7 +8,7 @@ if [[ ! "$(type -P brew)" ]]; then
 fi
 
 # Exit if, for some reason, Homebrew is not installed.
-[[ "$(type -P brew)" ]] || return 1
+[[ ! "$(type -P brew)" ]] && e_error "Homebrew failed to install." && return 1
 
 e_header "Updating Homebrew"
 brew doctor
