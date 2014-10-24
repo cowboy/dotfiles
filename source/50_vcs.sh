@@ -94,7 +94,7 @@ function gj() { git-jump "${@:-next}"; }
 alias gj-='gj prev'
 
 # OSX-specific Git shortcuts
-if [[ "$OSTYPE" =~ ^darwin ]]; then
+if is_osx; then
   alias gdk='git ksdiff'
   alias gdkc='gdk --cached'
   alias gt='gittower "$(git rev-parse --show-toplevel)"'
