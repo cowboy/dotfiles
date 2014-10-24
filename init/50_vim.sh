@@ -4,4 +4,4 @@ if [[ "$(type -P vim)" ]]; then
 fi
 
 # Backups, swaps and undos are stored here.
-mkdir -p ~/.dotfiles/caches/vim
+mkdir -p $dotfiles_dir/caches/vim

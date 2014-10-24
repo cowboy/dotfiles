@@ -1,5 +1,5 @@
 # Initialize rbenv.
-source ~/.dotfiles/source/50_ruby.sh
+source $dotfiles_dir/source/50_ruby.sh
 
 # Install Ruby.
 if [[ "$(type -P rbenv)" ]]; then
