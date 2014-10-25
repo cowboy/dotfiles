@@ -265,7 +265,7 @@ if [[ ! -d $DOTFILES ]]; then
   new_dotfiles_install=1
   prompt_delay=15
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/cowboy/dotfiles.git $DOTFILES
+  git clone --recursive git://github.com/${github_user:-cowboy}/dotfiles.git $DOTFILES
   cd $DOTFILES
 else
   # Make sure we have the latest files.
