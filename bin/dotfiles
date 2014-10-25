@@ -50,6 +50,17 @@ function get_os() {
   done
 }
 
+# Remove an entry from $PATH
+# Based on http://stackoverflow.com/a/2108540/142339
+function path_remove() {
+  local arg path
+  path=":$PATH:"
+  for arg in "$@"; do path="${path//:$arg:/:}"; done
+  path="${path%:}"
+  path="${path#:}"
+  echo "$path"
+}
+
 # Display a fancy multi-select menu.
 # Inspired by http://serverfault.com/a/298312
 function prompt_menu() {
