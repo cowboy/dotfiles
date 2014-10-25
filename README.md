@@ -11,7 +11,6 @@ I finally decided that I wanted to be able to execute a single command to "boots
 That command is [dotfiles][dotfiles], and this is my "dotfiles" Git repo.
 
 [dotfiles]: bin/dotfiles
-[bin]: https://github.com/cowboy/dotfiles/tree/master/bin
 
 ## How the "dotfiles" command works
 
@@ -37,29 +36,29 @@ On subsequent runs, step 1 is skipped, step 2 just updates the already-existing 
 * The `/vendor` directory contains third-party libraries.
 
 ### The "copy" step
-Any file in the `/copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [.gitconfig](copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
+Any file in the `/copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [copy/.gitconfig](copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
 
 ### The "link" step
-Any file in the `/link` subdirectory gets symlinked into `~/` with `ln -s`. Edit one or the other, and you change the file in both places. Don't link files containing sensitive data, or you might accidentally commit that data! If you're linking a directory that might contain sensitive data (like `~/.ssh`) add the sensitive files to your [.gitignore](/cowboy/dotfiles/blob/master/.gitignore) file!
+Any file in the `/link` subdirectory gets symlinked into `~/` with `ln -s`. Edit one or the other, and you change the file in both places. Don't link files containing sensitive data, or you might accidentally commit that data! If you're linking a directory that might contain sensitive data (like `~/.ssh`) add the sensitive files to your [.gitignore](.gitignore) file!
 
 ### The "init" step
 Scripts in the `/init` subdirectory will be executed. A whole bunch of things will be installed, but _only_ if they aren't already.
 
 #### OS X
 
-* Minor XCode init via the [10_osx_xcode.sh](/cowboy/dotfiles/blob/master/init/10_osx_xcode.sh) script
-* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [20_osx_fonts.sh](/cowboy/dotfiles/blob/master/init/20_osx_fonts.sh) script
-* Homebrew via the [20_osx_homebrew.sh](/cowboy/dotfiles/blob/master/init/20_osx_homebrew.sh) script
-* Homebrew recipes via the [30_osx_homebrew_recipes.sh](/cowboy/dotfiles/blob/master/init/30_osx_homebrew_recipes.sh) script
-* Homebrew casks via the [30_osx_homebrew_casks.sh](/cowboy/dotfiles/blob/master/init/30_osx_homebrew_casks.sh) script
+* Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
+* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [init/20_osx_fonts.sh](init/20_osx_fonts.sh) script
+* Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
+* Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
+* Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
 
 #### Ubuntu
-* APT packages and git-extras via the [10_ubuntu.sh](/cowboy/dotfiles/blob/master/init/10_ubuntu.sh) script
+* APT packages and git-extras via the [init/10_ubuntu.sh](init/10_ubuntu.sh) script
 
 #### Both
-* Node.js, npm and nave via the [50_node.sh](/cowboy/dotfiles/blob/master/init/50_node.sh) script
-* Ruby, gems and rbenv via the [50_ruby.sh](/cowboy/dotfiles/blob/master/init/50_ruby.sh) script
-* Vim plugins via the [50_vim.sh](/cowboy/dotfiles/blob/master/init/50_vim.sh) script
+* Node.js, npm and nave via the [init/50_node.sh](init/50_node.sh) script
+* Ruby, gems and rbenv via the [init/50_ruby.sh](init/50_ruby.sh) script
+* Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
 
 ## Installation
 
@@ -108,14 +107,14 @@ bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
 ```
 
 ## Aliases and Functions
-To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](https://github.com/cowboy/dotfiles/tree/master/source). I even have a [fancy prompt](source/50_prompt.sh) that shows the current directory, time and current git/svn repo status.
+To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](source). I even have a [fancy prompt](source/50_prompt.sh) that shows the current directory, time and current git/svn repo status.
 
 ## Scripts
-In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts][bin]. This includes [nave](https://github.com/isaacs/nave), which is a [git submodule](https://github.com/cowboy/dotfiles/tree/master/vendor).
+In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts](bin). This includes [nave](https://github.com/isaacs/nave), which is a [git submodule](vendor).
 
 * [dotfiles][dotfiles] - (re)initialize dotfiles. It might ask for your password (for `sudo`).
 * [src](link/.bashrc#L6-15) - (re)source all files in `source` directory
-* Look through the [bin][bin] subdirectory for a few more.
+* Look through the [bin](bin) subdirectory for a few more.
 
 ## Prompt
 I think [my bash prompt](source/50_prompt.sh) is awesome. It shows git and svn repo status, a timestamp, error exit codes, and even changes color depending on how you've logged in.
