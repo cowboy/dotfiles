@@ -7,7 +7,7 @@ http://benalman.com/
 Usage: $(basename "$0") [revision]
 
 Download and install the latest Chromium and dev tools, modifying the binary
-to use those custom dev tools (downloaded into ~/.dotfiles/caches/chromium).
+to use those custom dev tools (downloaded into $DOTFILES/caches/chromium).
 See ~.dotfiles/conf/update_chromium_etc.sh for sample dev tools customization.
 
 If a revision isn't specified, the latest stable revision will be installed.
@@ -30,7 +30,7 @@ fi
 url_base="http://commondatastorage.googleapis.com/chromium-browser-continuous/$os"
 dev_file="devtools_frontend.zip"
 
-dev_path=~/.dotfiles/caches/chromium
+dev_path=$DOTFILES/caches/chromium
 current_revision=$(cat "$dev_path/REVISION" 2>/dev/null)
 
 revision=$1
@@ -92,7 +92,7 @@ mv "$bin_file" "$bin_path/Chromium-bin"
 
 cat > "$bin_file" <<'BASH'
 #!/bin/bash
-devtools=~/.dotfiles/caches/chromium/devtools
+devtools=$DOTFILES/caches/chromium/devtools
 "$0-bin" --debug-devtools-frontend="$devtools"
 BASH
 chmod +x "$bin_file"
@@ -102,7 +102,7 @@ echo -n "Cleaning up..."
 rm -rf "$tmp"
 echo "OK"
 
-additional=~/.dotfiles/conf/update_chromium_etc.sh
+additional=$DOTFILES/conf/update_chromium_etc.sh
 if [[ -f "$additional" ]]; then
   echo -e "\nRunning update_chromium_etc.sh..."
   source "$additional"
