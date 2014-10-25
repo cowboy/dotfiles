@@ -1,6 +1,5 @@
 #!/bin/bash
-source ~/.dotfiles/conf/init/assert.sh
-source ~/.dotfiles/conf/init/helpers.sh
+source ~/.dotfiles/source/00_dotfiles.sh
 
 e_header to_install
 

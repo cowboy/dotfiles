@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+[[ "$1" ]] || \
 
 echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
 
@@ -15,6 +16,10 @@ http://benalman.com/about/license/
 HELP
 exit; fi
 
+###########################################
+# GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
+###########################################
+
 export dotfiles_dir=~/.dotfiles
 
 # Logging stuff.
@@ -23,9 +28,43 @@ function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;34m➜\033[0m  $@"; }
 
+# For testing.
+function assert() {
+  local success modes equals expected
+  modes=(e_error e_success); equals=("!=" "=="); expected="$1"; shift
+  "$@"
+  [[ "$assert_actual" == "$expected" ]] && success=1 || success=0
+  ${modes[success]} "\"$assert_actual\" ${equals[success]} \"$expected\""
+  unset assert_actual
+}
+
+# Given a list of desired items and installed items, return a list
+# of uninstalled items. Arrays in bash are insane (not in a good way).
+# From http://stackoverflow.com/a/1617303/142339
+function to_install() {
+  local debug oldifs desired installed remain a
+  if [[ "$1" == 1 ]]; then debug=1; shift; fi
+  # Convert args to arrays.
+  desired=($1); installed=($2); remain=()
+  for a in "${desired[@]}"; do
+    [[ "${installed[*]}" =~ (^| )$a($| ) ]] || remain=("${remain[@]}" "$a")
+  done
+  [[ "$debug" ]] && for a in desired installed remain; do
+    echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
+  done
+  echo "${remain[@]}"
+}
+
+# If this file was being sourced, exit now.
+[[ "$1" ]] && return
+
+
+###########################################
+# INTERNAL DOTFILES "INIT" VARS / FUNCTIONS
+###########################################
+
 # Initialize.
 init_file=$dotfiles_dir/caches/init/init_files
-init_delay=5
 function init_files() {
   local i f dirname oses os opt remove
   dirname="$(dirname "$1")"
@@ -46,7 +85,7 @@ function init_files() {
       [[ "$remove" ]] || menu_selects=("${menu_selects[@]}" "$opt")
     done
   fi
-  menu "Run the following init scripts?" $init_delay
+  menu "Run the following init scripts?" $prompt_delay
   # Write out cache file for future reading.
   rm "$init_file" 2>/dev/null
   for i in "${!menu_selects[@]}"; do
@@ -122,6 +161,8 @@ function do_stuff() {
 
 # Enough with the functions, let's do stuff.
 
+export prompt_delay=5
+
 # Ensure that we can actually, like, compile anything.
 if [[ ! "$(type -P gcc)" && "$OSTYPE" =~ ^darwin ]]; then
   e_error "XCode or the Command Line Tools for XCode must be installed first."
@@ -145,7 +186,7 @@ fi
 if [[ ! -d $dotfiles_dir ]]; then
   # ~/.dotfiles doesn't exist? Clone it!
   new_dotfiles_install=1
-  init_delay=15
+  prompt_delay=15
   e_header "Downloading dotfiles"
   git clone --recursive git://github.com/cowboy/dotfiles.git $dotfiles_dir
   cd $dotfiles_dir
@@ -158,7 +199,6 @@ else
 fi
 
 # Utilities, helpers.
-source $dotfiles_dir/conf/init/helpers.sh
 for f in $dotfiles_dir/source/10_*.sh; do source "$f"; done
 
 # Add binaries into the path
