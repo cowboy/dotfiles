@@ -274,7 +274,10 @@ elif [[ "$1" != "restart" ]]; then
   prev_head="$(git rev-parse HEAD)"
   git pull
   git submodule update --init --recursive --quiet
-  [[ "$(git rev-parse HEAD)" != "$prev_head" ]] && exec "$0" "restart"
+  if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
+    e_header "Changes detected, restarting script"
+    exec "$0" "restart"
+  fi
 fi
 
 # Add binaries into the path
