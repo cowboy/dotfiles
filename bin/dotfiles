@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-[[ "$1" ]] || \
+[[ "$1" == "source" ]] || \
 
 echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
 
@@ -133,7 +133,7 @@ function to_install() {
 }
 
 # If this file was being sourced, exit now.
-[[ "$1" ]] && return
+[[ "$1" == "source" ]] && return
 
 
 ###########################################
@@ -267,12 +267,14 @@ if [[ ! -d $DOTFILES ]]; then
   e_header "Downloading dotfiles"
   git clone --recursive git://github.com/${github_user:-cowboy}/dotfiles.git $DOTFILES
   cd $DOTFILES
-else
+elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.
   e_header "Updating dotfiles"
+  prev_head="$(git rev-parse HEAD)"
   cd $DOTFILES
   git pull
   git submodule update --init --recursive --quiet
+  [[ "$(git rev-parse HEAD)" != "$prev_head" ]] && exec "$0" "restart"
 fi
 
 # Add binaries into the path
