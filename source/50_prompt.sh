@@ -58,9 +58,9 @@ function prompt_git() {
   [[ "$output" ]] || output="$(git branch | perl -ne '/^\* \(detached from (.*)\)$/ ? print "($1)" : /^\* (.*)/ && print $1')"
   flags="$(
     echo "$status" | awk 'BEGIN {r=""} \
-      /^# Changes to be committed:$/        {r=r "+"}\
-      /^# Changes not staged for commit:$/  {r=r "!"}\
-      /^# Untracked files:$/                {r=r "?"}\
+        /^(# )?Changes to be committed:$/        {r=r "+"}\
+        /^(# )?Changes not staged for commit:$/  {r=r "!"}\
+        /^(# )?Untracked files:$/                {r=r "?"}\
       END {print r}'
   )"
   if [[ "$flags" ]]; then
