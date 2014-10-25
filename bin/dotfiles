@@ -20,6 +20,7 @@ exit; fi
 # GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
 ###########################################
 
+# Where the magic happens.
 export DOTFILES=~/.dotfiles
 
 # Logging stuff.

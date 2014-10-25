@@ -20,7 +20,7 @@ if [ ! "$1" ]; then
   exit
 fi
 
-cache_dir=~/.dotfiles/caches/manhtml
+cache_dir=$DOTFILES/caches/manhtml
 
 # Figure out what the filename should be.
 file="$cache_dir/${2:+$2.}$1.html"

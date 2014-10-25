@@ -1,4 +1,4 @@
-# This is pretty important.
+# Where the magic happens.
 export DOTFILES=~/.dotfiles
 
 # Add binaries into the path
