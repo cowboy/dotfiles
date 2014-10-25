@@ -40,12 +40,18 @@ sudo apt-get -qq dist-upgrade
 
 # Install APT packages.
 packages=(
-  build-essential libssl-dev
+  build-essential
+  cowsay
   git-core
-  silversearcher-ag
-  tree sl id3tool cowsay
-  nmap telnet
   htop
+  id3tool
+  libssl-dev
+  mercurial
+  nmap
+  silversearcher-ag
+  sl
+  telnet
+  tree
 )
 
 list=()
