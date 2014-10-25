@@ -14,9 +14,9 @@ nnoremap <Down> :echoe "Use j"<CR>
 let mapleader=","
 
 " Local dirs
-set backupdir=~/.dotfiles/caches/vim
-set directory=~/.dotfiles/caches/vim
-set undodir=~/.dotfiles/caches/vim
+set backupdir=$DOTFILES/caches/vim
+set directory=$DOTFILES/caches/vim
+set undodir=$DOTFILES/caches/vim
 
 " Theme / Syntax highlighting
 colorscheme molokai
