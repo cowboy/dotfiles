@@ -20,7 +20,7 @@ exit; fi
 # GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
 ###########################################
 
-export dotfiles_dir=~/.dotfiles
+export DOTFILES=~/.dotfiles
 
 # Logging stuff.
 function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
@@ -64,7 +64,7 @@ function to_install() {
 ###########################################
 
 # Initialize.
-init_file=$dotfiles_dir/caches/init/init_files
+init_file=$DOTFILES/caches/init/init_files
 function init_files() {
   local i f dirname oses os opt remove
   dirname="$(dirname "$1")"
@@ -125,7 +125,7 @@ function link_do() {
 # Copy, link, init, etc.
 function do_stuff() {
   local base dest skip
-  local files=($dotfiles_dir/$1/*)
+  local files=($DOTFILES/$1/*)
   [[ $(declare -f "$1_files") ]] && files=($($1_files "${files[@]}"))
   # No files? abort.
   if (( ${#files[@]} == 0 )); then return; fi
@@ -183,26 +183,26 @@ if [[ ! "$(type -P git)" ]]; then
 fi
 
 # Initialize.
-if [[ ! -d $dotfiles_dir ]]; then
+if [[ ! -d $DOTFILES ]]; then
   # ~/.dotfiles doesn't exist? Clone it!
   new_dotfiles_install=1
   prompt_delay=15
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/cowboy/dotfiles.git $dotfiles_dir
-  cd $dotfiles_dir
+  git clone --recursive git://github.com/cowboy/dotfiles.git $DOTFILES
+  cd $DOTFILES
 else
   # Make sure we have the latest files.
   e_header "Updating dotfiles"
-  cd $dotfiles_dir
+  cd $DOTFILES
   git pull
   git submodule update --init --recursive --quiet
 fi
 
 # Utilities, helpers.
-for f in $dotfiles_dir/source/10_*.sh; do source "$f"; done
+for f in $DOTFILES/source/10_*.sh; do source "$f"; done
 
 # Add binaries into the path
-PATH=$dotfiles_dir/bin:$PATH
+PATH=$DOTFILES/bin:$PATH
 export PATH
 
 # Tweak file globbing.
@@ -210,10 +210,10 @@ shopt -s dotglob
 shopt -s nullglob
 
 # Create caches dir and init subdir, if they don't already exist.
-mkdir -p "$dotfiles_dir/caches/init"
+mkdir -p "$DOTFILES/caches/init"
 
 # If backups are needed, this is where they'll go.
-backup_dir="$dotfiles_dir/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
+backup_dir="$DOTFILES/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
 
 # Execute code for each file in these subdirectories.

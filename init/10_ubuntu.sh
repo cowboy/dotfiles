@@ -6,7 +6,7 @@ sudoers_old="/etc/sudoers.d/sudoers-cowboy"; [[ -e "$sudoers_old" ]] && sudo rm 
 
 # Installing this sudoers file makes life easier.
 sudoers_file="sudoers-dotfiles"
-sudoers_src=$dotfiles_dir/conf/ubuntu/$sudoers_file
+sudoers_src=$DOTFILES/conf/ubuntu/$sudoers_file
 sudoers_dest="/etc/sudoers.d/$sudoers_file"
 if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "$sudoers_src" ]]; then
   cat <<EOF
@@ -66,7 +66,7 @@ fi
 if [[ ! "$(type -P git-extras)" ]]; then
   e_header "Installing Git Extras"
   (
-    cd $dotfiles_dir/vendor/git-extras &&
+    cd $DOTFILES/vendor/git-extras &&
     sudo make install
   )
 fi
