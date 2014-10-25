@@ -75,3 +75,14 @@ if [[ ${#casks[@]} != 0 ]]; then
   done
   brew cask cleanup
 fi
+
+# Work around colorPicker symlink issue.
+# https://github.com/caskroom/homebrew-cask/issues/7004
+for f in ~/Library/ColorPickers/*.colorPicker; do
+  [[ -L "$f" ]] || continue
+  target="$(readlink "$f")"
+  basename="$(basename "$f")"
+  e_arrow "Replacing $basename symlink with copy"
+  rm "$f"
+  cp -R "$target" ~/Library/ColorPickers/
+done
