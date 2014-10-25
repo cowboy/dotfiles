@@ -141,7 +141,7 @@ function to_install() {
 ###########################################
 
 # Initialize.
-init_file=$DOTFILES/caches/init/init_files
+init_file=$DOTFILES/caches/init/selected
 function init_files() {
   local i f dirname oses os opt remove
   dirname="$(dirname "$1")"
