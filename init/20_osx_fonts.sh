@@ -3,7 +3,7 @@ is_osx || return 1
 
 # Copy fonts
 fonts=()
-for f in $dotfiles_dir/conf/osx/fonts/*; do
+for f in $DOTFILES/conf/osx/fonts/*; do
   [[ -e "$HOME/Library/Fonts/$(basename "$f")" ]] || fonts=("${fonts[@]}" "$f")
 done
 

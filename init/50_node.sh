@@ -1,5 +1,5 @@
 # Load npm_globals, add the default node into the path.
-source $dotfiles_dir/source/50_node.sh
+source $DOTFILES/source/50_node.sh
 
 # Install Node.js.
 if [[ "$(type -P nave)" ]]; then
@@ -16,7 +16,7 @@ if [[ "$(type -P nave)" ]]; then
 fi
 
 # Load npm_globals, add the default node into the path.
-source $dotfiles_dir/source/50_node.sh
+source $DOTFILES/source/50_node.sh
 
 # Install Npm modules.
 if [[ "$(type -P npm)" ]]; then
