@@ -10,13 +10,16 @@ sudoers_src=$dotfiles_dir/conf/ubuntu/$sudoers_file
 sudoers_dest="/etc/sudoers.d/$sudoers_file"
 if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "$sudoers_src" ]]; then
   cat <<EOF
-The sudoers file can be updated to allow certain commands to be executed
-without needing to use sudo. This is potentially dangerous and should only
-be attempted if you are logged in as root in another shell.
+The sudoers file can be updated to allow "sudo apt-get" to be executed
+without asking for a password. You can verify that this worked correctly by
+running "sudo -k apt-get". If it doesn't ask for a password, and the output
+looks normal, it worked.
 
-This will be skipped if "Y" isn't pressed within the next 15 seconds.
+THIS SHOULD ONLY BE ATTEMPTED IF YOU ARE LOGGED IN AS ROOT IN ANOTHER SHELL.
+
+This will be skipped if "Y" isn't pressed within the next $prompt_delay seconds.
 EOF
-  read -N 1 -t 15 -p "Update sudoers file? [y/N] " update_sudoers; echo
+  read -N 1 -t $prompt_delay -p "Update sudoers file? [y/N] " update_sudoers; echo
   if [[ "$update_sudoers" =~ [Yy] ]]; then
     e_header "Updating sudoers"
     visudo -cf "$sudoers_src" >/dev/null && {
