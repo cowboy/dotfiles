@@ -270,8 +270,8 @@ if [[ ! -d $DOTFILES ]]; then
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.
   e_header "Updating dotfiles"
-  prev_head="$(git rev-parse HEAD)"
   cd $DOTFILES
+  prev_head="$(git rev-parse HEAD)"
   git pull
   git submodule update --init --recursive --quiet
   [[ "$(git rev-parse HEAD)" != "$prev_head" ]] && exec "$0" "restart"
