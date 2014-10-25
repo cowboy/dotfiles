@@ -276,7 +276,7 @@ else
 fi
 
 # Add binaries into the path
-PATH=$DOTFILES/bin:$PATH
+[[ -d $DOTFILES/bin ]] && PATH=$DOTFILES/bin:$PATH
 export PATH
 
 # Tweak file globbing.
