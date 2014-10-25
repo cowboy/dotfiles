@@ -6,7 +6,7 @@ if [[ "$(type -P nave)" ]]; then
   if [[ "$nave_default" && "$(node --version 2>/dev/null)" != "v$nave_default" ]]; then
     node_path=~/.nave/installed/$nave_default/bin
     if [[ -d "$node_path" ]]; then
-      PATH=$node_path:$(path_remove ~/.nave/installed/*/bin)
+      PATH="$node_path:$(path_remove ~/.nave/installed/*/bin)"
     fi
   fi
 fi

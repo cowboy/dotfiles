@@ -1,12 +1,9 @@
-# From http://stackoverflow.com/questions/370047/#370255
+# Based on http://stackoverflow.com/a/2108540/142339
 function path_remove() {
-  IFS=:
-  # convert it to an array
-  t=($PATH)
-  unset IFS
-  # perform any array operations to remove elements from the array
-  t=(${t[@]%%$1})
-  IFS=:
-  # output the new array
-  echo "${t[*]}"
+  local arg path
+  path=":$PATH:"
+  for arg in "$@"; do path="${path//:$arg:/:}"; done
+  path="${path%:}"
+  path="${path#:}"
+  echo "$path"
 }
