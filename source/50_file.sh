@@ -41,7 +41,7 @@ function md() {
 }
 
 # Fast directory switching
-mkdir -p ~/.dotfiles/caches/z
+mkdir -p $DOTFILES/caches/z
 _Z_NO_PROMPT_COMMAND=1
-_Z_DATA=~/.dotfiles/caches/z/z
-. ~/.dotfiles/vendor/z/z.sh
+_Z_DATA=$DOTFILES/caches/z/z
+. $DOTFILES/vendor/z/z.sh
