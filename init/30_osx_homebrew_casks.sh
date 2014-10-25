@@ -18,16 +18,12 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 
 # Homebrew casks
 casks=(
-  # Password required
-  chronosync
-  remote-desktop-connection
-  totalfinder
-  transmission-remote-gui
-  # No password required
+  # Applications
   a-better-finder-rename
   bettertouchtool
   charles
   chromium
+  chronosync
   dropbox
   fastscripts
   firefox
@@ -37,9 +33,11 @@ casks=(
   iterm2
   launchbar
   macvim
+  menumeters
   moom
-  reaper
   race-for-the-galaxy
+  reaper
+  remote-desktop-connection
   sonos
   spotify
   steam
@@ -47,9 +45,25 @@ casks=(
   teamspeak-client
   the-unarchiver
   todoist
+  totalfinder
   tower
+  transmission-remote-gui
   vlc
   whatsize
+  # Quick Look plugins
+  betterzipql
+  qlcolorcode
+  qlmarkdown
+  qlprettypatch
+  qlstephen
+  quicklook-csv
+  quicklook-json
+  quicknfo
+  suspicious-package
+  webp-quicklook
+  # Color pickers
+  colorpicker-developer
+  colorpicker-skalacolor
 )
 
 # Install Homebrew casks.
