@@ -60,6 +60,14 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 * Ruby, gems and rbenv via the [init/50_ruby.sh](init/50_ruby.sh) script
 * Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
 
+## Hacking my dotfiles
+
+Because the [dotfiles][dotfiles] script is completely self-contained, you should be able to delete everything else from your dotfiles repo fork, and it will still work. The only thing it really cares about are the `/copy`, `/link` and `/init` subdirectories, which will be ignored if they are empty or don't exist.
+
+If you modify things and notice a bug or an improvement, [file an issue](https://github.com/cowboy/dotfiles/issues) or [a pull request](https://github.com/cowboy/dotfiles/pulls) and let me know.
+
+Also, before installing, be sure to [read my gently-worded note](#heed-this-critically-important-warning-before-you-install).
+
 ## Installation
 
 ### OS X Notes
@@ -98,7 +106,7 @@ bash -c "$(curl -fsSL https://raw.github.com/$github_user/dotfiles/master/bin/do
 
 Since you'll be using the [dotfiles][dotfiles] command on subsequent runs, you'll only have to export the `github_user` variable for the initial install.
 
-Also, because the [dotfiles][dotfiles] script is completely self-contained, you should be able to delete everything else from your dotfiles repo fork, and it will still work. The only thing it really cares about are the `/copy`, `/link` and `/init` subdirectories, which will be ignored if they are empty or don't exist.
+There's a lot of stuff that requires admin access via `sudo`, so be warned that you might need to enter your password here or there.
 
 ### Actual installation (for me)
 
@@ -110,10 +118,10 @@ bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
 To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](source). I even have a [fancy prompt](source/50_prompt.sh) that shows the current directory, time and current git/svn repo status.
 
 ## Scripts
-In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts](bin). This includes [nave](https://github.com/isaacs/nave), which is a [git submodule](vendor).
+In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bin scripts](bin). This includes [nave](https://github.com/isaacs/nave), which is a [git submodule](vendor).
 
 * [dotfiles][dotfiles] - (re)initialize dotfiles. It might ask for your password (for `sudo`).
-* [src](link/.bashrc#L6-15) - (re)source all files in `source` directory
+* [src](link/.bashrc#L8-18) - (re)source all files in `/source` directory
 * Look through the [bin](bin) subdirectory for a few more.
 
 ## Prompt
