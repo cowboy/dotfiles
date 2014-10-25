@@ -10,7 +10,7 @@ Usage: $(basename "$0")
 See the README for documentation.
 https://github.com/cowboy/dotfiles
 
-Copyright (c) 2012 "Cowboy" Ben Alman
+Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
 HELP
