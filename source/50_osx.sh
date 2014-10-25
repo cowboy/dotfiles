@@ -48,7 +48,7 @@ function vm_template() {
 # Export Localization.prefPane text substitution rules.
 function txt_sub_backup() {
   local prefs=~/Library/Preferences/.GlobalPreferences.plist
-  local backup=~/.dotfiles/conf/osx/NSUserReplacementItems.plist
+  local backup=$DOTFILES/conf/osx/NSUserReplacementItems.plist
   /usr/libexec/PlistBuddy -x -c "Print NSUserReplacementItems" "$prefs" > "$backup" &&
   echo "File ~${backup#$HOME} written."
 }
@@ -56,7 +56,7 @@ function txt_sub_backup() {
 # Import Localization.prefPane text substitution rules.
 function txt_sub_restore() {
   local prefs=~/Library/Preferences/.GlobalPreferences.plist
-  local backup=~/.dotfiles/conf/osx/NSUserReplacementItems.plist
+  local backup=$DOTFILES/conf/osx/NSUserReplacementItems.plist
   if [[ ! -e "$backup" ]]; then
     echo "Error: file ~${backup#$HOME} does not exist!"
     return 1
