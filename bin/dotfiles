@@ -127,21 +127,22 @@ function _prompt_menu_add() {
   _prompt_menu_result=("${_prompt_menu_result[@]}" "${menu_options[i]}")
 }
 
-# Given a list of desired items and installed items, return a list
-# of uninstalled items. Arrays in bash are insane (not in a good way).
+# Given strings containing space-delimited words A and B, "setdiff A B" will
+# return all words in A that do not exist in B. Arrays in bash are insane
+# (and not in a good way).
 # From http://stackoverflow.com/a/1617303/142339
-function to_install() {
-  local debug oldifs desired installed remain a
+function setdiff() {
+  local debug oldifs A B C x
   if [[ "$1" == 1 ]]; then debug=1; shift; fi
   # Convert args to arrays.
-  desired=($1); installed=($2); remain=()
-  for a in "${desired[@]}"; do
-    [[ "${installed[*]}" =~ (^| )$a($| ) ]] || remain=("${remain[@]}" "$a")
+  A=($1); B=($2); C=()
+  for x in "${A[@]}"; do
+    [[ "${B[*]}" =~ (^| )$x($| ) ]] || C=("${C[@]}" "$x")
   done
-  [[ "$debug" ]] && for a in desired installed remain; do
-    echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
+  [[ "$debug" ]] && for x in A B C; do
+    echo "$x ($(eval echo "\${#$x[*]}")) $(eval echo "\${$x[*]}")" 1>&2
   done
-  echo "${remain[@]}"
+  echo "${C[@]}"
 }
 
 # If this file was being sourced, exit now.

@@ -24,7 +24,7 @@ if [[ "$(type -P npm)" ]]; then
   npm update -g npm
 
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
-  list="$(to_install "${npm_globals[*]}" "${installed[*]}")"
+  list="$(setdiff "${npm_globals[*]}" "${installed[*]}")"
   if [[ "$list" ]]; then
     e_header "Installing Npm modules: $list"
     npm install -g $list
