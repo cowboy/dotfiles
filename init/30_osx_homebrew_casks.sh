@@ -67,7 +67,7 @@ casks=(
 )
 
 # Install Homebrew casks.
-casks=($(to_install "${casks[*]}" "$(brew cask list 2>/dev/null)"))
+casks=($(setdiff "${casks[*]}" "$(brew cask list 2>/dev/null)"))
 if [[ ${#casks[@]} != 0 ]]; then
   e_header "Installing Homebrew casks: ${casks[@]}"
   for cask in "${casks[@]}"; do

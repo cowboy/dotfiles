@@ -4,7 +4,7 @@ source $DOTFILES/source/00_dotfiles.sh
 e_header "$(basename "$0" .sh)"
 
 function my_test() {
-  to_install "${desired[*]}" "${installed[*]}"
+  setdiff "${desired[*]}" "${installed[*]}"
 }
 
 desired=(a b c); installed=(); assert "a b c" my_test
