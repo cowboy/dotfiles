@@ -3,9 +3,9 @@ PATH=~/.nave/installed/default/bin:"$(path_remove ~/.nave/installed/*/bin)"
 
 # Set a specific version of node as the "default" for "nave use default"
 function nave_default() {
-  [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
   local version
   local default=${NAVE_DIR:-$HOME/.nave}/installed/default
+  [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
   [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
   rm "$default" 2>/dev/null
   ln -s $version "$default"
@@ -14,7 +14,7 @@ function nave_default() {
 
 # Install a version of node, set as default, install npm modules, etc.
 function nave_install() {
-  local version installed
+  local version
   [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
   [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
   if [[ ! -d "${NAVE_DIR:-$HOME/.nave}/installed/$version" ]]; then
@@ -29,6 +29,7 @@ npm_globals=(grunt-cli grunt-init linken bower node-inspector yo)
 
 # Update npm and install global modules.
 function npm_install() {
+  local installed modules
   e_header "Updating npm"
   npm update -g npm
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
