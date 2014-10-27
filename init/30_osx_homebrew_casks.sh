@@ -35,6 +35,7 @@ casks=(
   macvim
   menumeters
   moom
+  omnidisksweeper
   race-for-the-galaxy
   reaper
   remote-desktop-connection
@@ -49,7 +50,6 @@ casks=(
   tower
   transmission-remote-gui
   vlc
-  whatsize
   # Quick Look plugins
   betterzipql
   qlcolorcode
