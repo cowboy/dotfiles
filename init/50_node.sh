@@ -7,7 +7,7 @@ if [[ "$(type -P nave)" ]]; then
   if [[ "$(node --version 2>/dev/null)" != "v$nave_stable" ]]; then
     e_header "Installing Node.js $nave_stable"
     # Install most recent stable version.
-    nave install stable >/dev/null 2>&1
+    nave install stable
   fi
   if [[ "$(nave ls | awk '/^default/ {print $2}')" != "$nave_stable" ]]; then
     # Alias the stable version of node as "default".
