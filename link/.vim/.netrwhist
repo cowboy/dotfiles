@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/cowboy/repos/gruntjs/grunt'
-let g:netrw_dirhist_2='/Users/cowboy/repos/gruntjs/grunt/internal-tasks'
-let g:netrw_dirhist_3='/Users/cowboy/repos/bocoup/singlepage-apps-with-backbonejs/build/styles'
-let g:netrw_dirhist_4='/Users/cowboy/repos/bocoup/singlepage-apps-with-backbonejs/build/templates'
-let g:netrw_dirhist_5='/Users/cowboy/go/src/github.com/bocoup/secrets/.git'
-let g:netrw_dirhist_6='/Users/cowboy'

@@ -17,6 +17,7 @@ let mapleader=","
 set backupdir=$DOTFILES/caches/vim
 set directory=$DOTFILES/caches/vim
 set undodir=$DOTFILES/caches/vim
+let g:netrw_home = expand('$DOTFILES/caches/vim')
 
 " Theme / Syntax highlighting
 colorscheme molokai
