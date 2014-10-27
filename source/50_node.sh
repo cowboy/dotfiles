@@ -1,27 +1,40 @@
 export PATH
+PATH=~/.nave/installed/default/bin:"$(path_remove ~/.nave/installed/*/bin)"
 
-# nave init.
-if [[ "$(type -P nave)" ]]; then
-  nave_default="$(nave ls | awk '/^default/ {print $2}')"
-  if [[ "$nave_default" && "$(node --version 2>/dev/null)" != "v$nave_default" ]]; then
-    node_path=~/.nave/installed/$nave_default/bin
-    if [[ -d "$node_path" ]]; then
-      PATH="$node_path:$(path_remove ~/.nave/installed/*/bin)"
-    fi
+# Set a specific version of node as the "default" for "nave use default"
+function nave_default() {
+  [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
+  local version
+  local default=${NAVE_DIR:-$HOME/.nave}/installed/default
+  [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
+  rm "$default" 2>/dev/null
+  ln -s $version "$default"
+  echo "Nave default set to $version"
+}
+
+# Install a version of node, set as default, install npm modules, etc.
+function nave_install() {
+  local version installed
+  [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
+  if [[ ! -d "${NAVE_DIR:-$HOME/.nave}/installed/$version" ]]; then
+    echo "Updating Node.js version to $version"
+    nave install $version
   fi
-fi
+  [[ "$1" == "stable" ]] && nave_default stable && npm_install
+}
 
+# Global npm modules to install.
 npm_globals=(grunt-cli grunt-init linken bower node-inspector yo)
 
-# Fetch and build the latest stable Node.js, assigning it the alias "default"
-alias nave_stable='nave use default stable nave_stable_2 $(node --version 2>/dev/null); src'
-function nave_stable_2() {
+# Update npm and install global modules.
+function npm_install() {
+  echo "Updating npm"
   npm update -g npm
-  if [[ "$1" != "$(node --version 2>/dev/null)" ]]; then
-    echo "Node.js version updated to $1, installing Npm global modules."
-    npm install -g ${npm_globals[*]}
-  else
-    echo "Node.js version $1 unchanged."
+  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
+  modules=($(setdiff "${npm_globals[*]}" "${installed[*]}"))
+  if (( ${#modules[@]} > 0 )); then
+    e_header "Installing Npm modules: ${modules[*]}"
+    npm install -g "${modules[@]}"
   fi
 }
 

@@ -1,32 +1,5 @@
-# Load npm_globals, add the default node into the path.
+# Load nave- and npm-related functions.
 source $DOTFILES/source/50_node.sh
 
-# Install Node.js.
-if [[ "$(type -P nave)" ]]; then
-  nave_stable="$(nave stable)"
-  if [[ "$(node --version 2>/dev/null)" != "v$nave_stable" ]]; then
-    e_header "Installing Node.js $nave_stable"
-    # Install most recent stable version.
-    nave install stable
-  fi
-  if [[ "$(nave ls | awk '/^default/ {print $2}')" != "$nave_stable" ]]; then
-    # Alias the stable version of node as "default".
-    nave use default stable true
-  fi
-fi
-
-# Load npm_globals, add the default node into the path.
-source $DOTFILES/source/50_node.sh
-
-# Install Npm modules.
-if [[ "$(type -P npm)" ]]; then
-  e_header "Updating Npm"
-  npm update -g npm
-
-  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
-  modules=($(setdiff "${npm_globals[*]}" "${installed[*]}"))
-  if (( ${#modules[@]} > 0 )); then
-    e_header "Installing Npm modules: ${modules[*]}"
-    npm install -g "${modules[@]}"
-  fi
-fi
+# Install latest stable Node.js, set as default, install global npm modules.
+nave_install stable
