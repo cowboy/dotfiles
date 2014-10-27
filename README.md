@@ -47,13 +47,13 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 #### OS X
 
 * Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
-* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [init/20_osx_fonts.sh](init/20_osx_fonts.sh) script
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
 * Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
 * Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
+* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [init/50_osx_fonts.sh](init/50_osx_fonts.sh) script
 
 #### Ubuntu
-* APT packages and git-extras via the [init/10_ubuntu.sh](init/10_ubuntu.sh) script
+* APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
 
 #### Both
 * Node.js, npm and nave via the [init/50_node.sh](init/50_node.sh) script
