@@ -30,10 +30,10 @@ casks=(
   google-chrome
   gyazo
   hex-fiend
+  istat-menus
   iterm2
   launchbar
   macvim
-  menumeters
   moom
   omnidisksweeper
   race-for-the-galaxy
