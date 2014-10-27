@@ -15,9 +15,10 @@ function nave_default() {
 # Install a version of node, set as default, install npm modules, etc.
 function nave_install() {
   local version installed
+  [[ ! "$1" ]] && echo "Specify a node version or \"stable\"" && return 1
   [[ "$1" == "stable" ]] && version=$(nave stable) || version=${1#v}
   if [[ ! -d "${NAVE_DIR:-$HOME/.nave}/installed/$version" ]]; then
-    echo "Updating Node.js version to $version"
+    e_header "Installing Node.js $version"
     nave install $version
   fi
   [[ "$1" == "stable" ]] && nave_default stable && npm_install
@@ -28,7 +29,7 @@ npm_globals=(grunt-cli grunt-init linken bower node-inspector yo)
 
 # Update npm and install global modules.
 function npm_install() {
-  echo "Updating npm"
+  e_header "Updating npm"
   npm update -g npm
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
   modules=($(setdiff "${npm_globals[*]}" "${installed[*]}"))
