@@ -78,11 +78,17 @@ fi
 
 # Work around colorPicker symlink issue.
 # https://github.com/caskroom/homebrew-cask/issues/7004
+cps=()
 for f in ~/Library/ColorPickers/*.colorPicker; do
-  [[ -L "$f" ]] || continue
-  target="$(readlink "$f")"
-  basename="$(basename "$f")"
-  e_arrow "Replacing $basename symlink with copy"
-  rm "$f"
-  cp -R "$target" ~/Library/ColorPickers/
+  [[ -L "$f" ]] && cps=("${cps[@]}" "$f")
 done
+
+if (( ${#cps[@]} > 0 )); then
+  e_header "Fixing colorPicker symlinks"
+  for f in "${cps[@]}"; do
+    target="$(readlink "$f")"
+    e_arrow "$(basename "$f")"
+    rm "$f"
+    cp -R "$target" ~/Library/ColorPickers/
+  done
+fi
