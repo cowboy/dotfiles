@@ -23,10 +23,10 @@ if [[ "$(type -P npm)" ]]; then
   e_header "Updating Npm"
   npm update -g npm
 
-  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
-  list="$(setdiff "${npm_globals[*]}" "${installed[*]}")"
-  if [[ "$list" ]]; then
-    e_header "Installing Npm modules: $list"
-    npm install -g $list
+  { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } >/dev/null
+  modules=($(setdiff "${npm_globals[*]}" "${installed[*]}"))
+  if (( ${#modules[@]} > 0 )); then
+    e_header "Installing Npm modules: ${modules[*]}"
+    npm install -g "${modules[@]}"
   fi
 fi

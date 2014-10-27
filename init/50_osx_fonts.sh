@@ -2,15 +2,16 @@
 is_osx || return 1
 
 # Copy fonts
-fonts=()
-for f in $DOTFILES/conf/osx/fonts/*; do
-  [[ -e "$HOME/Library/Fonts/$(basename "$f")" ]] || fonts=("${fonts[@]}" "$f")
-done
+{
+  pushd $DOTFILES/conf/osx/fonts/; setdiffA=(*); popd
+  pushd ~/Library/Fonts/; setdiffB=(*); popd
+  setdiff
+} >/dev/null
 
-if [[ ${#fonts[@]} != 0 ]]; then
-  e_header "Copying fonts (${#fonts[@]})"
-  for f in "${fonts[@]}"; do
-    e_arrow "$(basename "$f")"
-    cp "$f" "$HOME/Library/Fonts/"
+if (( ${#setdiffC[@]} > 0 )); then
+  e_header "Copying fonts (${#setdiffC[@]})"
+  for f in "${setdiffC[@]}"; do
+    e_arrow "$f"
+    cp "$DOTFILES/conf/osx/fonts/$f" ~/Library/Fonts/
   done
 fi
