@@ -22,3 +22,27 @@ desired=(a a-b); installed=(a-b a); assert "" my_test
 desired=(a-b a); installed=(a-b a); assert "" my_test
 desired=(a a-b); installed=(a a-b); assert "" my_test
 desired=(a-b a); installed=(a a-b); assert "" my_test
+
+unset setdiffA setdiffB setdiffC
+setdiff "a b c" "" >/dev/null
+assert "0" echo "${#setdiffC[@]}"
+
+unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(); setdiff
+assert "3" echo "${#setdiffC[@]}"
+assert "a b c" echo "${setdiffC[*]}"
+
+unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(a); setdiff
+assert "2" echo "${#setdiffC[@]}"
+assert "b c" echo "${setdiffC[*]}"
+
+unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(c a); setdiff
+assert "1" echo "${#setdiffC[@]}"
+assert "b" echo "${setdiffC[*]}"
+
+unset setdiffA setdiffB setdiffC; setdiffA=("a b" c); setdiffB=(a b c); setdiff
+assert "1" echo "${#setdiffC[@]}"
+assert "a b" echo "${setdiffC[*]}"
+
+unset setdiffA setdiffB setdiffC; setdiffA=(a b "a b" c "c d"); setdiffB=(a c); setdiff
+assert "3" echo "${#setdiffC[@]}"
+assert "b a b c d" echo "${setdiffC[*]}"
