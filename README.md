@@ -4,7 +4,7 @@ My OS X / Ubuntu dotfiles.
 
 ## Why is this a git repo?
 
-To keep track of these files.  Base very heavily on [Cowboy](https://github.com/cowboy)'s recommendation.
+To keep track of these files.  My dotfiles are based very heavily on [Cowboy](https://github.com/cowboy)'s [dotfiles](https://github.com/cowboy/dotfiles).
 
 That command is [dotfiles][dotfiles], and this is my "dotfiles" Git repo.
 
@@ -32,21 +32,15 @@ Note:
 ## Installation
 ### OS X Notes
 
-* On OS X, we'll let boxen take care of the install.
+* On OS X, we'll let [my-boxen](https://github.com/evanchiu/my-boxen) take care of the install.
 * You need to be an administrator (for `sudo`).
-* You need to have installed [XCode](https://developer.apple.com/downloads/index.action?=xcode) or, at the very minimum, the [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a _much smaller_ download, thank you, XCode.
+* You need [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools) or a full installation of [XCode](https://developer.apple.com/downloads/index.action?=xcode). Running `git` on the command line triggers OS X to offer an automatic install of XCode Command Line Tools.
 
 ### Ubuntu Notes
 
 * You need to be an administrator (for `sudo`).
 
 ### Actual Installation
-
-```sh
-bash -c "$(curl -fsSL https://tiny.cc/evan-dotfiles)" && source ~/.bashrc
-```
-
-If, for some reason, [tiny.cc](http://tiny.cc) is down, you can use the canonical URL.
 
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/evanchiu/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
@@ -57,6 +51,7 @@ A whole bunch of things will be installed, but _only_ if they aren't already.
 
 ### Ubuntu
 * APT packages
+  * dnsutils
   * git (latest from git-core)
   * git-extras
   * nmap
@@ -84,4 +79,5 @@ In addition to the aforementioned [dotfiles][dotfiles] script, there are a few o
 
 ## License
 Copyright (c) 2014 Evan Chiu
-Licensed under the MIT license.
+
+Licensed under the MIT license

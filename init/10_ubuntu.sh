@@ -15,6 +15,7 @@ sudo apt-get -qq dist-upgrade
 
 # Install APT packages.
 packages=(
+  dnsutils
   tree
   nmap
 )
