@@ -12,22 +12,22 @@
 	url = git://github.com/isaacs/nave.git
 [submodule "rbenv-vars"]
 	path = link/.rbenv/plugins/rbenv-vars
-	url = https://github.com/sstephenson/rbenv-vars.git
+	url = git://github.com/sstephenson/rbenv-vars.git
 [submodule "ruby-build"]
 	path = link/.rbenv/plugins/ruby-build
-	url = https://github.com/sstephenson/ruby-build.git
+	url = git://github.com/sstephenson/ruby-build.git
 [submodule "rbenv-default-gems"]
 	path = link/.rbenv/plugins/rbenv-default-gems
-	url = https://github.com/sstephenson/rbenv-default-gems.git
+	url = git://github.com/sstephenson/rbenv-default-gems.git
 [submodule "rbenv-gem-rehash"]
 	path = link/.rbenv/plugins/rbenv-gem-rehash
-	url = https://github.com/sstephenson/rbenv-gem-rehash.git
+	url = git://github.com/sstephenson/rbenv-gem-rehash.git
 [submodule "rbenv-whatis"]
 	path = link/.rbenv/plugins/rbenv-whatis
-	url = https://github.com/rkh/rbenv-whatis.git
+	url = git://github.com/rkh/rbenv-whatis.git
 [submodule "rbenv-use"]
 	path = link/.rbenv/plugins/rbenv-use
-	url = https://github.com/rkh/rbenv-use.git
+	url = git://github.com/rkh/rbenv-use.git
 [submodule "rbenv-update"]
 	path = link/.rbenv/plugins/rbenv-update
-	url = https://github.com/cowboy/rbenv-update.git
+	url = git://github.com/rkh/rbenv-update.git
