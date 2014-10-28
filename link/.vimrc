@@ -125,10 +125,10 @@ nnoremap <C-S-L> <C-W>L
 nnoremap <C-S-H> <C-W>H
 
 " Buffer navigation
-nnoremap <leader>b :CtrlPBuffer<CR>
-map <Leader>, <C-^>
-map gb :bnext<CR>
-map gB :bprev<CR>
+nnoremap <leader>b :CtrlPBuffer<CR> " List other buffers
+map <leader><leader> <C-^> " Switch between the last two files
+map gb :bnext<CR> " Next buffer
+map gB :bprev<CR> " Prev buffer
 
 " Jump to buffer number (<N>gb)
 let c = 1
@@ -136,9 +136,6 @@ while c <= 99
   execute "nnoremap " . c . "gb :" . c . "b\<CR>"
   let c += 1
 endwhile
-
-" Switch between the last two files
-nnoremap <leader><leader> <C-^>
 
 " Fix page up and down
 map <PageUp> <C-U>
