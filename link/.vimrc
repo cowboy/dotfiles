@@ -1,9 +1,3 @@
-" Auto-reload vimrc
-augroup reload_vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
-
 " Change mapleader
 let mapleader=","
 
@@ -13,10 +7,6 @@ nnoremap ; :
 " Move more naturally up/down when wrapping is enabled.
 nnoremap j gj
 nnoremap k gk
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :edit $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " Disable arrow keys
 nnoremap <Left> :echoe "Use h"<CR>
@@ -53,9 +43,6 @@ set laststatus=2 " Always show status line
 " Toggle between absolute and relative line numbers
 augroup relative_numbers
   autocmd!
-  " Show absolute numbers when vim loses focus
-  autocmd FocusLost *   :set norelativenumber
-  autocmd FocusGained * :set relativenumber
   " Show absolute numbers in insert mode
   autocmd InsertEnter * :set norelativenumber
   autocmd InsertLeave * :set relativenumber
@@ -113,27 +100,24 @@ set splitbelow " New split goes below
 set splitright " New split goes right
 
 " Ctrl-J/K/L/H select split
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Ctrl-Shift-J/K/L/H move current window
-nnoremap <C-S-J> <C-W>J
-nnoremap <C-S-K> <C-W>K
-nnoremap <C-S-L> <C-W>L
-nnoremap <C-S-H> <C-W>H
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
 
 " Buffer navigation
 nnoremap <leader>b :CtrlPBuffer<CR> " List other buffers
-map <leader><leader> <C-^> " Switch between the last two files
+map <leader><leader> :b#<CR> " Switch between the last two files
 map gb :bnext<CR> " Next buffer
 map gB :bprev<CR> " Prev buffer
 
-" Jump to buffer number (<N>gb)
+" Jump to buffer number 1-9 with ,<N> or 1-99 with <N>gb
 let c = 1
 while c <= 99
-  execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+  if c < 10
+    execute "nnoremap <silent> <leader>" . c . " :" . c . "b<CR>"
+  endif
+  execute "nnoremap <silent> " . c . "gb :" . c . "b<CR>"
   let c += 1
 endwhile
 
@@ -158,7 +142,22 @@ augroup vimrcEx
     \ endif
 augroup END
 
-" FILE TYPES
+" F12: Source .vimrc & .gvimrc files
+nmap <F12> :call SourceConfigs()<CR>
+
+if !exists("*SourceConfigs")
+  function! SourceConfigs()
+    let files = ".vimrc"
+    source $MYVIMRC
+    if has("gui_running")
+      let files .= ", .gvimrc"
+      source $MYGVIMRC
+    endif
+    echom "Sourced " . files
+  endfunction
+endif
+
+"" FILE TYPES
 augroup file_types
   autocmd!
 
@@ -177,6 +176,9 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#fnamecollapse = 0
 "let g:airline#extensions#tabline#fnamemod = ':t'
 
+" Signify
+let g:signify_vcs_list = ['git', 'hg', 'svn']
+
 " CtrlP.vim
 map <leader>p <C-P>
 map <leader>r :CtrlPMRUFiles<CR>
@@ -189,11 +191,14 @@ let g:indent_guides_guide_size = 1
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-sensible'
 Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mhinz/vim-signify'
 call plug#end()
-

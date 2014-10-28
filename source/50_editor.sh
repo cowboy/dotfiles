@@ -10,5 +10,5 @@ fi
 export VISUAL="$EDITOR"
 alias q="$EDITOR"
 alias q.="q ."
-alias qv="q ~/.vimrc"
-alias qs="mvim +'cd $DOTFILES'"
+alias qv="q $DOTFILES/link/.{,g}vimrc"
+alias qs="q +'cd $DOTFILES'"
