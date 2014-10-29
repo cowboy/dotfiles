@@ -85,9 +85,9 @@ function prompt_menu() {
 function _prompt_menu_iter() {
   local i sel state
   local fn=$1; shift
-  for i in ${!menu_options[@]}; do
+  for i in "${!menu_options[@]}"; do
     state=0
-    for sel in ${menu_selects[@]}; do
+    for sel in "${menu_selects[@]}"; do
       [[ "$sel" == "${menu_options[i]}" ]] && state=1 && break
     done
     $fn $state $i "$@"
