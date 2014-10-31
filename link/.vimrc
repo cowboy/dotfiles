@@ -8,12 +8,6 @@ nnoremap ; :
 nnoremap j gj
 nnoremap k gk
 
-" Disable arrow keys
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
 " Local dirs
 set backupdir=$DOTFILES/caches/vim
 set directory=$DOTFILES/caches/vim
