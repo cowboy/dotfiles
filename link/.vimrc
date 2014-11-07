@@ -205,6 +205,9 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let NERDTreeShowHidden = 1
 let NERDTreeMouseMode = 2
 let NERDTreeMinimalUI = 1
+" Open automatically if no files were specified on the CLI.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <leader>n :NERDTreeToggle<CR>
 
 " Signify
