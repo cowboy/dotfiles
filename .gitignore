@@ -1,3 +1,4 @@
+bin/node_modules
 caches/
 backups/
 link/.ssh/authorized_keys

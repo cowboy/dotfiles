@@ -1,0 +1,11 @@
+{
+  "name": "dotfiles-bin",
+  "description": "Shell scripts, useful tools",
+  "version": "0.0.1",
+  "author": "Evan Chiu <evan@evanchiu.com>",
+  "repository": "https://github.com/evanchiu/dotfiles/bin",
+  "readme": "Each tool has it's own help",
+  "dependencies": {
+    "minimist": "*"
+  }
+}
