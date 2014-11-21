@@ -6,6 +6,7 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
+  ansible
   bash
   cowsay
   git

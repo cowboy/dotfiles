@@ -245,5 +245,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'mhinz/vim-signify'
 Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'chase/vim-ansible-yaml'
 Plug 'wavded/vim-stylus'
 call plug#end()
