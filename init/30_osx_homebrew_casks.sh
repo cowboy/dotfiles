@@ -49,6 +49,8 @@ casks=(
   totalfinder
   tower
   transmission-remote-gui
+  vagrant
+  virtualbox
   vlc
   # Quick Look plugins
   betterzipql
