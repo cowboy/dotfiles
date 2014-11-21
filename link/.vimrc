@@ -222,6 +222,9 @@ map <leader>r :CtrlPMRUFiles<CR>
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
+" Mustache/handlebars
+let g:mustache_abbreviations = 1
+
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
@@ -233,10 +236,14 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'mhinz/vim-signify'
+Plug 'mattn/emmet-vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'wavded/vim-stylus'
 call plug#end()
