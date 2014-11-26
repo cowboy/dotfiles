@@ -19,8 +19,8 @@ createNewTag(){
     git push --tags
 }
 
-alias gpl="git pull origin master" # pull latest from master
-alias gps="git push origin master" # push to master
+alias gpl="git pull origin master" # pull latest 
+alias gps="git push origin master" # push 
 alias gcm="git checkout master" # checkout master
 alias gs="git status" # git status
 alias gt="git fetch --tags ; git tag | sort -V" #fetch new tags and show current tags
@@ -34,3 +34,6 @@ alias gtap=createNewTag #get tags, increment a new tag
 alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
 alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
 alias apre="sudo service apache2 reload"
+
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
