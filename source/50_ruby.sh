@@ -1,8 +1,12 @@
-export PATH
-
 # rbenv init.
-PATH="$(path_remove $DOTFILES/vendor/rbenv/bin):$DOTFILES/vendor/rbenv/bin"
+PATH=$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin
+export PATH
+export RBENV_ROOT=/usr/local/var/rbenv
 
-if [[ "$(type -P rbenv)" && ! "$(type -t _rbenv)" ]]; then
-  eval "$(rbenv init -)"
-fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+alias r="rails"
+alias kd="knife digital_ocean"
+alias kb="knife bootstrap"
+alias kl="knife linode"
+alias cg="chef generate"

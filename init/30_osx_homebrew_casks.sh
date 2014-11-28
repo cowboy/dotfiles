@@ -18,35 +18,34 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 
 # Homebrew casks
 casks=(
-  # Applications
   a-better-finder-rename
   bettertouchtool
+  betterzipql
   charles
   chromium
   chronosync
+  colorpicker-developer
+  colorpicker-skalacolor
+  crashlytics
   dropbox
   fastscripts
   firefox
   google-chrome
   gyazo
+  handbrake
   hex-fiend
+  hockeyapp
+  imageoptim
   istat-menus
   iterm2
+  kaleidoscope
+  launchrocket
+  licecap
   macvim
+  mou
+  mplayer
   omnidisksweeper
-  race-for-the-galaxy
-  reaper
-  sonos
-  spotify
-  tower
-  sourcetree
-  transmission-remote-gui
-  vagrant
-  vagrant-manager
-  virtualbox
-  vlc
-  # Quick Look plugins
-  betterzipql
+  opera-next
   qlcolorcode
   qlmarkdown
   qlprettypatch
@@ -54,25 +53,24 @@ casks=(
   quicklook-csv
   quicklook-json
   quicknfo
-  suspicious-package
-  webp-quicklook
-  colorpicker-developer
-  colorpicker-skalacolor
-  imageoptim
-  licecap
-  opera-next
-  sublime-text
-  transmission
-  thunder
-  crashlytics
-  handbrake
-  hockeyapp
-  kaleidoscope
-  mou
-  mplayer
+  race-for-the-galaxy
+  reaper
   reveal
   sequel-pro
-  launchrocket
+  sonos
+  sourcetree
+  spotify
+  sublime-text
+  suspicious-package
+  thunder
+  tower
+  transmission
+  transmission-remote-gui
+  vagrant
+  vagrant-manager
+  virtualbox
+  vlc
+  webp-quicklook
 )
 
 # Install Homebrew casks.

@@ -1,6 +1,6 @@
 # Dotfiles
 
-My OSX / Debian dotfiles.
+My OSX dotfiles.
 
 ## About this project
 
@@ -56,7 +56,7 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 * APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
 
 #### Both
-* Node.js, npm and nave via the [init/50_node.sh](init/50_node.sh) script
+* Node.js, npm via the [init/50_node.sh](init/50_node.sh) script
 * Ruby, gems and rbenv via the [init/50_ruby.sh](init/50_ruby.sh) script
 * Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
 

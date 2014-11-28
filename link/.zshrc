@@ -1,3 +1,16 @@
+# Where the magic happens.
+export DOTFILES=$HOME/.dotfiles
+
+# Add binaries into the path
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/share/npm/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/opt/local/bin:/opt/local/sbin
+export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/Dropbox/bin
+export PATH=$DOTFILES/bin:$PATH
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -43,11 +56,16 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras github brew ruby bundler gem rails rake docker redis-cli nginx pod cp osx vagrant)
-
-source $HOME/.aliases
-source $HOME/.exports
-source $HOME/.functions
-source $HOME/.extra
+plugins=(git git-extras github brew ruby bundler gem rails rake docker redis-cli pod cp osx vagrant)
 
 source $ZSH/oh-my-zsh.sh
+
+# Source all files in "source"
+function src() {
+  local file
+  for file in $DOTFILES/source/*; do
+    source "$file"
+  done
+}
+
+src
