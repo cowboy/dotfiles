@@ -31,8 +31,6 @@ gems=(
 gems=($(setdiff "${gems[*]}" "$(gems list 2>/dev/null)"))
 if (( ${#gems[@]} > 0 )); then
   e_header "Installing Ruby gems: ${gems[*]}"
-  for gem in "${gems[@]}"; do
-    gem install --no-ri --no-doc $gem
-  done
+  gem install ${gems[*]}
   gem cleanup
 fi
