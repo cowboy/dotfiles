@@ -14,6 +14,7 @@ recipes=(
   cowsay
   ctags
   curl
+  czmq
   ffmpeg
   findutils
   fontconfig
@@ -25,6 +26,7 @@ recipes=(
   id3tool
   imagemagick
   lesspipe
+  libsodium
   lynx
   mackup
   man2html
@@ -40,7 +42,6 @@ recipes=(
   rename
   renameutils
   ruby-build
-  sl
   sqlite
   ssh-copy-id
   the_silver_searcher
@@ -49,6 +50,7 @@ recipes=(
   tree
   vim
   wget
+  zeromq
   zsh
 )
 

@@ -16,18 +16,14 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 # Homebrew casks
 casks=(
   a-better-finder-rename
-  bettertouchtool
   betterzipql
   charles
   chromium
-  chronosync
   colorpicker-developer
   colorpicker-skalacolor
   crashlytics
   dropbox
-  fastscripts
   firefox
-  google-chrome
   gyazo
   handbrake
   hex-fiend
@@ -41,7 +37,6 @@ casks=(
   macvim
   mou
   mplayer
-  omnidisksweeper
   opera-next
   qlcolorcode
   qlmarkdown
@@ -50,19 +45,14 @@ casks=(
   quicklook-csv
   quicklook-json
   quicknfo
-  race-for-the-galaxy
   reaper
   reveal
   sequel-pro
-  sonos
   sourcetree
-  spotify
   sublime-text
   suspicious-package
   thunder
   tower
-  transmission
-  transmission-remote-gui
   vagrant
   vagrant-manager
   virtualbox
