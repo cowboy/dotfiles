@@ -1,6 +1,6 @@
 # Dotfiles
 
-My OSX / Ubuntu dotfiles.
+My OSX / Debian dotfiles.
 
 ## About this project
 
@@ -101,7 +101,7 @@ Why? Because I often completely break this repo while updating. Which means that
 ```sh
 export github_user=YOUR_GITHUB_USER_NAME
 
-bash -c "$(curl -fsSL https://raw.github.com/$github_user/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://raw.github.com/$github_user/dotfiles/master/bin/dotfiles)" && source ~/.zshrc
 ```
 
 Since you'll be using the [dotfiles][dotfiles] command on subsequent runs, you'll only have to export the `github_user` variable for the initial install.
