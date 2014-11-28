@@ -32,24 +32,17 @@ casks=(
   hex-fiend
   istat-menus
   iterm2
-  launchbar
   macvim
-  moom
   omnidisksweeper
   race-for-the-galaxy
   reaper
-  remote-desktop-connection
   sonos
   spotify
-  steam
-  synology-assistant
-  teamspeak-client
-  the-unarchiver
-  todoist
-  totalfinder
   tower
+  sourcetree
   transmission-remote-gui
   vagrant
+  vagrant-manager
   virtualbox
   vlc
   # Quick Look plugins
@@ -63,9 +56,23 @@ casks=(
   quicknfo
   suspicious-package
   webp-quicklook
-  # Color pickers
   colorpicker-developer
   colorpicker-skalacolor
+  imageoptim
+  licecap
+  opera-next
+  sublime-text
+  transmission
+  thunder
+  crashlytics
+  handbrake
+  hockeyapp
+  kaleidoscope
+  mou
+  mplayer
+  reveal
+  sequel-pro
+  launchrocket
 )
 
 # Install Homebrew casks.

@@ -23,7 +23,7 @@ augroup color_scheme
   " Show trailing whitespace.
   autocmd ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
 augroup END
-colorscheme molokai
+colorscheme Tomorrow-Night
 set background=dark
 
 " Visual settings
@@ -247,4 +247,8 @@ Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'chase/vim-ansible-yaml'
 Plug 'wavded/vim-stylus'
+Plug 'vim-ruby/vim-ruby'
+Plug 'scrooloose/nerdcommenter'
+Plug 'chase/vim-ansible-yaml'
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()

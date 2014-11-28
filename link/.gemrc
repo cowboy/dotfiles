@@ -4,7 +4,7 @@
 :backtrace: false
 :bulk_threshold: 1000
 :verbose: true
-:sources: 
-- http://gemcutter.org
+:sources:
+- http://ruby.taobao.org/
 - http://gems.rubyforge.org/
 - http://gems.github.com/

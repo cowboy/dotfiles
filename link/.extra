@@ -1,0 +1,29 @@
+# PATH additions
+
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/share/npm/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+export PATH="$PATH:/usr/local/mysql/bin"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/Dropbox/bin"
+export PATH="$PATH:/usr/local/openresty/nginx/sbin"
+export PATH="$PATH:$HOME/.rbenv/shims"
+export DOCKER_HOST=tcp://localhost:4243
+
+# Add VirutalEnvs¬
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
+
+# Git credentials
+# Not in the repository, to prevent people from accidentally committing under my name
+GIT_AUTHOR_NAME="Lex Tang"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+GIT_AUTHOR_EMAIL="lexrus@gmail.com"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

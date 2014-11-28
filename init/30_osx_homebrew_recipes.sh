@@ -6,11 +6,37 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
+  ack
+  coreutils
+  moreutils
+  findutils
   ansible
+  mosh
+  axel
+  ctags
+  curl
+  ffmpeg
+  fontconfig
+  fontforge
+  mackup
+  openssl
+  python
+  qrencode
+  rbenv
+  ruby-build
+  sqlite
+  zsh
+  autojump
+  clib
+  ranger
   bash
+  bash-completion
+  wget
+  vim
   cowsay
   git
   git-extras
+  tig
   htop-osx
   hub
   id3tool
@@ -22,6 +48,8 @@ recipes=(
   ssh-copy-id
   the_silver_searcher
   tree
+  lynx
+  imagemagick
 )
 
 brew_install_recipes
