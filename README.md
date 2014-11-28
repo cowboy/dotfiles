@@ -1,4 +1,4 @@
-# `~/.dotfiles`
+# ~/.dotfiles
 
 __A fork of [cowboy/dotfiles](https://github.com/cowboy/dotfiles) focused on OS X.__
 
@@ -51,7 +51,7 @@ Because the [dotfiles][dotfiles] script is completely self-contained, you should
 
 If you modify things and notice a bug or an improvement, [file an issue](https://github.com/lexrus/dotfiles/issues) or [a pull request](https://github.com/lexrus/dotfiles/pulls) and let me know.
 
-Also, before installing, be sure to [read my gently-worded note](#heed-this-critically-important-warning-before-you-install).
+Also, before installing, be sure to [read Ben's gently-worded note](#heed-this-critically-important-warning-before-you-install).
 
 ## Installation
 
@@ -67,7 +67,7 @@ _Tested in OSX 10.10_
 
 Why? Because I often completely break this repo while updating. Which means that if I do that and you run the `dotfiles` command, your home directory will burst into flames, and you'll have to go buy a new computer. No, not really, but it will be very messy.
 
-### Actual installation (for you)
+### Actual installation
 
 1. [Read Ben's gently-worded note](#heed-this-critically-important-warning-before-you-install)
 1. Fork this repo
@@ -91,12 +91,10 @@ In addition to the aforementioned [dotfiles][dotfiles] script, there are a few o
 * Look through the [bin](bin) subdirectory for a few more.
 
 ## Inspiration
-<https://github.com/cowboy/dotfiles>
 <https://github.com/gf3/dotfiles>  
 <https://github.com/mathiasbynens/dotfiles>  
-(and 13+ years of accumulated crap)
 
-## License of [cowboy/dotfiles](https://github.com/cowboy/dotfiles)
+## License
 Copyright (c) 2014 "Cowboy" Ben Alman  
 Licensed under the MIT license.  
 <http://benalman.com/about/license/>
