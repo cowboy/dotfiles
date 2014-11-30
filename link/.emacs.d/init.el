@@ -8,12 +8,12 @@
 ; Store backups in their own directory instead of littering the
 ; whole filesystem with goddamn ~ files.
 (setq backup-by-copying t ; don't clobber symlinks
-	  backup-directory-alist
-	  '(("." . "~/.emacs.d/emacs_backups")) ; don't litter my fs tree
-	  version-control t ; use versioned numbers for backup files
-	  kept-new-versions 6 ; number of newest versions to keep
-	  kept-old-versions 2 ; number of oldest versions to keep
-	  delete-old-versions t) ; delete excess backup versions silently
+          backup-directory-alist
+          '(("." . "~/.emacs.d/emacs_backups")) ; don't litter my fs tree
+          version-control t ; use versioned numbers for backup files
+          kept-new-versions 6 ; number of newest versions to keep
+          kept-old-versions 2 ; number of oldest versions to keep
+          delete-old-versions t) ; delete excess backup versions silently
 
 ; Look and feel enhancements
 (load-library "ivanlei-lookandfeel")
@@ -28,8 +28,10 @@
 (load-library "ivanlei-cheetah")
 
 ; Puppet specific enhancements
-(load-library "puppet-syntax-emacs/puppet-mode")
-(load-library "puppet-syntax-emacs/puppet-mode-init")
+; (load-library "puppet-syntax-emacs/puppet-mode")
+; (load-library "puppet-syntax-emacs/puppet-mode-init")
 
 ; Vagrant can use ruby
 (setq auto-mode-alist (cons '("Vagrantfile$" . ruby-mode) auto-mode-alist))
+
+(setq indent-tabs-mode nil)

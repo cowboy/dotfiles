@@ -10,6 +10,13 @@
 [submodule "libs/tmux_setup"]
 	path = libs/tmux_setup
 	url = git://github.com/adnichols/tmux_setup.git
+[submodule "libs/silver_searcher"]
+	path = libs/silver_searcher
+	url = git://github.com/ggreer/the_silver_searcher.git
 [submodule "libs/puppet-syntax-emacs"]
 	path = libs/puppet-syntax-emacs
 	url = https://github.com/puppetlabs/puppet-syntax-emacs.git
+
+[submodule "libs/emacs-color-theme-solarized"]
+	path = libs/emacs-color-theme-solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git

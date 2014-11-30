@@ -9,11 +9,11 @@
   "Apply join-line over region."
   (interactive "r")
   (if mark-active
-	  (let ((beg (region-beginning))
-			(end (copy-marker (region-end))))
-		(goto-char beg)
-		(while (< (point) end)
-		  (join-line 1)))))
+          (let ((beg (region-beginning))
+                        (end (copy-marker (region-end))))
+                (goto-char beg)
+                (while (< (point) end)
+                  (join-line 1)))))
 
 (require 're-builder)
 (setq reb-re-syntax 'string)

@@ -4,5 +4,6 @@
 --ignore-dir=public/generated
 --sort-files
 --type-set=puppet=.pp
+--type-set=po=.po
 --type-set=objc=.m
 
