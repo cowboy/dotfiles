@@ -48,6 +48,7 @@ casks=(
   reaper
   reveal
   sequel-pro
+  shuttle
   sourcetree
   sublime-text
   suspicious-package
@@ -58,6 +59,7 @@ casks=(
   virtualbox
   vlc
   webp-quicklook
+  xiami
 )
 
 # Install Homebrew casks.
