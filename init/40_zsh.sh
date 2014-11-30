@@ -3,3 +3,6 @@
 
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 chsh -s `which zsh`
+
+command -v zsh | sudo tee -a /etc/shells
+chsh -s "$(command -v zsh)" "${USER}"
