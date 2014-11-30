@@ -51,6 +51,16 @@ function prompt_git() {
   echo "$c1[$c0$output$c1]$c9"
 }
 
+# Determine active Python virtualenv details.
+function prompt_virtualenv() {
+  [ -z "$VIRTUAL_ENV" ] && return
+  prompt_getcolors
+  local status output
+  status="$(basename $VIRTUAL_ENV 2>/dev/null)"
+  output="$(echo "$status")"
+  echo "$c1($c0$output$c1)$c9"
+}
+
 # Maintain a per-execution call stack.
 prompt_stack=()
 trap 'prompt_stack=("${prompt_stack[@]}" "$BASH_COMMAND")' DEBUG
@@ -71,6 +81,8 @@ function prompt_command() {
   prompt_getcolors
   # http://twitter.com/cowboy/status/150254030654939137
   PS1="\n"
+  # virtualenv: [env]
+  PS1="$PS1$(prompt_virtualenv)"  
   # git: [branch:flags]
   PS1="$PS1$(prompt_git)"
   # path: [user@host:path]

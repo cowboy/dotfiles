@@ -15,5 +15,9 @@ eval "$(lesspipe.sh)"
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
 
 export VAGRANT_HOME=/vms/.vagrant.d
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+#export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 alias puppet="puppet --confdir /vms/.puppet"
+
+export WORKON_HOME="$HOME/virtual_envs/"
+source "/usr/local/bin/virtualenvwrapper.sh"
+export SECURITY_MONKEY_SETTINGS="$HOME/security_monkey/env-config/config-local.py"
