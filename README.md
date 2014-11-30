@@ -74,8 +74,7 @@ Why? Because I often completely break this repo while updating. Which means that
 1. Open a terminal/shell and do this:
 
 ```sh
-cd ~;git clone https://github.com/lexrus/dotfiles.git .dotfiles
-.dotfiles/bin/dotfiles
+export github_user=lexrus && bash -c "$(curl -fsSL https://raw.github.com/$github_user/dotfiles/master/bin/dotfiles)" && source ~/.zshrc
 ```
 
 There's a lot of stuff that requires admin access via `sudo`, so be warned that you might need to enter your password here or there.
