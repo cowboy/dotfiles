@@ -1,0 +1,7 @@
+#!/bin/bash
+ispdns='202.96.209.5'
+for (( i=0; i<25; i++ ))
+do
+   curl -s "http://www.alexa.com/topsites/countries;$i/CN" | grep "small topsites-label"  | \
+   sed -e "s#.*>\([^ ]*\)<.*#server=/\1/$ispdns#g"
+done

@@ -1,0 +1,20 @@
+#!/bin/bash
+# sudo chmod +x tc;sudo mv tc /usr/bin
+if [[ -z "$1" ]]
+then
+	printf %s "\
+Nifty Timestamp Convertor by Lex Tang
+tc 2012/12/12
+tc 1355283413
+"
+exit
+fi
+
+if [[ "$1" == *"/"* ]]
+then
+	s=$(date -j -f "%Y/%m/%d" "$1" "+%s")
+else
+	s=$(ruby -e "puts Time.at($1).strftime('%Y-%m-%d %H:%M:%S %z')")
+fi
+echo $s
+echo $s | pbcopy

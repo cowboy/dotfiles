@@ -1,0 +1,250 @@
+#!/usr/bin/env bash
+
+help () {
+    cat << HELP
+USAGE: $(basename $0) [OPTIONS]..
+
+OPTIONS:
+              --open|-o   opens your .ssh/config file with your \$EDITOR. OVERRIDES other commands
+              --list|-l   dumps your ssh file to stdout. OVERRIDES other commands
+
+              --name|-n   Config name (required) the alias for the ssh command
+              --host|-h   Hostname (required)
+              --user|-u   Username (optional) for remote host. 
+                          If not provided then current user is assumed
+              --port|-p   Port (optional) port 22 assumed
+          --identity|-i   Identityfile (optional)
+               --x11|-x   Forward X11
+     --local-command|-c   LocalCommand Execute localcommand when connecting
+     --local-forward|-f   Local forward (optional)
+                          in the format: 3601:localhost:3601 (remote:host:local)
+                          Supports multiple additions
+    --remote-forward|-r   Remote forward (optional)
+                          in the format: 3600:locahost:3601 (local:host:remote)
+                          Supports multiple additions
+HELP
+}
+
+error () {
+    printf "$(tput setab 1; tput setaf 7)[!] %b$(tput sgr0)\n" "$@" 1>&2
+}
+
+success() {
+    printf "$(tput setab 2; tput setaf 7)☺ Your new ssh config is ready to rock!\n$(tput sgr0)"
+}
+
+open_it() {
+    $EDITOR "$config_file"
+    exit 0
+}
+
+dump_it() {
+    printf "\n%b\n\n" "$(cat $config_file)"
+    exit 0
+}
+
+check_host_file() {
+    if [ ! -f "$config_file" ]; then
+        touch "$config_file" > /dev/null
+        chmod 700 "$config_file" > /dev/null
+    fi
+}
+
+make_host() {
+    if [ -z $name ] || [ -z $host ]; then
+        error "Name and Host must be set"
+        exit 1
+    fi
+
+    if [ -z $user ]; then
+        user=$(whoami)
+    fi
+
+    if [ -z $port ]; then
+        port=22
+    fi
+
+    check_host_file
+
+    if [ $(grep -ciE "^host $name$" "$config_file") -gt 0 ]; then
+        error "host $name already exists in $config_file - not creating"
+        exit 1
+    fi
+
+    line="\n\nhost $name\n\thostname $host\n\tuser $user\n\tport $port\n"
+
+    if [ ! -z $xeleven ] && [ $xeleven -eq 1 ]; then
+        line="${line}\tForwardX11 yes\n"
+    fi
+
+    if [ ! -z "$local_command" ]; then
+        line="${line}\tLocalCommand $local_command\n"
+    fi
+
+    if [ ! -z $identity ]; then
+        if [ -f "$identity" ] || [ -f "$HOME/.ssh/$identity" ]; then
+            line="${line}IdentityFile $identity\n"
+        else
+            error "Identity file $identity not found"
+            exit 1
+        fi
+    fi
+
+    if [ ! -z $local_forwards ] && [ ${#local_forwards[@]} -gt 0 ]; then
+        for j in "${local_forwards[@]}"; do
+            next="$(echo "$j" | sed -e 's/:/ /')"
+
+            if [ -z "$next" ]; then
+                error "Couldn't make sense of $j Exiting..."
+                exit 1
+            fi
+
+            forward="${forward}\tLocalForward $next\n"
+        done
+
+        line="${line}$forward"
+        unset j
+        unset forward
+    fi
+
+    if [ ! -z $remote_forwards ] && [ ${#remote_forwards[@]} -gt 0 ]; then
+        for k in "${local_forwards[@]}"; do
+            next="$(echo "$k" | sed -e 's/:/ /')"
+
+            if [ -z "$next" ]; then
+                error "Couldn't make sense of $k Exiting..."
+                exit 1
+            fi
+
+            forward="${forward}\tRemoteForward $next\n"
+        done
+
+        line="${line}$forward"
+        unset k
+        unset forward
+    fi
+
+
+
+    printf "%b\n" "$line" >> "$config_file" && success
+}
+
+check_arg() {
+    if [ -z "$1" ]; then
+        error "$2 expected value"
+        exit 1
+    fi
+
+    if [[ "$1" =~ ^- ]]; then
+        error "$2 expected value"
+        exit 1
+    fi
+}
+
+parse_args () {
+    while [ ! -z "$1" ]; do
+        case "$1" in
+
+            --list|-l )
+                list=1
+                shift
+                ;;
+
+            --open|-o )
+                open=1
+                shift
+                ;;
+
+            --name|-n )
+                shift
+                check_arg "$1" "--name"
+                name="$1"
+                shift
+                ;;
+
+            --host|-h )
+                shift
+                check_arg "$1" "--host"
+                host="$1"
+                shift
+                ;;
+
+            --user|-u )
+                shift
+                check_arg "$1" "--user"
+                user="$1"
+                shift
+                ;;
+
+            --port|-p )
+                shift
+                check_arg "$1" "--port"
+                port="$1"
+                shift
+                ;;
+
+            --identity|-i )
+                shift
+                check_arg "$1" "--identity"
+                identity="$1"
+                shift
+                ;;
+
+            --x11|-x )
+                xeleven=1
+                shift
+                ;;
+
+            --local-command|-c )
+                shift
+                check_arg "$1" "--local-command"
+                local_command="$1"
+                shift
+                ;;
+
+
+            --local-forward|-f )
+                shift
+                check_arg "$1" "--local-forward"
+                local_forwards=("${local_forwards[@]}" "$1")
+                shift
+                ;;
+
+            --remote-forward|-r )
+                shift
+                check_arg "$1" "--remote-forward"
+                remote_forwards=("${remote_forwards[@]}" "$1")
+                shift
+                ;;
+
+            * )
+                error "$1 not recognized as a command"
+                exit 1
+                ;;
+
+        esac
+    done
+
+    if [ ! -z $open ] && [ $open -eq 1 ]; then
+        open_it
+    fi
+
+    if [ ! -z $list ] && [ $list -eq 1 ]; then
+        dump_it
+    fi
+
+    make_host
+}
+
+main () {
+    if [ -z $1 ]; then
+        help
+        exit 1
+    fi
+
+    local config_file="$HOME/.ssh/config"
+
+    parse_args "$@"
+}
+
+main "$@"
