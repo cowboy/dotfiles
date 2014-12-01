@@ -4,11 +4,11 @@
 # Homebrew recipes
 recipes=(
   ack
-  ansible
   autojump
   axel
   bash
   bash-completion
+  bup
   clib
   coreutils
   cowsay
