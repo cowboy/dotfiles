@@ -17,6 +17,9 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
+# Dump all key map
+alias keymapdict="plutil -convert xml1 /System/Library/Frameworks/AppKit.framework/Resources/StandardKeyBinding.dict -o -|pl|grep -v noop:|ruby -pe '\$_.gsub!(/[^ -~\n]/){\"\\U%04x\"%\$&.ord}'|sed 's/  / /g'"
+
 # Speed Up Terminal
 alias dsyslog="sudo rm -rf /private/var/log/asl/*.asl"
 
