@@ -32,6 +32,7 @@ casks=(
   istat-menus
   iterm2
   kaleidoscope
+  karabiner
   launchrocket
   licecap
   macvim
@@ -47,6 +48,7 @@ casks=(
   quicknfo
   reaper
   reveal
+  seil
   sequel-pro
   shuttle
   sourcetree
