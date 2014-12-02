@@ -52,7 +52,7 @@ casks=(
   sequel-pro
   shuttle
   sourcetree
-  sublime-text
+  sublime-text3
   suspicious-package
   thunder
   tower

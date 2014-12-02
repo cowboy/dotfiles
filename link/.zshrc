@@ -10,6 +10,7 @@ export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/Dropbox/bin
 export PATH=$DOTFILES/bin:$PATH
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
