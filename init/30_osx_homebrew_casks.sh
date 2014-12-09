@@ -39,6 +39,7 @@ casks=(
   mou
   mplayer
   opera-next
+  provisioning
   qlcolorcode
   qlmarkdown
   qlprettypatch
