@@ -3,28 +3,29 @@
 
 # Ruby gems
 gems=(
-  xcodeproj
-  xcoder
-  liftoff
-  crafter
-  xcpretty
-  xclisten
   bwoken
-  cocoapods
-  twine
   cocoadex
-  nomad-cli
+  cocoapods
+  crafter
+  deliver
+  docstat
+  frameit
   fui
   htty
-  docstat
-  synx
+  jekyll
+  liftoff
   mayday
-  deliver
-  sigh
+  nomad-cli
   pem
-  frameit
+  sigh
   snapshot
   storyboardlint
+  synx
+  twine
+  xclisten
+  xcodeproj
+  xcoder
+  xcpretty
 )
 
 # Install Ruby gems.
