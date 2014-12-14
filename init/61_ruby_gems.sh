@@ -18,6 +18,7 @@ gems=(
   nomad-cli
   pem
   sigh
+  slather
   snapshot
   storyboardlint
   synx
