@@ -18,6 +18,7 @@ libs=(
   scipy
   scrapy
   shadowsocks
+  sphinx
   sqlalchemy
   stormssh
   tornado
