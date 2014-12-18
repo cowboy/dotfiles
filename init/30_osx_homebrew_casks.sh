@@ -24,6 +24,7 @@ casks=(
   crashlytics
   dropbox
   firefox
+  flux
   gyazo
   handbrake
   hex-fiend
