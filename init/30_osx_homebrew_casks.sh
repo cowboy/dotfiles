@@ -55,6 +55,7 @@ casks=(
   shuttle
   sourcetree
   sublime-text3
+  sketch-toolbox
   suspicious-package
   thunder
   tower
