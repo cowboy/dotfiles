@@ -23,6 +23,7 @@ gems=(
   storyboardlint
   synx
   twine
+  veewee
   xclisten
   xcodeproj
   xcoder
