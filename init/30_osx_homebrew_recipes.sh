@@ -49,6 +49,7 @@ recipes=(
   tmux
   tree
   vim
+  weighttp
   wget
   zeromq
   zsh
