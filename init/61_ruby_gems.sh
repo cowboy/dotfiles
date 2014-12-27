@@ -14,6 +14,7 @@ gems=(
   htty
   jekyll
   liftoff
+  lunchy
   mayday
   nomad-cli
   pem
