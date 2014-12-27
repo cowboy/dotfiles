@@ -6,5 +6,4 @@
 :verbose: true
 :sources:
 - http://ruby.taobao.org/
-# - http://gems.rubyforge.org/
-# - http://gems.github.com/
+- https://rubygems.org/
