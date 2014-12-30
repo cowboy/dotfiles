@@ -25,6 +25,7 @@ recipes=(
   hub
   id3tool
   imagemagick
+  legit
   lesspipe
   libsodium
   lynx
