@@ -251,3 +251,7 @@ function o() {
 function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+# gitignore.io see https://www.gitignore.io/docs#install-command-line-osx
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
