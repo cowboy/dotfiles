@@ -53,6 +53,7 @@ casks=(
   seil
   sequel-pro
   shuttle
+  simpholders-2-alpha
   sourcetree
   sublime-text3
   sketch-toolbox
