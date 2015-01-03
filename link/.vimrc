@@ -9,10 +9,12 @@ nnoremap j gj
 nnoremap k gk
 
 " Local dirs
-set backupdir=$DOTFILES/caches/vim
-set directory=$DOTFILES/caches/vim
-set undodir=$DOTFILES/caches/vim
-let g:netrw_home = expand('$DOTFILES/caches/vim')
+if !has('win32')
+  set backupdir=$DOTFILES/caches/vim
+  set directory=$DOTFILES/caches/vim
+  set undodir=$DOTFILES/caches/vim
+  let g:netrw_home = expand('$DOTFILES/caches/vim')
+endif
 
 " Theme / Syntax highlighting
 augroup color_scheme
@@ -23,6 +25,8 @@ augroup color_scheme
   " Show trailing whitespace.
   autocmd ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
 augroup END
+
+if has('win32') | let g:molokai_italic=0 | endif
 colorscheme molokai
 set background=dark
 
@@ -64,7 +68,11 @@ set expandtab " Expand tabs to spaces
 set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command.
 
 " Toggle show tabs and trailing spaces (,c)
-set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:>,precedes:<
+if has('win32')
+  set listchars=tab:>\ ,trail:.,eol:$,nbsp:_,extends:>,precedes:<
+else
+  set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:>,precedes:<
+endif
 "set listchars=tab:>\ ,trail:.,eol:$,nbsp:_,extends:>,precedes:<
 "set fillchars=fold:-
 nnoremap <silent> <leader>v :call ToggleInvisibles()<CR>
