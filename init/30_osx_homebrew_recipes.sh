@@ -4,6 +4,7 @@
 # Homebrew recipes
 recipes=(
   ack
+  atool
   autojump
   axel
   bash
@@ -15,6 +16,7 @@ recipes=(
   ctags
   curl
   czmq
+  exiftool
   ffmpeg
   findutils
   fontconfig
@@ -50,6 +52,7 @@ recipes=(
   tmux
   tree
   vim
+  w3m
   weighttp
   wget
   zeromq
