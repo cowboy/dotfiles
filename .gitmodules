@@ -4,3 +4,15 @@
 [submodule "libs/git-extras"]
 	path = libs/git-extras
 	url = git://github.com/visionmedia/git-extras.git
+[submodule "libs/vim-airline"]
+	path = libs/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "libs/vim-pathogen"]
+	path = libs/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule "libs/vim-fugitive"]
+	path = libs/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "libs/fonts"]
+	path = libs/fonts
+	url = https://github.com/powerline/fonts

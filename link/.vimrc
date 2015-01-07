@@ -5,6 +5,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Pathogen, vim module management
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Start pathogen
+execute pathogen#infect()
+" Airline configuration
+set laststatus=2
+let g:airline_powerline_fonts = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set to auto read when a file is changed from the outside
