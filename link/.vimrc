@@ -189,6 +189,9 @@ augroup file_types
   " vim
   autocmd BufRead .vimrc,*.vim set keywordprg=:help
 
+  " markdown
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
 augroup END
 
 " PLUGINS
