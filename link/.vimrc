@@ -237,6 +237,11 @@ let g:indent_guides_guide_size = 1
 " Mustache/handlebars
 let g:mustache_abbreviations = 1
 
+" Multiple cursors
+highlight Visual guibg=#00588A
+highlight link multiple_cursors_cursor Search
+highlight link multiple_cursors_visual Visual
+
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
