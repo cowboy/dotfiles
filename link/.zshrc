@@ -1,3 +1,5 @@
+export LANG=en_US.UTF-8
+
 # Where the magic happens.
 export DOTFILES=$HOME/.dotfiles
 
