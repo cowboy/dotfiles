@@ -205,10 +205,22 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let NERDTreeShowHidden = 1
 let NERDTreeMouseMode = 2
 let NERDTreeMinimalUI = 1
-" Open automatically if no files were specified on the CLI.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <leader>n :NERDTreeToggle<CR>
+
+augroup NERDTree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  " If no file or directory arguments are specified, open NERDtree.
+  " If a directory is specified as the only argument, open it in NERDTree.
+  autocmd VimEnter *
+    \ if argc() == 0 && !exists("s:std_in") |
+    \   NERDTree |
+    \ elseif argc() == 1 && isdirectory(argv(0)) |
+    \   bd |
+    \   exec 'cd' fnameescape(argv(0)) |
+    \   NERDTree |
+    \ end
+augroup END
 
 " Signify
 let g:signify_vcs_list = ['git', 'hg', 'svn']
