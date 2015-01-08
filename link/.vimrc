@@ -275,4 +275,5 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'chase/vim-ansible-yaml'
 Plug 'wavded/vim-stylus'
 Plug 'klen/python-mode', {'for': 'python'}
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
