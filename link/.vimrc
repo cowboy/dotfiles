@@ -24,6 +24,10 @@ augroup color_scheme
   autocmd ColorScheme * :hi SpecialKey ctermfg=236
   " Show trailing whitespace.
   autocmd ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
+  " Make selection more visible.
+  autocmd ColorScheme * :hi Visual guibg=#00588A
+  autocmd ColorScheme * :hi link multiple_cursors_cursor Search
+  autocmd ColorScheme * :hi link multiple_cursors_visual Visual
 augroup END
 
 if has('win32') | let g:molokai_italic=0 | endif
@@ -247,11 +251,6 @@ let g:indent_guides_guide_size = 1
 
 " Mustache/handlebars
 let g:mustache_abbreviations = 1
-
-" Multiple cursors
-highlight Visual guibg=#00588A
-highlight link multiple_cursors_cursor Search
-highlight link multiple_cursors_visual Visual
 
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
