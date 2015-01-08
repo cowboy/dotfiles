@@ -83,6 +83,7 @@ let s:TYPE = {
 \   'funcref': type(function('call'))
 \ }
 let s:loaded = get(s:, 'loaded', {})
+let s:triggers = get(s:, 'triggers', {})
 
 function! plug#begin(...)
   if a:0 > 0
@@ -99,6 +100,7 @@ function! plug#begin(...)
   let g:plug_home = home
   let g:plugs = {}
   let g:plugs_order = []
+  let s:triggers = {}
 
   call s:define_commands()
   return 1
@@ -156,6 +158,7 @@ function! plug#end()
     endif
 
     if has_key(plug, 'on')
+      let s:triggers[name] = { 'map': [], 'cmd': [] }
       for cmd in s:to_a(plug.on)
         if cmd =~ '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
@@ -166,10 +169,14 @@ function! plug#end()
               \ mode, cmd, map_prefix, string(cmd), string(name), key_prefix)
             endfor
           endif
-        elseif !exists(':'.cmd)
-          execute printf(
-          \ 'command! -nargs=* -range -bang %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
-          \ cmd, string(cmd), string(name))
+          call add(s:triggers[name].map, cmd)
+        elseif cmd =~ '^[A-Z]'
+          if exists(':'.cmd) != 2
+            execute printf(
+            \ 'command! -nargs=* -range -bang %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
+            \ cmd, string(cmd), string(name))
+          endif
+          call add(s:triggers[name].cmd, cmd)
         endif
       endfor
     endif
@@ -324,8 +331,23 @@ function! plug#load(...)
   return 1
 endfunction
 
+function! s:remove_triggers(name)
+  if !has_key(s:triggers, a:name)
+    return
+  endif
+  for cmd in s:triggers[a:name].cmd
+    execute 'delc' cmd
+  endfor
+  for map in s:triggers[a:name].map
+    execute 'unmap' map
+    execute 'iunmap' map
+  endfor
+  call remove(s:triggers, a:name)
+endfunction
+
 function! s:lod(names, types)
   for name in a:names
+    call s:remove_triggers(name)
     let s:loaded[name] = 1
   endfor
   call s:reorg_rtp()
@@ -346,14 +368,11 @@ function! s:lod_ft(pat, names)
 endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, name)
-  execute 'delc' a:cmd
   call s:lod([a:name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
 function! s:lod_map(map, name, prefix)
-  execute 'unmap' a:map
-  execute 'iunmap' a:map
   call s:lod([a:name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   let extra = ''
   while 1
@@ -633,7 +652,7 @@ function! s:finish(pull)
   if !empty(s:update.errors)
     call add(msgs, "Press 'R' to retry.")
   endif
-  if a:pull && !empty(filter(getline(5, '$'),
+  if a:pull && len(s:update.new) < len(filter(getline(5, '$'),
                 \ "v:val =~ '^- ' && stridx(v:val, 'Already up-to-date') < 0"))
     call add(msgs, "Press 'D' to see the updated changes.")
   endif
@@ -676,7 +695,7 @@ function! s:update_impl(pull, force, args) abort
     try
       call mkdir(g:plug_home, 'p')
     catch
-      return s:err(printf('Invalid plug directory: %s.'
+      return s:err(printf('Invalid plug directory: %s. '.
               \ 'Try to call plug#begin with a valid directory', g:plug_home))
     endtry
   endif
@@ -752,20 +771,18 @@ function! s:job_abort()
       call system('rm -rf ' . s:shellesc(g:plugs[name].dir))
     endif
   endfor
-  let s:jobs     = {}
-  let s:jobs_idx = {}
+  let s:jobs = {}
 endfunction
 
-function! s:job_handler() abort
+function! s:job_handler(name) abort
   if !s:plug_window_exists() " plug window closed
     return s:job_abort()
   endif
 
-  let name = get(s:jobs_idx, v:job_data[0], '')
-  if empty(name) " stale task
+  if !has_key(s:jobs, a:name)
     return
   endif
-  let job = s:jobs[name]
+  let job = s:jobs[a:name]
 
   if v:job_data[1] == 'exit'
     let job.running = 0
@@ -773,14 +790,14 @@ function! s:job_handler() abort
       let job.error = 1
       let job.result = substitute(job.result, "Error[\r\n]$", '', '')
     endif
-    call s:reap(name)
+    call s:reap(a:name)
     call s:tick()
   else
     let job.result .= s:to_s(v:job_data[2])
     " To reduce the number of buffer updates
     let job.tick = get(job, 'tick', -1) + 1
     if job.tick % len(s:jobs) == 0
-      call s:log(job.new ? '+' : '*', name, job.result)
+      call s:log(job.new ? '+' : '*', a:name, job.result)
     endif
   endif
 endfunction
@@ -795,10 +812,9 @@ function! s:spawn(name, cmd, opts)
             \ (has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd)
             \ . ' || echo Error'])
     if x > 0
-      let s:jobs_idx[x] = a:name
       let job.jobid = x
       augroup PlugJobControl
-        execute 'autocmd JobActivity' a:name 'call s:job_handler()'
+        execute 'autocmd JobActivity' a:name printf('call s:job_handler(%s)', string(a:name))
       augroup END
     else
       let job.running = 0
@@ -869,8 +885,7 @@ function! s:log(bullet, name, lines)
 endfunction
 
 function! s:update_vim()
-  let s:jobs     = {}
-  let s:jobs_idx = {}
+  let s:jobs = {}
 
   call s:bar()
   call s:tick()
@@ -1251,7 +1266,7 @@ function! s:clean(force)
     call append(line('$'), 'Already clean.')
   else
     call inputsave()
-    let yes = a:force || (input('Proceed? (Y/N) ') =~? '^y')
+    let yes = a:force || (input('Proceed? (y/N) ') =~? '^y')
     call inputrestore()
     if yes
       for dir in todo
@@ -1468,7 +1483,7 @@ endfunction
 function! s:revert()
   let name = s:find_name(line('.'))
   if empty(name) || !has_key(g:plugs, name) ||
-    \ input(printf('Revert the update of %s? (Y/N) ', name)) !~? '^y'
+    \ input(printf('Revert the update of %s? (y/N) ', name)) !~? '^y'
     return
   endif
 
