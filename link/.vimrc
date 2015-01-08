@@ -30,7 +30,7 @@ augroup color_scheme
   autocmd ColorScheme * :hi link multiple_cursors_visual Visual
 augroup END
 
-if has('win32') | let g:molokai_italic=0 | endif
+let g:molokai_italic=0
 colorscheme molokai
 set background=dark
 
