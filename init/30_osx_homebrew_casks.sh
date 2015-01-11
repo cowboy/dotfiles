@@ -27,6 +27,7 @@ casks=(
   flux
   gyazo
   handbrake
+  heroku-toolbelt
   hex-fiend
   hockeyapp
   imageoptim
