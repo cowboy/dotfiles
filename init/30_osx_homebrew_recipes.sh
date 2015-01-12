@@ -6,27 +6,30 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
-  ansible
   bash
-  cowsay
   git
   git-extras
   htop-osx
   hub
-  id3tool
   lesspipe
-  man2html
-  mercurial
   nmap
-  sl
   ssh-copy-id
-  terminal-notifier
-  the_silver_searcher
   tree
 )
 
 brew_install_recipes
 
+#jespers recipes
+recipes=(
+  bash-completion
+  cmake
+  curl
+  node
+  postgresql
+  python
+  spark
+  wget
+)
 # Misc cleanup!
 
 # This is where brew stores its binary symlinks
