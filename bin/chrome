@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# helper script to start Chrome with command line switches
+# I needed to allow ajax calls to local file system for Jasmine testing
+#
+# Inspired by http://superuser.com/questions/157484/start-google-chrome-on-mac-with-command-line-switches
+# 
+OPTS='--allow-file-access-from-files'
+
+open -a "Google Chrome" --args $OPTS
+
