@@ -8,7 +8,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/jesperronn/dotfiles
 
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
