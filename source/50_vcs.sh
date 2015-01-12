@@ -1,30 +1,30 @@
 
 # Git shortcuts
 
-alias g='git'
-function ga() { git add "${@:-.}"; } # Add all files by default
-alias gp='git push'
-alias gpa='gp --all'
-alias gu='git pull'
-alias gl='git log'
+# alias g='git'
+# function ga() { git add "${@:-.}"; } # Add all files by default
+# alias gp='git push'
+# alias gpa='gp --all'
+# alias gu='git pull'
+# alias gl='git log'
 alias gg='gl --decorate --oneline --graph --date-order --all'
-alias gs='git status'
-alias gst='gs'
-alias gd='git diff'
-alias gdc='gd --cached'
-alias gm='git commit -m'
-alias gma='git commit -am'
+# alias gs='git status'
+# alias gst='gs'
+# alias gd='git diff'
+# alias gdc='gd --cached'
+# alias gm='git commit -m'
+# alias gma='git commit -am'
 alias gb='git branch'
 alias gba='git branch -a'
-function gc() { git checkout "${@:-master}"; } # Checkout master by default
-alias gco='gc'
-alias gcb='gc -b'
-alias gbc='gc -b' # Dyslexia
+# function gc() { git checkout "${@:-master}"; } # Checkout master by default
+# alias gco='gc'
+# alias gcb='gc -b'
+# alias gbc='gc -b' # Dyslexia
 alias gr='git remote'
 alias grv='gr -v'
 #alias gra='git remote add'
-alias grr='git remote rm'
-alias gcl='git clone'
+# alias grr='git remote rm'
+# alias gcl='git clone'
 alias gcd='git rev-parse 2>/dev/null && cd "./$(git rev-parse --show-cdup)"'
 
 # Current branch or SHA if detached.
