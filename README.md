@@ -1,4 +1,6 @@
-# Dotfiles
+# Jespers Dotfiles
+
+Cloned from Ben Almans dotfiles project. This fork focuses on my personal setup.
 
 My OSX / Ubuntu dotfiles.
 
