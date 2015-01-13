@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-
+SRC=https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+DST=~/bin/.git-completion.bash
 # http://apple.stackexchange.com/questions/55875/have-git-autocomplete-branches-at-the-command-line
-curl https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -o ~/bin/.git-completion.bash
+curl $SRC -o $DST
+
 #Then I added to my ~/.bash_profile file the following 'execute if it exists' code:
 
-if [ -f ~/bin/.git-completion.bash ]; then
-  . ~/bin/.git-completion.bash
-fi
+#DST=~/bin/.git-completion.bash
+# if [ -f $DST ]; then
+#   . $DST
+# fi
