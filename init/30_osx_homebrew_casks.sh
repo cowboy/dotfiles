@@ -19,6 +19,8 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 # Homebrew casks
 casks=(
   dropbox
+  hipchat
+  sourcetree
   vagrant
   virtualbox
 )
