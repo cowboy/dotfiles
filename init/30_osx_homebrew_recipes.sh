@@ -28,6 +28,7 @@ recipes=(
   postgresql
   python
   spark
+  v8
   wget
 )
 # Misc cleanup!
