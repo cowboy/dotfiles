@@ -1,5 +1,5 @@
 alias cdv='cd ~/src/cancerventetid'
-alias cdk='cd ~/src/karnovgroup'
+alias cdk='cd ~/src/karnov'
 
 #alias kk="K=$(cdk && pwd);echo $K;"
 function _kgProjects(){

@@ -7,7 +7,7 @@
 # alias gpa='gp --all'
 # alias gu='git pull'
 # alias gl='git log'
-alias gg='gl --decorate --oneline --graph --date-order --all'
+alias gg='git log --decorate --oneline --graph --date-order --all'
 # alias gs='git status'
 # alias gst='gs'
 # alias gd='git diff'
