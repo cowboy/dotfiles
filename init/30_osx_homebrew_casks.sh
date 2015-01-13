@@ -22,6 +22,7 @@ casks=(
   atom-shell
   dropbox
   hipchat
+  macvim
   sourcetree
   vagrant
   virtualbox
