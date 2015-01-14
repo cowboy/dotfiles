@@ -16,3 +16,15 @@
 [submodule "libs/fonts"]
 	path = libs/fonts
 	url = https://github.com/powerline/fonts
+[submodule "libs/vim-sensible"]
+	path = libs/vim-sensible
+	url = https://github.com/tpope/vim-sensible
+[submodule "libs/neocomplete.vim"]
+	path = libs/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "libs/neosnippet.vim"]
+	path = libs/neosnippet.vim
+	url = https://github.com/Shougo/neosnippet.vim
+[submodule "libs/neosnippet-snippets"]
+	path = libs/neosnippet-snippets
+	url = https://github.com/Shougo/neosnippet-snippets
