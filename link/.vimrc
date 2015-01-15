@@ -40,7 +40,15 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Unite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <C-p> :Unite file_rec/async<cr>
+" File searching
+nnoremap <C-p> :Unite file_rec/async<cr>
+" Yankring
+let g:unite_source_history_yank_enable = 1
+nnoremap <space>y :Unite history/yank<cr>
+" Grep
+nnoremap <space>/ :Unite grep:.<cr>
+" Buffer switching
+nnoremap <space>b :Unite -quick-match buffer<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic
