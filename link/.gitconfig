@@ -1,0 +1,26 @@
+[user]
+  name = Evan Chiu
+  email = evan@evanchiu.com
+[core]
+  autocrlf = input
+  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+  excludesfile = ~/.gitignore_global
+[apply]
+  whitespace = fix
+[alias]
+  br = branch
+  ci = commit
+  co = checkout
+  df = diff
+  dc = diff --cached
+  st = status
+  lg = log --graph --pretty=format:'%C(auto)%h -%d %s %C(blue)(%cr) %C(magenta)<%an>%Creset' --abbrev-commit -n 20
+  lgf = log --graph --pretty=format:'%C(auto)%h -%d %s %C(blue)(%cr) %C(magenta)<%an>%Creset' --abbrev-commit
+[color]
+  ui = auto
+[merge]
+  log = true
+[push]
+  default = simple
+[rerere]
+  enabled = 1
