@@ -24,3 +24,13 @@ mkdir -p ~/.vim/bundle
     ln -s ~/.dotfiles/libs/neosnippet.vim ~/.vim/bundle/neosnippet.vim
 [ -d ~/.vim/bundle/neosnippet-snippets ] || \
     ln -s ~/.dotfiles/libs/neosnippet-snippets ~/.vim/bundle/neosnippet-snippets
+[ -d ~/.vim/bundle/syntastic ] || \
+    ln -s ~/.dotfiles/libs/syntastic ~/.vim/bundle/syntastic
+[ -d ~/.vim/bundle/unite.vim ] || \
+    ln -s ~/.dotfiles/libs/unite.vim ~/.vim/bundle/unite.vim
+if [ ! -d ~/.vim/bundle/vimproc.vim ]; then
+    cd ~/.dotfiles/libs/vimproc.vim
+    make
+    cp -r autoload/* ~/.vim/autoload
+    ln -s ~/.dotfiles/libs/vimproc.vim ~/.vim/bundle/vimproc.vim
+fi

@@ -28,3 +28,12 @@
 [submodule "libs/neosnippet-snippets"]
 	path = libs/neosnippet-snippets
 	url = https://github.com/Shougo/neosnippet-snippets
+[submodule "libs/unite.vim"]
+	path = libs/unite.vim
+	url = https://github.com/Shougo/unite.vim
+[submodule "libs/vimproc.vim"]
+	path = libs/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim
+[submodule "libs/syntastic"]
+	path = libs/syntastic
+	url = https://github.com/scrooloose/syntastic
