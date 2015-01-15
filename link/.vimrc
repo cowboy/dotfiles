@@ -41,7 +41,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " => Unite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File searching
-nnoremap <C-p> :Unite file_rec/async<cr>
+nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
 " Yankring
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>y :Unite history/yank<cr>
