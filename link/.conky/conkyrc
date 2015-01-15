@@ -1,0 +1,92 @@
+# Conky settings #
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit fahrenheit
+
+# Window specifications #
+own_window yes
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 200 250
+maximum_width 200
+
+alignment tr
+gap_x 35
+gap_y 55
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont caviar dreams:size=8
+#xftalpha 0.5
+
+uppercase no
+
+default_color FFFFFF
+color0 FFFFFF
+color1 0088CC
+
+# Lua Load  #
+lua_load ~/.conky/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+${voffset 8}${color1}${font caviar dreams:size=16}${time %A}${font}${voffset -8}${alignr 50}${color0}${font caviar dreams:size=38}${time %e}${font}
+${color0}${voffset -30}${color0}${font caviar dreams:size=18}${time %b}${font}${voffset -3} ${color0}${font caviar dreams:size=20}${time %Y}${font}${color1}${hr}
+
+${voffset 140}${font caviar dreams:size=10}${alignr}Chicopee${font}
+${font caviar dreams:size=12}${color0}${alignr}${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KCEF temperature temperature 30} °F${font}
+${image ~/.conky/elementary.png -p 55,104 -s 90x90}
+${color0}${goto 22}${voffset 33}${cpu cpu0}%
+${color1}${goto 22}CPU
+${color0}${goto 47}${voffset 23}${memperc}%
+${color1}${goto 47}RAM
+${color0}${goto 72}${voffset 23}${swapperc}%
+${color1}${goto 72}Swap
+${color0}${goto 97}${voffset 23}${fs_used_perc /}%
+${color1}${goto 97}Disk
+${color0}${goto 122}${voffset 25}${downspeed eth0}
+${color0}${goto 122}${upspeed eth0}
+${color1}${goto 122}Net
+
+${color0}${font caviar dreams:size=8}Uptime: ${uptime_short}
+${color0}${font caviar dreams:size=8}Processes: ${processes}
+${color0}${font caviar dreams:size=8}Running: ${running_processes}
+
+${color1}${font caviar dreams:size=10}${alignr}CPU${font}
+${color0}${font caviar dreams:size=8}${top name 1}${alignr}${top cpu 1}%
+${color0}${font caviar dreams:size=8}${top name 2}${alignr}${top cpu 2}%
+${color0}${font caviar dreams:size=8}${top name 3}${alignr}${top cpu 3}%
+${color0}${font caviar dreams:size=8}${top name 4}${alignr}${top cpu 4}%
+
+${color1}${font caviar dreams:size=10}${alignr}Memory${font}
+${color0}${font caviar dreams:size=8}${top_mem name 1}${goto 110}${top_mem mem_res 1}${alignr}${top_mem mem 1}%
+${color0}${font caviar dreams:size=8}${top_mem name 2}${goto 110}${top_mem mem_res 2}${alignr}${top_mem mem 2}%
+${color0}${font caviar dreams:size=8}${top_mem name 3}${goto 110}${top_mem mem_res 3}${alignr}${top_mem mem 3}%
+${color0}${font caviar dreams:size=8}${top_mem name 4}${goto 110}${top_mem mem_res 4}${alignr}${top_mem mem 4}%
+
+${color1}${font caviar dreams:size=8}${alignr}${nodename}
+${color1}${font caviar dreams:size=8}${alignr}${addr eth0}
+${color1}${font caviar dreams:size=8}${alignr}${pre_exec cat /etc/issue.net}  $machine
+${color1}${font caviar dreams:size=8}${alignr}Kernel: ${kernel}
