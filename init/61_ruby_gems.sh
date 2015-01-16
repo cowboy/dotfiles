@@ -9,6 +9,7 @@ gems=(
   crafter
   deliver
   docstat
+  fastlane
   frameit
   fui
   htty
