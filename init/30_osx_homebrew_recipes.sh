@@ -15,18 +15,15 @@ recipes=(
   nmap
   ssh-copy-id
   tree
-)
 
-brew_install_recipes
-
-#jespers recipes
-recipes=(
+#jespers recipes below
   bash-completion
   cmake
   curl
   node
   postgresql
   python
+  shellcheck
   spark
   v8
   wget
