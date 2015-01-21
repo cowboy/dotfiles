@@ -5,6 +5,7 @@
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
+  editor = mvim -f
 [apply]
   whitespace = fix
 [color]
