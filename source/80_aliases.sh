@@ -17,6 +17,7 @@ alias tophist="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/
 
 DST=~/bin/.git-completion.bash
-if [ -f $DST ]; then
-  . $DST
+if [ ! -f $DST ]; then
+  "$DOTFILES/bin/setup/git-completion.sh"
 fi
+. $DST
