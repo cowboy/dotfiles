@@ -168,6 +168,9 @@ imap <PageDown> <C-O><C-D>
 " vmap Q gq
 " nmap Q gqap
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 " When editing a file, always jump to the last known cursor position. Don't do
 " it for commit messages, when the position is invalid, or when inside an event
 " handler (happens when dropping a file on gvim).
@@ -276,4 +279,5 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'wavded/vim-stylus'
 Plug 'klen/python-mode', {'for': 'python'}
 Plug 'terryma/vim-multiple-cursors'
+Plug 'wting/rust.vim', {'for': 'rust'}
 call plug#end()
