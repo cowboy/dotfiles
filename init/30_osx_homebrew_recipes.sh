@@ -8,6 +8,7 @@ is_osx || return 1
 recipes=(
   ansible
   bash
+  cmatrix
   cowsay
   git
   git-extras
