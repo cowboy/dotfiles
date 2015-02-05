@@ -47,6 +47,7 @@ recipes=(
   ruby-build
   sqlite
   ssh-copy-id
+  tesseract
   the_silver_searcher
   tig
   tmux
