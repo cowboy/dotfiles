@@ -22,6 +22,7 @@ casks=(
   atom-shell
   diffmerge
   dropbox
+  firefox
   hipchat
   macvim
   sourcetree
