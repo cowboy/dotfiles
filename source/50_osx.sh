@@ -10,6 +10,7 @@ alias n="node"
 alias cask="brew cask"
 alias ilovecow="curl -s -L http://git.io/cow | bash"
 alias www="twistd -onl - --pidfile=/tmp/twistd.pid web --path=./ --port=8000;"
+alias lc="lunchy -v "
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
