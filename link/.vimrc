@@ -1,9 +1,6 @@
 " Change mapleader
 let mapleader=","
 
-" Now ; works just like : but with 866% less keypresses!
-nnoremap ; :
-
 " Move more naturally up/down when wrapping is enabled.
 nnoremap j gj
 nnoremap k gk
