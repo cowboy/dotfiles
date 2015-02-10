@@ -13,19 +13,22 @@ if !has('win32')
   let g:netrw_home = expand('$DOTFILES/caches/vim')
 endif
 
-" Theme / Syntax highlighting
-augroup color_scheme
+" Create general vimrc autocmd group
+augroup vimrc
   autocmd!
-  " Make invisible chars less visible in terminal.
-  autocmd ColorScheme * :hi NonText ctermfg=236
-  autocmd ColorScheme * :hi SpecialKey ctermfg=236
-  " Show trailing whitespace.
-  autocmd ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
-  " Make selection more visible.
-  autocmd ColorScheme * :hi Visual guibg=#00588A
-  autocmd ColorScheme * :hi link multiple_cursors_cursor Search
-  autocmd ColorScheme * :hi link multiple_cursors_visual Visual
 augroup END
+
+" Theme / Syntax highlighting
+
+" Make invisible chars less visible in terminal.
+autocmd vimrc ColorScheme * :hi NonText ctermfg=236
+autocmd vimrc ColorScheme * :hi SpecialKey ctermfg=236
+" Show trailing whitespace.
+autocmd vimrc ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
+" Make selection more visible.
+autocmd vimrc ColorScheme * :hi Visual guibg=#00588A
+autocmd vimrc ColorScheme * :hi link multiple_cursors_cursor Search
+autocmd vimrc ColorScheme * :hi link multiple_cursors_visual Visual
 
 let g:molokai_italic=0
 colorscheme molokai
@@ -41,13 +44,9 @@ set nowrap " Do not wrap lines.
 set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set laststatus=2 " Always show status line
 
-" Toggle between absolute and relative line numbers
-augroup relative_numbers
-  autocmd!
-  " Show absolute numbers in insert mode
-  autocmd InsertEnter * :set norelativenumber
-  autocmd InsertLeave * :set relativenumber
-augroup END
+" Show absolute numbers in insert mode, otherwise relative line numbers.
+autocmd vimrc InsertEnter * :set norelativenumber
+autocmd vimrc InsertLeave * :set relativenumber
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -79,12 +78,9 @@ endif
 nnoremap <silent> <leader>v :call ToggleInvisibles()<CR>
 
 " Extra whitespace
-augroup highlight_extra_whitespace
-  autocmd!
-  autocmd BufWinEnter * :2match ExtraWhitespaceMatch /\s\+$/
-  autocmd InsertEnter * :2match ExtraWhitespaceMatch /\s\+\%#\@<!$/
-  autocmd InsertLeave * :2match ExtraWhitespaceMatch /\s\+$/
-augroup END
+autocmd vimrc BufWinEnter * :2match ExtraWhitespaceMatch /\s\+$/
+autocmd vimrc InsertEnter * :2match ExtraWhitespaceMatch /\s\+\%#\@<!$/
+autocmd vimrc InsertLeave * :2match ExtraWhitespaceMatch /\s\+$/
 
 " Toggle Invisibles / Show extra whitespace
 function! ToggleInvisibles()
@@ -171,13 +167,10 @@ cmap w!! w !sudo tee > /dev/null %
 " When editing a file, always jump to the last known cursor position. Don't do
 " it for commit messages, when the position is invalid, or when inside an event
 " handler (happens when dropping a file on gvim).
-augroup vimrcEx
-  autocmd!
-  autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-augroup END
+autocmd vimrc BufReadPost *
+  \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
 
 " F12: Source .vimrc & .gvimrc files
 nmap <F12> :call SourceConfigs()<CR>
@@ -195,16 +188,13 @@ if !exists("*SourceConfigs")
 endif
 
 "" FILE TYPES
-augroup file_types
-  autocmd!
 
-  " vim
-  autocmd BufRead .vimrc,*.vim set keywordprg=:help
+" vim
+autocmd vimrc BufRead .vimrc,*.vim set keywordprg=:help
 
-  " markdown
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
+" markdown
+autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
 
-augroup END
 
 " PLUGINS
 
@@ -221,21 +211,17 @@ let NERDTreeShowHidden = 1
 let NERDTreeMouseMode = 2
 let NERDTreeMinimalUI = 1
 map <leader>n :NERDTreeToggle<CR>
-
-augroup NERDTree
-  autocmd!
-  autocmd StdinReadPre * let s:std_in=1
-  " If no file or directory arguments are specified, open NERDtree.
-  " If a directory is specified as the only argument, open it in NERDTree.
-  autocmd VimEnter *
-    \ if argc() == 0 && !exists("s:std_in") |
-    \   NERDTree |
-    \ elseif argc() == 1 && isdirectory(argv(0)) |
-    \   bd |
-    \   exec 'cd' fnameescape(argv(0)) |
-    \   NERDTree |
-    \ end
-augroup END
+autocmd vimrc StdinReadPre * let s:std_in=1
+" If no file or directory arguments are specified, open NERDtree.
+" If a directory is specified as the only argument, open it in NERDTree.
+autocmd vimrc VimEnter *
+  \ if argc() == 0 && !exists("s:std_in") |
+  \   NERDTree |
+  \ elseif argc() == 1 && isdirectory(argv(0)) |
+  \   bd |
+  \   exec 'cd' fnameescape(argv(0)) |
+  \   NERDTree |
+  \ end
 
 " Signify
 let g:signify_vcs_list = ['git', 'hg', 'svn']
