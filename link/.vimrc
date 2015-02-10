@@ -13,10 +13,8 @@ if !has('win32')
   let g:netrw_home = expand('$DOTFILES/caches/vim')
 endif
 
-" Create general vimrc autocmd group
-augroup vimrc
-  autocmd!
-augroup END
+" Remove any existing vimrc autocmds (in case .vimrc is re-sourced)
+autocmd! vimrc
 
 " Theme / Syntax highlighting
 
