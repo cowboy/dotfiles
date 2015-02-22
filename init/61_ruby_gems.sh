@@ -13,6 +13,7 @@ gems=(
   frameit
   fui
   htty
+  ipa_analyzer
   jekyll
   liftoff
   lunchy
