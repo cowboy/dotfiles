@@ -30,6 +30,7 @@ alias gpt="git push origin --tags" # push the tags to origin
 alias gtp="git push origin --tags" # push the tags to origin
 alias gcma=commitAddWithComment # Git commit with comment
 alias cmpu="composer update -vvv" #composer update
+alias cmpd="composer dump-autoload -o" #composer dump autoload file
 alias gtap=createNewTag #get tags, increment a new tag
 alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
 alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
