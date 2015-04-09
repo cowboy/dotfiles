@@ -139,3 +139,4 @@ autocmd FileType json setlocal shiftwidth=2 tabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.ftl setlocal ft=html
 au BufNewFile,BufRead *.hbs setlocal ft=html
+au BufNewFile,BufRead *.md setlocal ft=markdown
