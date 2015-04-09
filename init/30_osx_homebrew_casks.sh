@@ -19,7 +19,9 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 # Homebrew casks
 casks=(
   # Applications
+  1password
   a-better-finder-rename
+  battle-net
   bettertouchtool
   charles
   chromium
@@ -29,6 +31,7 @@ casks=(
   firefox
   google-chrome
   gyazo
+  hermes
   hex-fiend
   istat-menus
   iterm2
@@ -37,13 +40,18 @@ casks=(
   moom
   omnidisksweeper
   race-for-the-galaxy
-  reaper
   remote-desktop-connection
+  scroll-reverser
+  skype
+  slack
   sonos
+  sourcetree
   spotify
+  star-realms
   steam
   synology-assistant
   teamspeak-client
+  teamviewer
   the-unarchiver
   todoist
   totalfinder
@@ -62,7 +70,7 @@ casks=(
   quicklook-json
   quicknfo
   suspicious-package
-  webp-quicklook
+  webpquicklook
   # Color pickers
   colorpicker-developer
   colorpicker-skalacolor
