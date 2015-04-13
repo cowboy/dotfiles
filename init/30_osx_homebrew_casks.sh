@@ -27,21 +27,23 @@ casks=(
   chromium
   chronosync
   dropbox
+  easysimbl
   fastscripts
   firefox
   google-chrome
   gyazo
   hermes
   hex-fiend
-  istat-menus
   iterm2
   launchbar
   macvim
+  menumeters
   moom
   omnidisksweeper
   race-for-the-galaxy
   remote-desktop-connection
   scroll-reverser
+  sharemouse
   skype
   slack
   sonos
@@ -60,6 +62,8 @@ casks=(
   vagrant
   virtualbox
   vlc
+  # Drivers
+  d235j-xbox360-controller-driver
   # Quick Look plugins
   betterzipql
   qlcolorcode
