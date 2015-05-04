@@ -5,5 +5,4 @@
 :bulk_threshold: 1000
 :verbose: true
 :sources:
-- http://ruby.taobao.org/
-- https://rubygems.org/
+- https://ruby.taobao.org//
