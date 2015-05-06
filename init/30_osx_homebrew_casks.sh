@@ -20,6 +20,7 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 casks=(
   atom
   atom-shell
+  caffeine
   diffmerge
   dropbox
   firefox
