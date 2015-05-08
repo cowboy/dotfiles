@@ -19,12 +19,13 @@
   ci           = commit
   co           = checkout
   br           = branch
-  lol = log --oneline --graph --decorate
-  g = grep --break --heading --line-number
+  lol          = log --oneline --graph --decorate
+  g            = grep --break --heading --line-number
+  root         = rev-parse --show-toplevel
 
   loa = log --pretty=format:\"%C(red)%<(10,trunc)%cr%C(blue) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%Cgreen%d%Cyellow %s %C(blue) (%ad)\" --abbrev-commit --decorate=short --date=local
   #same alias just as "git ls"
-  ls = !git loa
+  ls  = !git loa
 
 [github]
   user         = jesperronn
