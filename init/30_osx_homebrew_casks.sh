@@ -31,6 +31,7 @@ casks=(
   hex-fiend
   hockeyapp
   imageoptim
+  ipaql
   istat-menus
   iterm2
   kaleidoscope
