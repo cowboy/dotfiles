@@ -39,6 +39,7 @@ recipes=(
   mosh
   nmap
   openssl
+  phantomjs
   python
   qrencode
   ranger
@@ -48,6 +49,7 @@ recipes=(
   ruby-build
   sqlite
   ssh-copy-id
+  swiftlint
   tesseract
   the_silver_searcher
   tig
