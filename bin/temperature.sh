@@ -1,17 +1,14 @@
 #!/bin/bash
 
-# temperature
+# temperature.sh
 # outputs the temperature information
 
-# requires the following packages
-# hddtemp
-# lm-sensors
+# Ensure commands are available
+type -P sensors 2>&1 > /dev/null || sudo apt-get install lm-sensors
+type -P hddtemp 2>&1 > /dev/null || sudo apt-get install hddtemp
 
-# Make sure only root can run our script
-if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
-
-sensors
-sudo hddtemp /dev/sd{b,c,d}
+# Run appropriate commands
+sudo sensors
+[ -e /dev/sdb ] && sudo hddtemp /dev/sdb
+[ -e /dev/sdc ] && sudo hddtemp /dev/sdc
+[ -e /dev/sdd ] && sudo hddtemp /dev/sdd
