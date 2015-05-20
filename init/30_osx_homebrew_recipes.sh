@@ -30,6 +30,7 @@ recipes=(
   legit
   lesspipe
   libsodium
+  libxml2
   lynx
   mackup
   man2html
