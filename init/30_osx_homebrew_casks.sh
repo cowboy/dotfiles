@@ -35,14 +35,17 @@ casks=(
   hermes
   hex-fiend
   iterm2
+  karabiner
   launchbar
   macvim
   menumeters
+  midi-monitor
   moom
   omnidisksweeper
   race-for-the-galaxy
   remote-desktop-connection
   scroll-reverser
+  seil
   sharemouse
   skype
   slack
@@ -62,6 +65,7 @@ casks=(
   vagrant
   virtualbox
   vlc
+  ynab
   # Drivers
   d235j-xbox360-controller-driver
   # Quick Look plugins
