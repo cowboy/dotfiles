@@ -35,6 +35,3 @@ alias gtap=createNewTag #get tags, increment a new tag
 alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
 alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
 alias apre="sudo service apache2 reload"
-
-export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
