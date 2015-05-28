@@ -18,6 +18,9 @@ createNewTag(){
     git tag -a $firstnr.$middlenr.$newnr -m "Tag for deployment"
     git push --tags
 }
+findHere(){
+	grep -rnw . -e "$1"
+}
 
 alias gpl="git pull origin master" # pull latest 
 alias gps="git push origin master" # push 
@@ -35,3 +38,5 @@ alias gtap=createNewTag #get tags, increment a new tag
 alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
 alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
 alias apre="sudo service apache2 reload"
+alias findhere=findHere
+
