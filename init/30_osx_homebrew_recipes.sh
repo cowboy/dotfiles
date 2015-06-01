@@ -40,6 +40,8 @@ recipes=(
   nmap
   openssl
   phantomjs
+  pyenv
+  pyenv-virtualenv
   python
   qrencode
   ranger

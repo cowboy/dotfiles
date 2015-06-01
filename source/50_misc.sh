@@ -10,3 +10,7 @@ function titlebar() {
 
 # Disable ansible cows }:]
 export ANSIBLE_NOCOWS=1
+
+# Enable pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
