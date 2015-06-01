@@ -73,3 +73,9 @@ function src() {
 }
 
 src
+
+###-tns-completion-start-###
+if [ -f /Users/lex/.tnsrc ]; then 
+    source /Users/lex/.tnsrc 
+fi
+###-tns-completion-end-###

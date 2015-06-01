@@ -19,6 +19,7 @@ recipes=(
   exiftool
   ffmpeg
   findutils
+  flow
   fontconfig
   fontforge
   git
@@ -59,6 +60,7 @@ recipes=(
   tree
   vim
   w3m
+  watchman
   weighttp
   wget
   zeromq
