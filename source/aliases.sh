@@ -1,4 +1,4 @@
-export PATH=/home/tom/local/lib/node_modules:$PATH
+export PATH=~/local/lib/node_modules:$PATH
 export PATH=$HOME/local/bin:$PATH
 tagForDeployment(){ #function is needed for passing params when using aliases
     git tag -a $1 -m "Tag for deployment"
@@ -39,4 +39,9 @@ alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
 alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
 alias apre="sudo service apache2 reload"
 alias findhere=findHere
+
+# laravel
+alias dbmr="php artisan migrate:refresh --seed"
+alias dbm="php artisan migrate --seed"
+alias tailaccess="tail -f /var/log/apache2/access.log"
 
