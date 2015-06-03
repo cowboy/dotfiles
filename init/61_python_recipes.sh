@@ -31,5 +31,5 @@ libs=(
 libs=($(setdiff "${libs[*]}" "$(pip list 2>/dev/null)"))
 if (( ${#libs[@]} > 0 )); then
   e_header "Installing Python modules: ${libs[*]}"
-  pip install -q ${libs[*]}
+  pip install ${libs[*]} --upgrade
 fi

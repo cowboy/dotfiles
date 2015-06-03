@@ -15,6 +15,7 @@ gems=(
   htty
   ipa_analyzer
   jekyll
+  jazzy
   liftoff
   lunchy
   mayday
@@ -38,6 +39,6 @@ gems=(
 gems=($(setdiff "${gems[*]}" "$(gems list 2>/dev/null)"))
 if (( ${#gems[@]} > 0 )); then
   e_header "Installing Ruby gems: ${gems[*]}"
-  gem install ${gems[*]}
+  gem install ${gems[*]} -V
   gem cleanup
 fi

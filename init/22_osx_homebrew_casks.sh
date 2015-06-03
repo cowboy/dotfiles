@@ -15,15 +15,12 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 
 # Homebrew casks
 casks=(
-  a-better-finder-rename
   betterzipql
   charles
-  chromium
   colorpicker-developer
   colorpicker-skalacolor
   crashlytics
   dropbox
-  firefox
   flux
   gyazo
   handbrake
@@ -39,9 +36,7 @@ casks=(
   launchrocket
   licecap
   macvim
-  mou
-  mplayer
-  opera-next
+  mplayer-osx-extended
   provisioning
   qlcolorcode
   qlmarkdown
@@ -54,10 +49,7 @@ casks=(
   reveal
   seil
   sequel-pro
-  shuttle
-  simpholders-2-alpha
   sourcetree
-  sublime-text3
   sketch-toolbox
   suspicious-package
   thunder
@@ -67,7 +59,6 @@ casks=(
   virtualbox
   vlc
   webp-quicklook
-  xiami
 )
 
 # Install Homebrew casks.
