@@ -1,6 +1,5 @@
 # rbenv init.
-PATH=$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin
-export PATH
+export PATH=$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin
 export RBENV_ROOT=/usr/local/var/rbenv
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

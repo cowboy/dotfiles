@@ -38,12 +38,13 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 
 * Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
-* Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
-* Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
-* [Fonts](/lexrus/dotfiles/tree/master/conf/osx/fonts) via the [init/50_osx_fonts.sh](init/50_osx_fonts.sh) script
+* Homebrew recipes via the [init/21_osx_homebrew_recipes.sh](init/21_osx_homebrew_recipes.sh) script
+* Homebrew casks via the [init/22_osx_homebrew_casks.sh](init/22_osx_homebrew_casks.sh) script
+* [Fonts](/lexrus/dotfiles/tree/master/conf/osx/fonts) via the [init/25_osx_fonts.sh](init/25_osx_fonts.sh) script
 * Node.js, npm via the [init/50_node.sh](init/50_node.sh) script
 * Vim plugins via the [init/50_vim.sh](init/50_vim.sh) script
-* Ruby, gems and rbenv via the [init/60_ruby.sh](init/60_ruby.sh) and [init/61_ruby_gems.sh](init/61_ruby_gems.sh) script
+* Python, packages and pyenv via the [init/60_python.sh](init/60_python.sh) and [init/61_python_recipes.sh](init/61_python_recipes.sh) script
+* Ruby, gems and rbenv via the [init/70_ruby.sh](init/70_ruby.sh) and [init/71_ruby_gems.sh](init/71_ruby_gems.sh) script
 
 ## Hacking my dotfiles
 

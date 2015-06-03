@@ -1,34 +1,16 @@
-# Exit if pip is not installed.
-[[ ! "$(type -P pip)" ]] && e_error "Python libs failed to install." && return 1
+# Initialize pyenv.
+source $DOTFILES/source/58_python.sh
 
-# Python libs
-libs=(
-  ansible
-  beautifulsoup
-  chinadns
-  django
-  flask
-  gevent
-  git-sweep
-  lxml
-  nose
-  numpy
-  pillow
-  requests
-  scipy
-  scrapy
-  shadowsocks
-  sphinx
-  sqlalchemy
-  stormssh
-  tornado
-  twisted
-  virtualenv
-)
+# Install Python.
+if [[ "$(type -P pyenv)" ]]; then
+  versions=(2.7.10)
 
-# Install Python libs.
-libs=($(setdiff "${libs[*]}" "$(pip list 2>/dev/null)"))
-if (( ${#libs[@]} > 0 )); then
-  e_header "Installing Python modules: ${libs[*]}"
-  pip install -q ${libs[*]}
+  pythons=($(setdiff "${versions[*]}" "$(pyenv whence python)"))
+  if (( ${#pythons[@]} > 0 )); then
+    e_header "Installing Python versions: ${pythons[*]}"
+    for r in "${pythons[@]}"; do
+      pyenv install "$r"
+      [[ "$r" == "${versions[0]}" ]] && pyenv global "$r"
+    done
+  fi
 fi

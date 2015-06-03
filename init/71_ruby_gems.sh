@@ -20,6 +20,7 @@ gems=(
   mayday
   nomad-cli
   pem
+  pygmentize
   sigh
   slather
   snapshot
