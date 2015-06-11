@@ -20,6 +20,7 @@ casks=(
   colorpicker-developer
   colorpicker-skalacolor
   crashlytics
+  dnscrypt
   dropbox
   flux
   gyazo
