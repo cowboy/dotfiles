@@ -21,7 +21,8 @@ exit; fi
 ###########################################
 
 # Where the magic happens.
-export DOTFILES=~/.dotfiles
+[[ -n "$DOTFILES" ]] || export DOTFILES="$(readlink -f "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/..")"
+[[ -n "$DOTFILES" ]] || export DOTFILES="~/.dotfiles"
 
 # Logging stuff.
 function e_header()   { echo -e "\n\033[1m$@\033[0m"; }

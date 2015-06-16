@@ -1,5 +1,6 @@
 # Where the magic happens.
-export DOTFILES=~/.dotfiles
+[[ -n "$DOTFILES" ]] || export DOTFILES="$(readlink -f "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/..")"
+[[ -n "$DOTFILES" ]] || export DOTFILES="~/.dotfiles"
 
 # Add binaries into the path
 PATH=$DOTFILES/bin:$PATH
