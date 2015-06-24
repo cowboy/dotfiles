@@ -3,6 +3,7 @@
 
 # Homebrew recipes
 recipes=(
+  caskroom/cask/brew-cask
   ack
   atool
   autojump
