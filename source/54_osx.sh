@@ -27,9 +27,6 @@ alias dsyslog="sudo rm -rf /private/var/log/asl/*.asl"
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
 
-# Make 'less' more.
-[[ "$(type lesspipe.sh)" ]] && eval "$(lesspipe.sh)"
-
 # Start ScreenSaver. This will lock the screen if locking is enabled.
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
 
