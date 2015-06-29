@@ -20,7 +20,7 @@ recipes=(
   bash-completion
   cmake
   curl
-  node
+  nvm
   postgresql
   python
   shellcheck
