@@ -21,12 +21,14 @@ casks=(
   # Applications
   1password
   a-better-finder-rename
+  aluxian-messenger
   battle-net
   bettertouchtool
   charles
   chromium
   chronosync
   dropbox
+  duet
   easysimbl
   fastscripts
   firefox
@@ -43,6 +45,7 @@ casks=(
   moom
   omnidisksweeper
   race-for-the-galaxy
+  reaper
   remote-desktop-connection
   scroll-reverser
   seil
