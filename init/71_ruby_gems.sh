@@ -6,6 +6,7 @@ gems=(
   bwoken
   cocoadex
   cocoapods
+  cocoapods-packager
   crafter
   deliver
   docstat
