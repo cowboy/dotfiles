@@ -7,6 +7,7 @@ alias xcb="sudo xcode-select -s /Applications/Xcode-beta.app/Contents/Developer/
 alias xc="sudo xcode-select -s /Applications/Xcode.app/Contents/Developer/"
 alias xcp="open $HOME/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins"
 alias ded="rm -rf $HOME/Library/Developer/Xcode/DerivedData"
+alias fucksim="sudo killall -9 com.apple.CoreSimulator.CoreSimulatorService && rm -rf ~/Library/Developer/CoreSimulator/Devices"
 
 # Workaround for openning Xcode 6.3.2 in El Capitan DP 2
 alias xc6="/Applications/Xcode.app/Contents/MacOS/Xcode </dev/null &>/dev/null &"
