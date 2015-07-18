@@ -9,6 +9,12 @@ alias xcp="open $HOME/Library/Application\ Support/Developer/Shared/Xcode/Plug-i
 alias ded="rm -rf $HOME/Library/Developer/Xcode/DerivedData"
 alias fucksim="sudo killall -9 Xcode 'iOS Simulator' com.apple.CoreSimulator.CoreSimulatorService && rm -rf ~/Library/Developer/CoreSimulator/Devices"
 
+# Add new UUID of Xcode-beta to plugins
+alias xcbplug="find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add `defaults read /Applications/Xcode-beta.app/Contents/Info DVTPlugInCompatibilityUUID`"
+
+# Add new UUID of Xcode to plugins
+alias xcplug="find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add `defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID`"
+
 # Workaround for openning Xcode 6.3.2 in El Capitan DP 2
 alias xc6="/Applications/Xcode.app/Contents/MacOS/Xcode </dev/null &>/dev/null &"
 
