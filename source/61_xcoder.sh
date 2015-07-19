@@ -15,6 +15,10 @@ alias xcbplug="find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-i
 # Add new UUID of Xcode to plugins
 alias xcplug="find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add `defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID`"
 
+# Activate fuzzy mode for Xcode 7. See https://twitter.com/hamzasood/status/621739073108111360
+alias xcfuzzy="defaults write com.apple.dt.Xcode IDECodeCompletionFuzzyMode -int 3"
+alias xcfuzzyoff="defaults delete com.apple.dt.Xcode IDECodeCompletionFuzzyMode"
+
 # Workaround for openning Xcode 6.3.2 in El Capitan DP 2
 alias xc6="/Applications/Xcode.app/Contents/MacOS/Xcode </dev/null &>/dev/null &"
 
