@@ -7,7 +7,6 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
 # JENV section here. Remember the following for troubleshooting
 # unset JAVA_HOME
 #
-# jenv doctor
 #
 # brew cask install java
 #
@@ -15,6 +14,13 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_75.jdk/Contents/Home
 #
 # jenv rehash
 # jenv versions
+#
+#
+# Troubleshooting:
+#
+# jenv doctor
+# exec $SHELL -l
+#
 #installing jenv for managing multiple versions
 unset JAVA_HOME
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
