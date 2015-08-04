@@ -20,11 +20,16 @@ recipes=(
   bash-completion
   cmake
   curl
+  heroku-toolbelt
+  hub
   nvm
   postgresql
   python
+  python3
+  redis
   shellcheck
   spark
+  sqlite
   v8
   wget
 )
