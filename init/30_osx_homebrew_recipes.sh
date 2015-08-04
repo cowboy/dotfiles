@@ -20,8 +20,10 @@ recipes=(
   bash-completion
   cmake
   curl
+  gvm
   heroku-toolbelt
   hub
+  jenv
   nvm
   postgresql
   python
