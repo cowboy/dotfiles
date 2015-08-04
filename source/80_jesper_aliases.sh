@@ -1,11 +1,11 @@
 alias cdv='cd ~/src/cancerventetid'
-alias cdk='cd ~/src/karnov'
+# alias cdk='cd ~/src/karnov'
 
 #alias kk="K=$(cdk && pwd);echo $K;"
-function _kgProjects(){
-  echo "stackedit amp content-store metadata-store missing-link xml-toolbox gitifier kg-site kg-site-assets kg-pipeline"
-}
-alias karnovUpdate="C=$(pwd);cdk; pwd; for f in $(_kgProjects); do cd \$f; pwd; git fetch; cd -; done;cd \$C"
+# function _kgProjects(){
+#   echo "stackedit amp content-store metadata-store missing-link xml-toolbox gitifier kg-site kg-site-assets kg-pipeline"
+# }
+# alias karnovUpdate="C=$(pwd);cdk; pwd; for f in $(_kgProjects); do cd \$f; pwd; git fetch; cd -; done;cd \$C"
 
 
 
