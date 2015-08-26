@@ -95,25 +95,48 @@ alias gj-='gj prev'
 
 # Combine diff --name-status and --stat
 function gstat() {
-  local file mode color lines range code
+  local file mode modes color lines range code line_regex
+  local file_len graph_len e r c
   range="${1:-HEAD~}"
   echo "Diff name-status & stat for range: $range"
   IFS=$'\n'
+
   lines=($(git diff --name-status "$range"))
   code=$?; [[ $code != 0 ]] && return $code
-  declare -A colors=([M]="1;33" [D]="1;31" [A]="1;32")
   declare -A modes
   for line in "${lines[@]}"; do
     file="$(echo $line | cut -f2)"
     mode=$(echo $line | cut -f1)
     modes["$file"]=$mode
   done
-  lines=($(git diff --stat --color "$range"))
+
+  file_len=0
+  lines=($(git diff -M --stat --stat-width=999 "$range"))
+  line_regex='s/\s*([^|]+?)\s*\|.*/$1/'
   for line in "${lines[@]}"; do
-    file="$(echo $line | perl -pe 's/\s*([^|]+?)\s*\|.*/$1/')"
-    mode=${modes["$file"]}
-    color=0; [[ "$mode" ]] && color=${colors[$mode]}
-    echo -e "\033[${color}m$line" | sed "s/\|/$(echo -e "\033")[0m$mode \|/"
+    file="$(echo "$line" | perl -pe "$line_regex")"
+    (( ${#file} > $file_len )) && file_len=${#file}
+  done
+  graph_len=$(($COLUMNS-$file_len-10))
+  (( $graph_len <= 0 )) && graph_len=1
+
+  lines=($(git diff -M --stat --stat-width=999 --stat-name-width=$file_len \
+    --stat-graph-width=$graph_len --color "$range"))
+  e=$(echo -e "\033")
+  r="$e[0m"
+  declare -A c=([M]="1;33" [D]="1;31" [A]="1;32" [R]="1;34")
+  for line in "${lines[@]}"; do
+    file="$(echo "$line" | perl -pe "$line_regex")"
+    if [[ "$file" =~ \{.+\=\>.+\} ]]; then
+      mode=R
+      line="$(echo "$line" | perl -pe "s/(^|=>|\})/$r$e[${c[R]}m\$1$r$e[${c[A]}m/g")"
+      line="$(echo "$line" | perl -pe "s/(\{)/$r$e[${c[R]}m\$1$r$e[${c[D]}m/")"
+    else
+      mode=${modes["$file"]}
+      color=0; [[ "$mode" ]] && color=${c[$mode]}
+      line="$e[${color}m$line"
+    fi
+    echo "$line" | sed "s/\|/$e[0m$mode \|/"
   done
   unset IFS
 }
