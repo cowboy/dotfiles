@@ -93,6 +93,31 @@ for n in {1..5}; do alias gf$n="gf -n $n"; done
 function gj() { git-jump "${@:-next}"; }
 alias gj-='gj prev'
 
+# Combine diff --name-status and --stat
+function gstat() {
+  local file mode color lines range code
+  range="${1:-HEAD~}"
+  echo "Diff name-status & stat for range: $range"
+  IFS=$'\n'
+  lines=($(git diff --name-status "$range"))
+  code=$?; [[ $code != 0 ]] && return $code
+  declare -A colors=([M]="1;33" [D]="1;31" [A]="1;32")
+  declare -A modes
+  for line in "${lines[@]}"; do
+    file="$(echo $line | cut -f2)"
+    mode=$(echo $line | cut -f1)
+    modes["$file"]=$mode
+  done
+  lines=($(git diff --stat --color "$range"))
+  for line in "${lines[@]}"; do
+    file="$(echo $line | perl -pe 's/\s*([^|]+?)\s*\|.*/$1/')"
+    mode=${modes["$file"]}
+    color=0; [[ "$mode" ]] && color=${colors[$mode]}
+    echo -e "\033[${color}m$line" | sed "s/\|/$(echo -e "\033")[0m$mode \|/"
+  done
+  unset IFS
+}
+
 # OSX-specific Git shortcuts
 if is_osx; then
   alias gdk='git ksdiff'
