@@ -3,10 +3,6 @@
 # 40_vim.sh
 # Script to install vim modlues and powerline fonts
 
-echo "Installing powerline fonts..."
-cd ~/.dotfiles/libs/fonts
-./install.sh
-
 echo "Hooking up .vim directories..."
 mkdir -p ~/.vim/autoload
 mkdir -p ~/.vim/bundle

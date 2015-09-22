@@ -13,9 +13,6 @@
 [submodule "libs/vim-fugitive"]
 	path = libs/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule "libs/fonts"]
-	path = libs/fonts
-	url = https://github.com/powerline/fonts
 [submodule "libs/vim-sensible"]
 	path = libs/vim-sensible
 	url = https://github.com/tpope/vim-sensible
