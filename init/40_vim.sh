@@ -18,12 +18,6 @@ mkdir -p ~/.vim/bundle
     ln -s ~/.dotfiles/libs/vim-fugitive ~/.vim/bundle/vim-fugitive
 [ -d ~/.vim/bundle/vim-sensible ] || \
     ln -s ~/.dotfiles/libs/vim-sensible ~/.vim/bundle/vim-sensible
-[ -d ~/.vim/bundle/neocomplete.vim ] || \
-    ln -s ~/.dotfiles/libs/neocomplete.vim ~/.vim/bundle/neocomplete.vim
-[ -d ~/.vim/bundle/neosnippet.vim ] || \
-    ln -s ~/.dotfiles/libs/neosnippet.vim ~/.vim/bundle/neosnippet.vim
-[ -d ~/.vim/bundle/neosnippet-snippets ] || \
-    ln -s ~/.dotfiles/libs/neosnippet-snippets ~/.vim/bundle/neosnippet-snippets
 [ -d ~/.vim/bundle/syntastic ] || \
     ln -s ~/.dotfiles/libs/syntastic ~/.vim/bundle/syntastic
 [ -d ~/.vim/bundle/unite.vim ] || \

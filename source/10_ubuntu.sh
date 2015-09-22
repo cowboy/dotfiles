@@ -6,3 +6,5 @@
 
 # Use 256 color terminal
 export TERM='xterm-256color'
+
+alias vmlist='sudo vmrun -T player list'
