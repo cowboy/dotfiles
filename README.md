@@ -17,7 +17,7 @@ It's really not very complicated. When [dotfiles][dotfiles] is run, it does a fe
 
 1. Git is installed if necessary, via APT or Homebrew (which is installed if necessary).
 2. This repo is cloned into the `~/.dotfiles` directory (or updated if it already exists).
-2. Files in `init` are executed (in alphanumeric order, hence the "50_" names).
+2. Files in `init` are executed (in alphanumeric order, hence the "50\_" names).
 3. Files in `copy` are copied into `~/`.
 4. Files in `link` are linked into `~/`.
 
@@ -25,7 +25,7 @@ Note:
 
 * The `backups` folder only gets created when necessary. Any files in `~/` that would have been overwritten by `copy` or `link` get backed up there.
 * Files in `bin` are executable shell scripts (Eg. [~/.dotfiles/bin][bin] is added into the path).
-* Files in `source` get sourced whenever a new shell is opened (in alphanumeric order, hence the "50_" names).
+* Files in `source` get sourced whenever a new shell is opened (in alphanumeric order, hence the "50\_" names).
 * Files in `conf` just sit there. If a config file doesn't _need_ to go in `~/`, put it in there.
 * Files in `caches` are cached files, only used by some scripts. This folder will only be created if necessary.
 
@@ -75,9 +75,9 @@ In addition to the aforementioned [dotfiles][dotfiles] script, there are a few o
 * Look through the [bin][bin] subdirectory for a few more.
 
 ## Inspiration
-<https://github.com/cowboy/dotfiles>  
+<https://github.com/cowboy/dotfiles>
 
 ## License
-Copyright (c) 2014 Evan Chiu
+Copyright (c) 2015 Evan Chiu
 
 Licensed under the MIT license
