@@ -5,5 +5,8 @@
 
 # Begone, silly errors! Lazy copy + paste forever!! ETCETERA!!!!
 
-echo 'Quit pasting in commands from the internet, you lazy bum.'
+# Only echo if stdout is a terminal (and not a pipe)
+if [ -t 1 ]; then
+  echo 'Quit pasting in commands from the internet, you lazy bum.'
+fi
 "$@"
