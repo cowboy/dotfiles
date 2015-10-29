@@ -41,20 +41,20 @@ set autoread
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set ruler "Always show current position
+set ruler         "Always show current position
 
-set ignorecase "Ignore case when searching
+set ignorecase    "Ignore case when searching
 set smartcase
 
-set hlsearch "Highlight search things
+set hlsearch      "Highlight search things
 
-set incsearch "Make search act like search in modern browsers
-set nolazyredraw "Don't redraw while executing macros
+set incsearch     "Make search act like search in modern browsers
+set nolazyredraw  "Don't redraw while executing macros
 
-set magic "Set magic on, for regular expressions
+set magic         "Set magic on, for regular expressions
 
-set showmatch "Show matching bracets when text indicator is over them
-set mat=2 "How many tenths of a second to blink
+set showmatch     "Show matching bracets when text indicator is over them
+set mat=2         "How many tenths of a second to blink
 
 " No sound on errors
 set noerrorbells
@@ -86,21 +86,23 @@ set smarttab
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indet
+set ai   "Auto indent
+set si   "Smart indent
 set wrap "Wrap lines
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype custom
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType html       setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType xml setlocal shiftwidth=2 tabstop=2
-autocmd FileType json setlocal shiftwidth=2 tabstop=2
+autocmd FileType json       setlocal shiftwidth=2 tabstop=2
+autocmd FileType xml        setlocal shiftwidth=2 tabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra file extension associations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.ftl setlocal ft=html
 au BufNewFile,BufRead *.hbs setlocal ft=html
-au BufNewFile,BufRead *.md setlocal ft=markdown
+au BufNewFile,BufRead *.m   setlocal ft=mason
+au BufNewFile,BufRead *.mi  setlocal ft=mason
+au BufNewFile,BufRead *.md  setlocal ft=markdown
