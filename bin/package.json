@@ -5,6 +5,8 @@
   "author": "Evan Chiu <evan@evanchiu.com>",
   "repository": "https://github.com/evanchiu/dotfiles/bin",
   "readme": "Each tool has it's own help",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "minimist": "*"
   }
