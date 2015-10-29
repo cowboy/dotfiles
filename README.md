@@ -32,7 +32,6 @@ Note:
 ## Installation
 ### OS X Notes
 
-* On OS X, we'll let [my-boxen](https://github.com/evanchiu/my-boxen) take care of the install.
 * You need to be an administrator (for `sudo`).
 * You need [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools) or a full installation of [XCode](https://developer.apple.com/downloads/index.action?=xcode). Running `git` on the command line triggers OS X to offer an automatic install of XCode Command Line Tools.
 
