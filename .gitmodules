@@ -22,6 +22,3 @@
 [submodule "libs/vimproc.vim"]
 	path = libs/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim
-[submodule "libs/syntastic"]
-	path = libs/syntastic
-	url = https://github.com/scrooloose/syntastic

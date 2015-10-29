@@ -14,8 +14,6 @@ mkdir -p ~/.vim/bundle
     ln -s ~/.dotfiles/libs/vim-fugitive ~/.vim/bundle/vim-fugitive
 [ -d ~/.vim/bundle/vim-sensible ] || \
     ln -s ~/.dotfiles/libs/vim-sensible ~/.vim/bundle/vim-sensible
-[ -d ~/.vim/bundle/syntastic ] || \
-    ln -s ~/.dotfiles/libs/syntastic ~/.vim/bundle/syntastic
 [ -d ~/.vim/bundle/unite.vim ] || \
     ln -s ~/.dotfiles/libs/unite.vim ~/.vim/bundle/unite.vim
 if [ ! -d ~/.vim/bundle/vimproc.vim ]; then

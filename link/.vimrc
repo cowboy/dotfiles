@@ -17,7 +17,7 @@ let g:airline_powerline_fonts = 1
 " => Unite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File searching
-nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
+nnoremap <space>p :Unite -start-insert file_rec/async<cr>
 " Yankring
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>y :Unite history/yank<cr>
@@ -25,18 +25,6 @@ nnoremap <space>y :Unite history/yank<cr>
 nnoremap <space>/ :Unite grep:.<cr>
 " Buffer switching
 nnoremap <space>b :Unite -quick-match buffer<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom Commands
