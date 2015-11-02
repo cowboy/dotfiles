@@ -96,6 +96,7 @@ set wrap "Wrap lines
 autocmd FileType html       setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json       setlocal shiftwidth=2 tabstop=2
+autocmd FileType markdown   setlocal shiftwidth=2 tabstop=2
 autocmd FileType xml        setlocal shiftwidth=2 tabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
