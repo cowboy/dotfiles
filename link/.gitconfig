@@ -8,8 +8,8 @@
 [apply]
   whitespace = fix
 [alias]
-  dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%ar%C(reset)%C(auto)%d%C(reset)%n%s'
-  dagn = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%ar%C(reset)%C(auto)%d%C(reset)%n%s' --name-only
+  dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s'
+  dagn = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --name-only
   dc = diff --cached
   lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit -n 20
   lgf = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit
