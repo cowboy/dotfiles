@@ -8,11 +8,6 @@
 [ -f /etc/apt/sources.list.d/git-core-ppa*.list ] \
     || sudo add-apt-repository -y ppa:git-core/ppa
 
-# Update APT.
-e_header "Updating APT"
-sudo apt-get -qq update
-sudo apt-get -qq dist-upgrade
-
 # Install APT packages.
 packages=(
   dnsutils

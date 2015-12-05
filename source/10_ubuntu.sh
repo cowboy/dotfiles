@@ -7,4 +7,6 @@
 # Use 256 color terminal
 export TERM='xterm-256color'
 
-alias vmlist='sudo vmrun -T player list'
+alias uu='sudo apt-get update && sudo apt-get upgrade -y'
+alias udu='sudo apt-get update && sudo apt-get dist-upgrade -y'
+alias aa='sudo apt-get autoremove -y && sudo apt-get autoclean'
