@@ -15,6 +15,11 @@ alias tophist="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | 
 # Homebrew cask install of firefox. To help test runners like Karma-firefox:
 export FIREFOX_BIN="/opt/homebrew-cask/Caskroom/firefox/latest/Firefox.app/Contents/MacOS/firefox-bin"
 
+# ssh completion
+# see http://hints.macworld.com/article.php?story=20100113142633883
+complete -o default -o nospace -W "$(/usr/bin/env ruby -ne 'puts $_.split(/[,\s]+/)[1..-1].reject{|host| host.match(/\*|\?/)} if $_.match(/^\s*Host\s+/);' < $HOME/.ssh/config)" scp sftp ssh
+
+
 
 DST=~/bin/.git-completion.bash
 if [ ! -f $DST ]; then
