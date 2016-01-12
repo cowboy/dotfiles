@@ -1,6 +1,6 @@
 # History settings
 
-# Allow use to re-edit a faild history substitution.
+# Allow user to re-edit a faild history substitution.
 shopt -s histreedit
 # History expansions will be verified before execution.
 shopt -s histverify
