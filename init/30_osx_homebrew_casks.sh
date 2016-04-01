@@ -18,17 +18,12 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 
 # Homebrew casks
 casks=(
-  atom
-  atom-shell
   caffeine
   diffmerge
-  dropbox
   firefox
   hipchat
   macvim
   sourcetree
-  vagrant
-  virtualbox
 )
 
 # Install Homebrew casks.

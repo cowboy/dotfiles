@@ -20,19 +20,15 @@ recipes=(
   bash-completion
   cmake
   curl
-  gvm
   heroku-toolbelt
   hub
-  jenv
   nvm
   postgresql
   python
   python3
-  redis
   shellcheck
   spark
   sqlite
-  v8
   wget
 )
 # Misc cleanup!
