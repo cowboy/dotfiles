@@ -98,12 +98,14 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json       setlocal shiftwidth=2 tabstop=2
 autocmd FileType markdown   setlocal shiftwidth=2 tabstop=2
 autocmd FileType xml        setlocal shiftwidth=2 tabstop=2
+autocmd FileType zsh        setlocal shiftwidth=2 tabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra file extension associations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.ftl setlocal ft=html
-au BufNewFile,BufRead *.hbs setlocal ft=html
-au BufNewFile,BufRead *.m   setlocal ft=mason
-au BufNewFile,BufRead *.mi  setlocal ft=mason
-au BufNewFile,BufRead *.md  setlocal ft=markdown
+au BufNewFile,BufRead *.ftl          setlocal ft=html
+au BufNewFile,BufRead *.hbs          setlocal ft=html
+au BufNewFile,BufRead *.m            setlocal ft=mason
+au BufNewFile,BufRead *.mi           setlocal ft=mason
+au BufNewFile,BufRead *.md           setlocal ft=markdown
+au BufNewFile,BufRead *.zsh-theme    setlocal ft=zsh
