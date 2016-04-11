@@ -22,3 +22,9 @@
 [submodule "libs/vimproc.vim"]
 	path = libs/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim
+[submodule "libs/bullet-train"]
+	path = libs/bullet-train
+	url = https://github.com/evanchiu/bullet-train-oh-my-zsh-theme
+[submodule "libs/oh-my-zsh"]
+	path = libs/oh-my-zsh
+	url = https://github.com/evanchiu/oh-my-zsh
