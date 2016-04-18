@@ -5,15 +5,16 @@
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
+  pager = less -FMRiX
 [apply]
   whitespace = fix
 [alias]
   dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s'
   dagn = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --name-only
   dc = diff --cached
-  lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit -n 20
+  lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit -n 21
   lgf = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit
-  lgn = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit --name-only
+  lgn = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit --name-only -n 8
 [color]
   ui = auto
 [merge]
