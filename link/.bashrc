@@ -20,3 +20,7 @@ function dotfiles() {
 }
 
 src
+source ~/.rvm/scripts/rvm
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+source ~/.rvm/scripts/rvm

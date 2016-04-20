@@ -1,5 +1,6 @@
 export PATH=~/local/lib/node_modules:$PATH
 export PATH=$HOME/local/bin:$PATH
+export PATH=~/.composer/vendor/bin:$PATH
 tagForDeployment(){ #function is needed for passing params when using aliases
     git tag -a $1 -m "Tag for deployment"
 }
@@ -44,4 +45,4 @@ alias findhere=findHere
 alias dbmr="php artisan migrate:refresh --seed"
 alias dbm="php artisan migrate --seed"
 alias tailaccess="tail -f /var/log/apache2/access.log"
-
+alias tailerror="tail -f /var/log/apache2/error.log"
