@@ -36,13 +36,13 @@ alias gcma=commitAddWithComment # Git commit with comment
 alias cmpu="composer update -vvv" #composer update
 alias cmpd="composer dump-autoload -o" #composer dump autoload file
 alias gtap=createNewTag #get tags, increment a new tag
-alias rmproxy="sudo rm -rf ~/Projects/cod-init/data/Proxy*"
-alias rmassetic="sudo rm -rf ~/Projects/cod-init/public/cache/assetic/*"
 alias apre="sudo service apache2 reload"
 alias findhere=findHere
 
 # laravel
 alias dbmr="php artisan migrate:refresh --seed"
 alias dbm="php artisan migrate --seed"
+
+# access and error logs
 alias tailaccess="tail -f /var/log/apache2/access.log"
 alias tailerror="tail -f /var/log/apache2/error.log"
