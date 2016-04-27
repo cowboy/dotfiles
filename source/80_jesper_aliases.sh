@@ -1,6 +1,8 @@
 alias cdv='cd ~/src/cancerventetid'
 alias cda='cd ~/src/nine/asa_proj'
+alias cdn='cd ~/src/nine/pplus/plus-reporter'
 alias cds='cd ~/src/nine/skat'
+alias cdn='cd ~/src/nine'
 alias cdk='cd ~/src/karnov'
 
 #alias kk="K=$(cdk && pwd);echo $K;"
@@ -12,6 +14,8 @@ alias cdk='cd ~/src/karnov'
 # EDITOR update for bundler
 export BUNDLER_EDITOR=subl
 
+# lang settings, view with `locale` or `locale -a`
+export LANG=da_DK.UTF-8
 
 
  ORACLE_HOME="$HOME/instantclient_11_2"
