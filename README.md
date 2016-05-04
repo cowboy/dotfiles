@@ -42,7 +42,7 @@ Note:
 ### Actual Installation
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/evanchiu/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/evanchiu/dotfiles/master/bin/dotfiles)" && source ~/.zshrc
 ```
 
 ## The ~/ "copy" step

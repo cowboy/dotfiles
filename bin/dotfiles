@@ -162,9 +162,6 @@ else
   git submodule update --init --recursive --quiet
 fi
 
-# Utilities, helpers.
-source ~/.dotfiles/source/10_misc.sh
-
 # Add binaries into the path
 PATH=~/.dotfiles/bin:$PATH
 export PATH
@@ -188,12 +185,6 @@ do_stuff "link"
 # Alert if backups were made.
 if [[ "$backup" ]]; then
   echo -e "\nBackups were moved to ~/${backup_dir#$HOME/}"
-fi
-
-# Lest I forget to do a few additional things...
-if [[ "$new_dotfiles_install" && -e "conf/firsttime_reminder.sh" ]]; then
-  e_header "First-Time Reminders"
-  source "conf/firsttime_reminder.sh"
 fi
 
 # All done!
