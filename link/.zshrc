@@ -14,8 +14,13 @@ BULLETTRAIN_DIR_EXTENDED=0
 BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 BULLETTRAIN_TIME_BG=cyan
 BULLETTRAIN_TIME=black
-BULLETTRAIN_CONTEXT_BG=yellow
-BULLETTRAIN_CONTEXT_FG=black
+if [ ! -n "${SSH_CLIENT+1}" ]; then
+  BULLETTRAIN_CONTEXT_BG=yellow
+  BULLETTRAIN_CONTEXT_FG=black
+else
+  BULLETTRAIN_CONTEXT_BG=magenta
+  BULLETTRAIN_CONTEXT_FG=white
+fi
 BULLETTRAIN_PROMPT_ORDER=( time status context git line_sep dir )
 
 # Uncomment the following line to use case-sensitive completion.
@@ -64,7 +69,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/Users/evan/.dotfiles/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -95,3 +100,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ohmy="source ~/.zshrc"
+alias filestamp="date +%Y-%m-%d_%H-%M-%S"
