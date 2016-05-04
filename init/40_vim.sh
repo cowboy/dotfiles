@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 40_vim.sh
-# Script to install vim modlues and powerline fonts
+# Script to install vim modlues
 
 echo "Hooking up .vim directories..."
 mkdir -p ~/.vim/autoload

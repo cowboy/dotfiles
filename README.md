@@ -1,6 +1,6 @@
 # Dotfiles
 
-My OS X / Ubuntu dotfiles.
+My shell configuration files.
 
 ## Why is this a git repo?
 
@@ -45,38 +45,23 @@ Note:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/evanchiu/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
 ```
 
-## The "init" step
-A whole bunch of things will be installed, but _only_ if they aren't already.
-
-### Ubuntu
-* APT packages
-  * dnsutils
-  * git (latest from git-core)
-  * git-extras
-  * nmap
-  * node (from nodesource)
-  * tree
-
 ## The ~/ "copy" step
 Any file in the `copy` subdirectory will be copied into `~/`. Any file that _needs_ to be modified with personal information (like [.gitconfig](copy/.gitconfig) which contains an email address and private key) should be _copied_ into `~/`. Because the file you'll be editing is no longer in `~/.dotfiles`, it's less likely to be accidentally committed into your public dotfiles repo.
 
 ## The ~/ "link" step
 Any file in the `link` subdirectory gets symbolically linked with `ln -s` into `~/`. Edit these, and you change the file in the repo. Don't link files containing sensitive data, or you might accidentally commit that data!
 
-## Aliases and Functions
-To keep things easy, the `~/.bashrc` and `~/.bash_profile` files are extremely simple, and should never need to be modified. Instead, add your aliases, functions, settings, etc into one of the files in the `source` subdirectory, or add a new file. They're all automatically sourced when a new shell is opened. Take a look, I have [a lot of aliases and functions](https://github.com/cowboy/dotfiles/tree/master/source). I even have a [fancy prompt](source/50_prompt.sh) that shows the current directory, time and current git/svn repo status.
-
 ## Scripts
-In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [bash scripts][bin]. This includes [ack](https://github.com/petdance/ack), which is a [git submodule](https://github.com/cowboy/dotfiles/tree/master/libs).
+In addition to the aforementioned [dotfiles][dotfiles] script, there are a few other [scripts][bin]. This includes [ack](https://github.com/petdance/ack), which is a [git submodule](libs).
 
 * [dotfiles][dotfiles] - (re)initialize dotfiles. It might ask for your password (for `sudo`).
-* [src](link/.bashrc#L6-15) - (re)source all files in `source` directory
+* [source](source) - (re)source all files in `source` directory
 * Look through the [bin][bin] subdirectory for a few more.
 
 ## Inspiration
 <https://github.com/cowboy/dotfiles>
 
 ## License
-Copyright (c) 2015 Evan Chiu
+Copyright (c) 2016 Evan Chiu
 
 Licensed under the MIT license
