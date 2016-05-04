@@ -74,6 +74,11 @@ export PATH="$HOME/.dotfiles/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
+# Source all files in ~/.dotfiles/source/
+for file in $HOME/.dotfiles/source/*; do
+  source "$file"
+done
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 

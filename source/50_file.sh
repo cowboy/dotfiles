@@ -4,7 +4,7 @@
 umask 022
 
 # Always use color output for `ls`
-if [[ "$OSTYPE" =~ ^darwin ]]; then
+if [[ "$OSTYPE" == darwin* ]]; then
   alias ls="command ls -G"
 else
   alias ls="command ls --color"
