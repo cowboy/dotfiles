@@ -50,6 +50,10 @@ function prompt_exitcode() {
 # Git status.
 function prompt_git() {
   prompt_getcolors
+  # exit if vcs hidden folder does not exist
+  local dir=".git"
+  [[ ! -d "$dir" ]] && return;
+
   local status output flags branch
   status="$(git status 2>/dev/null)"
   [[ $? != 0 ]] && return;
@@ -72,7 +76,13 @@ function prompt_git() {
 # hg status.
 function prompt_hg() {
   prompt_getcolors
+  # exit if vcs hidden folder does not exist
+  local dir=".hg"
+  [[ ! -d "$dir" ]] && return;
+
   local summary output bookmark flags
+  # 'hg summary' command is slow (about 1 second) so you will notice
+  # your shell being slow
   summary="$(hg summary 2>/dev/null)"
   [[ $? != 0 ]] && return;
   output="$(echo "$summary" | awk '/branch:/ {print $2}')"
@@ -93,6 +103,10 @@ function prompt_hg() {
 # SVN info.
 function prompt_svn() {
   prompt_getcolors
+  # exit if vcs hidden folder does not exist
+  local dir=".svn"
+  [[ ! -d "$dir" ]] && return;
+
   local info="$(svn info . 2> /dev/null)"
   local last current
   if [[ "$info" ]]; then
