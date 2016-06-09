@@ -28,7 +28,6 @@ casks=(
   chromium
   chronosync
   dropbox
-  duet
   easysimbl
   fastscripts
   firefox
@@ -49,7 +48,6 @@ casks=(
   remote-desktop-connection
   scroll-reverser
   seil
-  sharemouse
   skype
   slack
   sonos
@@ -65,6 +63,7 @@ casks=(
   totalfinder
   tower
   transmission-remote-gui
+  tunnelblick
   vagrant
   virtualbox
   vlc
