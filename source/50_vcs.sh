@@ -37,14 +37,12 @@ alias gs-all='eachdir git status'
 
 # open all changed files (that still actually exist) in the editor
 function ged() {
-  local files=()
-  for f in $(git diff --name-only "$@"); do
-    [[ -e "$f" ]] && files=("${files[@]}" "$f")
-  done
-  local n=${#files[@]}
-  echo "Opening $n $([[ "$@" ]] || echo "modified ")file$([[ $n != 1 ]] && \
-    echo s)${@:+ modified in }$@"
+  local files
+  IFS=$'\n' files=($(git diff --name-status "$@" | grep -v '^D' | cut -f2 | sort | uniq))
+  echo "Opening files modified $([[ "$2" ]] && echo "between $1 and $2" || echo "since $1")"
+  gcd
   q "${files[@]}"
+  cd - > /dev/null
 }
 
 # add a github remote by github username
