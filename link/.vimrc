@@ -50,8 +50,8 @@ autocmd vimrc InsertEnter * :set norelativenumber
 autocmd vimrc InsertLeave * :set relativenumber
 
 " Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
+set textwidth=121
+let &colorcolumn="81,".join(range(120,999),",")
 
 " Scrolling
 set scrolloff=3 " Start scrolling three lines before horizontal border of window.
@@ -188,14 +188,11 @@ if !exists("*SourceConfigs")
   endfunction
 endif
 
-"" FILE TYPES
+" FILE TYPES
 
-" vim
 autocmd vimrc BufRead .vimrc,*.vim set keywordprg=:help
-
-" markdown
 autocmd vimrc BufRead,BufNewFile *.md set filetype=markdown
-
+autocmd vimrc BufRead,BufNewFile *.tmpl set filetype=html
 
 " PLUGINS
 
@@ -253,8 +250,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
+if v:version < 705 && !has('patch-7.4.785')
+  Plug 'vim-scripts/PreserveNoEOL'
+endif
 Plug 'editorconfig/editorconfig-vim'
-Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mhinz/vim-signify'
