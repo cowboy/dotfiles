@@ -1,6 +1,11 @@
 export PATH=~/local/lib/node_modules:$PATH
 export PATH=$HOME/local/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+
 tagForDeployment(){ #function is needed for passing params when using aliases
     git tag -a $1 -m "Tag for deployment"
 }
