@@ -4,7 +4,7 @@
 umask 022
 
 # Always use color output for `ls`
-if [[ "$OSTYPE" =~ ^darwin ]]; then
+if is_osx; then
   alias ls="command ls -G"
 else
   alias ls="command ls --color"
@@ -41,6 +41,7 @@ function md() {
 }
 
 # Fast directory switching
+mkdir -p $DOTFILES/caches/z
 _Z_NO_PROMPT_COMMAND=1
-_Z_DATA=~/.dotfiles/caches/.z
-. ~/.dotfiles/libs/z/z.sh
+_Z_DATA=$DOTFILES/caches/z/z
+. $DOTFILES/vendor/z/z.sh
