@@ -1,14 +1,17 @@
+# Where the magic happens.
+export DOTFILES=~/.dotfiles
+
 # Add binaries into the path
-PATH=~/.dotfiles/bin:$PATH
+PATH=$DOTFILES/bin:$PATH
 export PATH
 
-# Source all files in ~/.dotfiles/source/
+# Source all files in "source"
 function src() {
   local file
   if [[ "$1" ]]; then
-    source "$HOME/.dotfiles/source/$1.sh"
+    source "$DOTFILES/source/$1.sh"
   else
-    for file in ~/.dotfiles/source/*; do
+    for file in $DOTFILES/source/*; do
       source "$file"
     done
   fi
@@ -16,7 +19,7 @@ function src() {
 
 # Run dotfiles script, then source.
 function dotfiles() {
-  ~/.dotfiles/bin/dotfiles "$@" && src
+  $DOTFILES/bin/dotfiles "$@" && src
 }
 
 src
