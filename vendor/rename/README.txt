@@ -1,5 +1,5 @@
-rename 0.1.3
-Wednesday, Nov 4, 2009, 00:35
+rename 1.6
+Monday, 10 Jun 2013
 Aristotle Pagaltzis
 http://plasmasturm.org/code/rename/
 
