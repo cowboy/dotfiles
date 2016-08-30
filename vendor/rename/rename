@@ -106,14 +106,14 @@ GetOptions(
 	map { my $recipe = $_; $recipe => sub { push @EXPR, $library{ $recipe } } } keys %library,
 ) or pod2usage();
 
-$opt_stdin = @ARGV ? 0 : 1 unless defined $opt_stdin;
-
 $VERB ||= VERB_FOR->{ 'rename' };
 
 if ( not @EXPR ) {
 	pod2usage() if not @ARGV or -e $ARGV[0];
 	push @EXPR, shift;
 }
+
+$opt_stdin = @ARGV ? 0 : 1 unless defined $opt_stdin;
 
 pod2usage( -message => 'Error: --stdin and filename arguments are mutually exclusive' )
 	if $opt_stdin and @ARGV;
