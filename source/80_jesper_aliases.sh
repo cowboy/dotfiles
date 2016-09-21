@@ -16,7 +16,8 @@ alias cdk='cd ~/src/karnov'
 export BUNDLER_EDITOR=subl
 
 # lang settings, view with `locale` or `locale -a`
-export LANG=da_DK.UTF-8
+# export LANG=da_DK.UTF-8
+export LANG=en_US.UTF-8
 
 
  ORACLE_HOME="$HOME/instantclient_11_2"
