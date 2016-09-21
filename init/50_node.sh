@@ -1,7 +1,5 @@
-# Initialize nodejs and npm via nvm
+# Load npm-related functions.
+# source $DOTFILES/source/50_node.sh
 
-# nvm already installed via homebrew recipes
-
-# nvm install 0.10
-nvm install node
-# nvm alias default 5.1.0
+# Install latest stable Node.js, set as default, install global npm modules.
+# nave_install stable

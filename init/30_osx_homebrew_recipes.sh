@@ -6,6 +6,7 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
+  ansible
   bash
   git
   git-extras
@@ -15,6 +16,7 @@ recipes=(
   nmap
   ssh-copy-id
   tree
+  wget
 
 #jespers recipes below
   bash-completion
@@ -29,8 +31,10 @@ recipes=(
   shellcheck
   spark
   sqlite
-  wget
 )
+
+brew_install_recipes
+
 # Misc cleanup!
 
 # This is where brew stores its binary symlinks

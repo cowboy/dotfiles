@@ -1,44 +1,37 @@
 [user]
-  name = Jesper Rønn-Jensen
-  email = EMAIL
+  name    = Jesper Rønn-Jensen
+  email   = EMAIL
+[github]
+  user    = jesperronn
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
-  editor = mvim -f
+  editor  = mvim -f
 [apply]
   whitespace = fix
-[color]
-  diff         = auto
-  status       = auto
-  branch       = auto
-  ui           = auto
-  interactive  = auto
+[branch "master"]
+  remote  = origin
+  merge   = refs/heads/master
 [alias]
-  st           = status -bs
-  ci           = commit
-  co           = checkout
-  br           = branch
-  lol          = log --oneline --graph --decorate
-  g            = grep --break --heading --line-number
-  root         = rev-parse --show-toplevel
-  cdroot       = !cd $(git root)
-  taglist      = show-ref --tags --abbrev
+  st      = status -bs
+  br      = branch
+  ci      = commit
+  co      = checkout
+  g       = grep --break --heading --line-number -I
+  root    = rev-parse --show-toplevel
+  cdroot  = !cd $(git root)
+  st      = status -bs
+  taglist = show-ref --tags --abbrev
 
-  ls = log --pretty=format:\"%C(red)%<(10,trunc)%cr%C(blue) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%Cgreen%d%C(yellow) %s %C(blue) (%ad)\" --abbrev-commit --decorate=short --date=local
+  lol     = log --oneline --graph --decorate
+  ls      = log --pretty=format:\"%C(red)%<(10,trunc)%cr%C(blue) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%Cgreen%d%C(yellow) %s %C(blue) (%ad)\" --abbrev-commit --decorate=short --date=local
 
-[github]
-  user         = jesperronn
-[merge]
-  tool = diffmerge
-[mergetool "diffmerge"]
-  cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
-  trustExitCode = false
 [log]
   abbrevCommit = true
 [push]
   default = current
 [rerere]
-  enable = true
+  enable  = true
 [remote "origin"]
-  prune = true
+  prune   = true
