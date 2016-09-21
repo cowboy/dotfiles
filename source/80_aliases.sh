@@ -26,3 +26,9 @@ if [ ! -f $DST ]; then
   "$DOTFILES/bin/setup/git-completion.sh"
 fi
 . $DST
+
+DST=~/bin/.gradle-tab-completion.bash
+if [ ! -f $DST ]; then
+  "$DOTFILES/bin/setup/gradle-tab-completion.sh"
+fi
+. $DST
