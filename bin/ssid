@@ -12,10 +12,16 @@ otherwise echo nothing.
 Copyright (c) 2012 "Cowboy" Ben Alman
 Licensed under the MIT license.
 http://benalman.com/about/license/
+
+Altered by Scott Severance to work on Ubuntu, as well.
 HELP
 exit; fi
 
-ssid=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | sed -En 's/^ +SSID: +//p')
+if [[ -f '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport' ]]; then
+    ssid="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | sed -En 's/^ +SSID: +//p')"
+elif [[ iwconfig >/dev/null ]]; then
+    ssid="$(iwconfig 2>/dev/null | grep SSID | cut -d\" -f2)"
+fi
 
 if [ "$1" ]; then
   if [ "$(echo $ssid | grep -w $1)" ]; then
