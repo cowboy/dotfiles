@@ -46,4 +46,7 @@ for key, value in extensions_map.items():
 # Start the server using the default .test method, because I'm lazy (the port
 # is still grabbed from sys.argv[1]).
 sys.argv = [sys.argv[0], port]
-SimpleHTTPServer.test()
+try:
+    SimpleHTTPServer.test()
+except KeyboardInterrupt:
+    sys.exit(0)
