@@ -1,8 +1,7 @@
 alias cdv='cd ~/src/cancerventetid'
-alias cda='cd ~/src/nine/asa_proj'
 alias cdn='cd ~/src/nine/pplus/plus-reporter'
 alias cdc='cd ~/src/nine/csc/all_dev'
-alias cds='cd ~/src/nine/skat'
+alias cds='cd ~/src/nine/skat/Bogfoeringsguiden'
 alias cdn='cd ~/src/nine'
 alias cdk='cd ~/src/karnov'
 
