@@ -24,7 +24,8 @@ findHere(){
 }
 
 alias gpl="git pull origin master" # pull latest 
-alias gps="git push origin master" # push 
+alias gprel="git pull origin release-1" # push 
+alias gpl="git pull origin master" # pull latest 
 alias gcm="git checkout master" # checkout master
 alias gs="git status" # git status
 alias gt="git fetch --tags ; git tag | sort -V" #fetch new tags and show current tags
@@ -46,3 +47,4 @@ alias dbm="php artisan migrate --seed"
 # access and error logs
 alias tailaccess="tail -f /var/log/apache2/access.log"
 alias tailerror="tail -f /var/log/apache2/error.log"
+alias mysshkey="cat ~/.ssh/id_rsa.pub"
