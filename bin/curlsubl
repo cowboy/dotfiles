@@ -23,7 +23,7 @@ exit; fi
 script="$(basename "$0")"
 bin="${script#curl}"
 
-cache_dir=~/.dotfiles/caches/"$script"
+cache_dir=$DOTFILES/caches/"$script"
 
 # Create tempfile.
 tmp="$(mktemp "/tmp/$script.XXXXX")"
