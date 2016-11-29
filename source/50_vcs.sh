@@ -96,8 +96,9 @@ function gurl() {
   local remotename="${@:-origin}"
   local remote="$(git remote -v | awk '/^'"$remotename"'.*\(push\)$/ {print $2}')"
   [[ "$remote" ]] || return
+  local host="$(echo "$remote" | perl -pe 's/.*@//;s/:.*//')"
   local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
-  echo "https://github.com/$user_repo"
+  echo "https://$host/$user_repo"
 }
 # GitHub URL for current repo, including current branch + path.
 alias gurlp='echo $(gurl)/tree/$(gbs)/$(git rev-parse --show-prefix)'
