@@ -38,16 +38,15 @@ alias gs-all='eachdir git status'
 # Rebase topic branch onto origin parent branch and update local parent branch
 # to match origin parent branch
 function grbo() {
-  local parent=$1
-  local topic=$2
-  if [[ "$parent" ]]; then
-    git rev-parse "$parent" >/dev/null 2>&1
-    [[ $? != 0 ]] && _grbo_err "Invalid parent branch: $parent" && return 1
-    git rev-parse "origin/$parent" >/dev/null 2>&1
-    [[ $? != 0 ]] && _grbo_err "Invalid origin parent branch: origin/$parent" && return 1
-  else
-    _grbo_err "Missing parent branch."; return 1
-  fi
+  local parent topic parent_sha origin_sha
+  parent=$1
+  topic=$2
+  [[ ! "$parent" ]] && _grbo_err "Missing parent branch." && return 1
+  parent_sha=$(git rev-parse $parent 2>/dev/null)
+  [[ $? != 0 ]] && _grbo_err "Invalid parent branch: $parent" && return 1
+  origin_sha=$(git ls-remote origin $parent | awk '{print $1}')
+  [[ ! "$origin_sha" ]] && _grbo_err "Invalid origin parent branch: origin/$parent" && return 1
+  [[ "$parent_sha" == "$origin_sha" ]] && echo "Same SHA for parent and origin/parent. Nothing to do!" && return
   if [[ "$topic" ]]; then
     git rev-parse "$topic" >/dev/null 2>&1
     [[ $? != 0 ]] && _grbo_err "Invalid topic branch: $topic" && return 1
