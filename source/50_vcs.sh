@@ -35,6 +35,42 @@ alias gu-all='eachdir git pull'
 alias gp-all='eachdir git push'
 alias gs-all='eachdir git status'
 
+# Rebase topic branch onto origin parent branch and update local parent branch
+# to match origin parent branch
+function grbo() {
+  local parent=$1
+  local topic=$2
+  if [[ "$parent" ]]; then
+    git rev-parse "$parent" >/dev/null 2>&1
+    [[ $? != 0 ]] && _grbo_err "Invalid parent branch: $parent" && return 1
+    git rev-parse "origin/$parent" >/dev/null 2>&1
+    [[ $? != 0 ]] && _grbo_err "Invalid origin parent branch: origin/$parent" && return 1
+  else
+    _grbo_err "Missing parent branch."; return 1
+  fi
+  if [[ "$topic" ]]; then
+    git rev-parse "$topic" >/dev/null 2>&1
+    [[ $? != 0 ]] && _grbo_err "Invalid topic branch: $topic" && return 1
+  else
+    topic="$(git rev-parse --abbrev-ref HEAD)"
+  fi
+  [[ "$topic" == "HEAD" ]] && _grbo_err "Missing or invalid topic branch." && return 1
+  [[ "$topic" == "$parent" ]] && _grbo_err "Topic and parent branch must be different!" && return 1
+  read -n 1 -r -p "About to rebase $topic onto origin/$parent. Are you sure? [y/N] "
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo
+    git fetch &&
+    git rebase --onto origin/$parent $parent "$topic" &&
+    git branch -f $parent origin/$parent
+  else
+    echo "Aborted by user."
+  fi
+}
+function _grbo_err() {
+  echo "Error: $@"
+  echo "Usage: grbo parent-branch [topic-branch]"
+}
+
 # open all changed files (that still actually exist) in the editor
 function ged() {
   local files
