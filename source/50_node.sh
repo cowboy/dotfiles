@@ -28,6 +28,7 @@ function nave_install() {
 npm_globals=(
   babel-cli
   bower
+  format-json-stream
   grunt-cli
   grunt-init
   linken
@@ -35,6 +36,17 @@ npm_globals=(
   pushstate-server
   yo
 )
+
+alias json="format-json-stream"
+alias npm_up='npm prune && npm install && npm update'
+
+# Run arbitrary command with npm "bin" directory in PATH.
+function npm_run() {
+  git rev-parse 2>/dev/null && (
+    PATH="$(git rev-parse --show-toplevel)/node_modules/.bin:$PATH"
+    "$@"
+  )
+}
 
 # Update npm and install global modules.
 function npm_install() {
