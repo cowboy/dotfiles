@@ -37,7 +37,12 @@ npm_globals=(
   yo
 )
 
+# Pretty-printed JSON in the terminal
+# Usage: curl -s "http://api.com/unformatted.json" | json
 alias json="format-json-stream"
+
+# Because "rm -rf node_modules && npm install" takes WAY too long. Not sure
+# if this really works as well, though. We'll see.
 alias npm_up='npm prune && npm install && npm update'
 
 # Run arbitrary command with npm "bin" directory in PATH.
