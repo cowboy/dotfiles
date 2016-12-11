@@ -2,6 +2,8 @@ alias less='less -r'
 
 alias pgrep='ps -ef | grep $1'
 
+alias gw='./gradlew'
+
 #postgres related:
 alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg_start='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist'
