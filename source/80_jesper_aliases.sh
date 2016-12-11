@@ -12,7 +12,7 @@ alias cdk='cd ~/src/karnov'
 # alias karnovUpdate="C=$(pwd);cdk; pwd; for f in $(_kgProjects); do cd \$f; pwd; git fetch; cd -; done;cd \$C"
 
 # EDITOR update for bundler
-export BUNDLER_EDITOR=subl
+export BUNDLER_EDITOR=atom
 
 # lang settings, view with `locale` or `locale -a`
 # export LANG=da_DK.UTF-8
