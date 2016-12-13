@@ -28,7 +28,6 @@ function nave_install() {
 npm_globals=(
   babel-cli
   bower
-  format-json-stream
   grunt-cli
   grunt-init
   linken
@@ -36,10 +35,6 @@ npm_globals=(
   pushstate-server
   yo
 )
-
-# Pretty-printed JSON in the terminal
-# Usage: curl -s "http://api.com/unformatted.json" | json
-alias json="format-json-stream"
 
 # Because "rm -rf node_modules && npm install" takes WAY too long. Not sure
 # if this really works as well, though. We'll see.

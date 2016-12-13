@@ -16,6 +16,7 @@ recipes=(
   htop-osx
   hub
   id3tool
+  jq
   lesspipe
   man2html
   mercurial
