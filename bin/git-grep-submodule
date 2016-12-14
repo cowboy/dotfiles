@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git --no-pager grep "$@"
+git --no-pager submodule --quiet foreach 'git grep --full-name -n ' "$@" '; true'
