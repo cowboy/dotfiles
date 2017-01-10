@@ -18,12 +18,13 @@ export BUNDLER_EDITOR=atom
 # export LANG=da_DK.UTF-8
 export LANG=en_US.UTF-8
 
+# oracle instantclient via homebrew
+#
+export OCI_DIR="$(brew --prefix)/lib"
+# see http://www.rubydoc.info/github/kubo/ruby-oci8/master/file/docs/install-on-osx.md
+# AND when downloading manually the zip files into `~/Downloads`:
+# `export HOMEBREW_CACHE=$HOME/Downloads/``
 
- ORACLE_HOME="$HOME/instantclient_11_2"
- export NLS_LANG="AMERICAN_AMERICA.UTF8" # or DANISH_DENMARK.WE8ISO8859P1
- export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$ORACLE_HOME"
- export TNS_ADMIN="$ORACLE_HOME" # or where you will place tnsnames.ora
- export PATH="$PATH:$ORACLE_HOME"
 
 
  #bintray
