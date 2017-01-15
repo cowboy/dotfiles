@@ -1,6 +1,6 @@
 [user]
-  name = Ben Alman
-  email = EMAIL
+  name = Tom Somerville
+  email = tom.somerville@4mation.com.au
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space

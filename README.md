@@ -148,6 +148,6 @@ Check it out:
 (and 15+ years of accumulated crap)
 
 ## License
-Copyright (c) 2014 "Cowboy" Ben Alman  
+Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.  
 <http://benalman.com/about/license/>
