@@ -24,4 +24,4 @@
 	url = https://github.com/evanchiu/bullet-train-oh-my-zsh-theme
 [submodule "libs/oh-my-zsh"]
 	path = libs/oh-my-zsh
-	url = https://github.com/evanchiu/oh-my-zsh
+        url = https://github.com/robbyrussell/oh-my-zsh
