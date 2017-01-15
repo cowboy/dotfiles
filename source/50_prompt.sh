@@ -119,6 +119,9 @@ function prompt_command() {
   # While the simple_prompt environment var is set, disable the awesome prompt.
   [[ "$simple_prompt" ]] && PS1='\n$ ' && return
 
+  # Update terminal CWD if command available, enables osx to open new tab on same dir.
+  [[ "$(type -t update_terminal_cwd)" ]] && update_terminal_cwd
+
   prompt_getcolors
   # http://twitter.com/cowboy/status/150254030654939137
   PS1="\n"
