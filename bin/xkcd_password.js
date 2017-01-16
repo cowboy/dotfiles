@@ -43,16 +43,20 @@ function randInt(min, max) {
 function generate(length) {
   var data = fs.readFileSync(dictionaryFile).toString();
   var lines = data.split('\n');
-  generated = '';
-  first = true;
+  var generated = '';
+  var first = true;
+  var words = [];
+  length = length || 100;
 
-  for (var i = 0; i < phraseCount; i++) {
+  for (var i = 0; i < phraseCount && generated.length < length; i++) {
     var word = lines[randInt(0, lines.length)].trim();
 
     // If the word is not all lowercase letters, get a new one
     while (word.match(/^[a-z]+$/) === null) {
       word = lines[randInt(0, lines.length)].trim();
     }
+
+    words.push(word);
 
     // Capitalize
     word = word.charAt(0).toUpperCase() + word.slice(1);
@@ -67,11 +71,11 @@ function generate(length) {
     generated += word;
   }
 
-  if (typeof length != 'undefined' && generated.length > length) {
+  if (generated.length > length) {
     generated = generated.substring(0, length);
   }
 
-  return generated;
+  return generated + '\n' + words.join(' ');
 }
 
 if (require.main === module) {
