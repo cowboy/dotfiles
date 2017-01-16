@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "get-stdin": "^5.0.1",
     "minimist": "*"
   }
 }

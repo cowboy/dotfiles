@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+const fs = require('fs');
+const getStdin = require('get-stdin');
 
 function pprint(filename) {
   // Read
@@ -26,7 +27,9 @@ function pprint(filename) {
 
 // "main" function
 if (require.main === module) {
-  if (process.argv.length == 3) {
+  if (process.argv.length == 2) {
+    getStdin().then(input => console.log(JSON.stringify(JSON.parse(input), undefined, 2)));
+  } else if (process.argv.length == 3) {
     pprint(process.argv[2]);
   } else if (process.argv.length > 3) {
     for (var i = 2; i < process.argv.length; i++) {
@@ -35,6 +38,7 @@ if (require.main === module) {
     }
   } else {
     console.log('Usage: ' + process.argv[1] + ' <json files>');
+    console.log('  with no files, pretty prints from stdin');
     console.log('  with one file, just pretty prints it');
     console.log('  with multiple files, prints filenames before output');
   }
