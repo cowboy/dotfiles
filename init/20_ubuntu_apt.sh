@@ -45,6 +45,7 @@ packages=(
   git-core
   htop
   id3tool
+  jq
   libssl-dev
   mercurial
   nmap

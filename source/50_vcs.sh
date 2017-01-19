@@ -35,6 +35,41 @@ alias gu-all='eachdir git pull'
 alias gp-all='eachdir git push'
 alias gs-all='eachdir git status'
 
+# Rebase topic branch onto origin parent branch and update local parent branch
+# to match origin parent branch
+function grbo() {
+  local parent topic parent_sha origin_sha
+  parent=$1
+  topic=$2
+  [[ ! "$parent" ]] && _grbo_err "Missing parent branch." && return 1
+  parent_sha=$(git rev-parse $parent 2>/dev/null)
+  [[ $? != 0 ]] && _grbo_err "Invalid parent branch: $parent" && return 1
+  origin_sha=$(git ls-remote origin $parent | awk '{print $1}')
+  [[ ! "$origin_sha" ]] && _grbo_err "Invalid origin parent branch: origin/$parent" && return 1
+  [[ "$parent_sha" == "$origin_sha" ]] && echo "Same SHA for parent and origin/parent. Nothing to do!" && return
+  if [[ "$topic" ]]; then
+    git rev-parse "$topic" >/dev/null 2>&1
+    [[ $? != 0 ]] && _grbo_err "Invalid topic branch: $topic" && return 1
+  else
+    topic="$(git rev-parse --abbrev-ref HEAD)"
+  fi
+  [[ "$topic" == "HEAD" ]] && _grbo_err "Missing or invalid topic branch." && return 1
+  [[ "$topic" == "$parent" ]] && _grbo_err "Topic and parent branch must be different!" && return 1
+  read -n 1 -r -p "About to rebase $topic onto origin/$parent. Are you sure? [y/N] "
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo
+    git fetch &&
+    git rebase --onto origin/$parent $parent "$topic" &&
+    git branch -f $parent origin/$parent
+  else
+    echo "Aborted by user."
+  fi
+}
+function _grbo_err() {
+  echo "Error: $@"
+  echo "Usage: grbo parent-branch [topic-branch]"
+}
+
 # open all changed files (that still actually exist) in the editor
 function ged() {
   local files
@@ -60,8 +95,9 @@ function gurl() {
   local remotename="${@:-origin}"
   local remote="$(git remote -v | awk '/^'"$remotename"'.*\(push\)$/ {print $2}')"
   [[ "$remote" ]] || return
+  local host="$(echo "$remote" | perl -pe 's/.*@//;s/:.*//')"
   local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
-  echo "https://github.com/$user_repo"
+  echo "https://$host/$user_repo"
 }
 # GitHub URL for current repo, including current branch + path.
 alias gurlp='echo $(gurl)/tree/$(gbs)/$(git rev-parse --show-prefix)'
