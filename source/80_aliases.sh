@@ -1,4 +1,5 @@
 alias less='less -r'
+alias more='more -r'
 
 alias pgrep='ps -ef | grep $1'
 
