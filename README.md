@@ -102,7 +102,7 @@ Why? Because I often completely break this repo while updating. Which means that
 
 ```sh
 export DOTFILES_GH_USER=cowboy
-export DOTFILES_GH_BRANCH=laptop
+export DOTFILES_GH_BRANCH=master
 bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
 
@@ -110,7 +110,7 @@ bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES
 
 ```sh
 export DOTFILES_GH_USER=cowboy
-export DOTFILES_GH_BRANCH=laptop
+export DOTFILES_GH_BRANCH=master
 bash -c "$(curl -fsSL https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
 
