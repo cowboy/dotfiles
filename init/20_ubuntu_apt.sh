@@ -32,6 +32,7 @@ apt_packages+=(
   curl
   git-core
   groff
+  hollywood
   htop
   id3tool
   imagemagick
