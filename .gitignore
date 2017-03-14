@@ -15,5 +15,8 @@
 /link/.rbenv/versions/
 /link/.rbenv/version
 
+# Don't commit byobu ssh-agent symlink
+/link/.byobu/.ssh-agent
+
 # Ignore any file with LOCAL in the name (good for per-machine vars/functions)
 *LOCAL*
