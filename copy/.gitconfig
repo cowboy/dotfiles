@@ -37,6 +37,8 @@
   added = yellow
   changed = green
   untracked = cyan
+[push]
+  default = simple
 [merge]
   log = true
 [difftool "Kaleidoscope"]
