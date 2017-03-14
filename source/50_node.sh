@@ -1,3 +1,5 @@
+[[ "$1" != init && ! -e ~/.nave ]] && return 1
+
 export PATH
 PATH=~/.nave/installed/default/bin:"$(path_remove ~/.nave/installed/*/bin)"
 
@@ -27,13 +29,11 @@ function nave_install() {
 # Global npm modules to install.
 npm_globals=(
   babel-cli
-  bower
+  eslint
   grunt-cli
-  grunt-init
-  linken
   node-inspector
   pushstate-server
-  yo
+  webpack
 )
 
 # Because "rm -rf node_modules && npm install" takes WAY too long. Not sure
