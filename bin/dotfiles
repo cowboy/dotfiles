@@ -38,6 +38,16 @@ function assert() {
   ${modes[success]} "\"$actual\" ${equals[success]} \"$expected\""
 }
 
+# Test if the dotfiles script is currently
+function is_dotfiles_running() {
+  [[ "$DOTFILES_SCRIPT_RUNNING" ]] || return 1
+}
+
+# Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
+function is_dotfiles_bin() {
+  [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
+}
+
 # OS detection
 function is_osx() {
   [[ "$OSTYPE" =~ ^darwin ]] || return 1
@@ -45,8 +55,11 @@ function is_osx() {
 function is_ubuntu() {
   [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 }
+function is_ubuntu_desktop() {
+  dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
+}
 function get_os() {
-  for os in osx ubuntu; do
+  for os in osx ubuntu ubuntu_desktop; do
     is_$os; [[ $? == ${1:-0} ]] && echo $os
   done
 }
@@ -69,11 +82,11 @@ function prompt_menu() {
   exitcode=0
   if [[ "$2" ]]; then
     _prompt_menu_draws "$1"
-    read -t $2 -n 1 -sp "To edit this list, press any key within $2 seconds. "
+    read -t $2 -n 1 -sp "Press ENTER or wait $2 seconds to continue, or press any other key to edit."
     exitcode=$?
     echo ""
   fi 1>&2
-  if [[ "$exitcode" == 0 ]]; then
+  if [[ "$exitcode" == 0 && "$REPLY" ]]; then
     prompt="Toggle options (Separate options with spaces, ENTER when done): "
     while _prompt_menu_draws "$1" 1 && read -rp "$prompt" nums && [[ "$nums" ]]; do
       _prompt_menu_adds $nums
@@ -127,6 +140,38 @@ function _prompt_menu_add() {
   _prompt_menu_result=("${_prompt_menu_result[@]}" "${menu_options[i]}")
 }
 
+# Array mapper. Calls map_fn for each item ($1) and index ($2) in array.
+# Usage: array_map array_name map_fn
+function array_map() {
+  local __arr
+  eval __arr=\("\${$1[@]}"\); shift
+  for i in "${!__arr[@]}"; do
+    "$@" "${__arr[i]}" $i
+  done
+}
+
+# Print out bash array for debugging purposes
+function array_print() { array_map $1 __array_print; }
+function __array_print() { echo "$2 <$1>"; }
+
+# Array filter. Calls map_fn for each item ($1) and index ($2) in array.
+# Returns filtered array containing array values.
+# Usage: array_filter array_name filter_fn
+function array_filter() { __array_filter 1 "$@"; }
+# Returns filtered array containing array indices.
+# Usage: array_filter_i array_name filter_fn
+function array_filter_i() { __array_filter 0 "$@"; }
+
+function __array_filter() {
+  local __arr __mode __output
+  __mode=$1; shift
+  eval __arr=\("\${$1[@]}"\); shift
+  for i in "${!__arr[@]}"; do
+    [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
+    "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
+  done
+}
+
 # Given strings containing space-delimited words A and B, "setdiff A B" will
 # return all words in A that do not exist in B. Arrays in bash are insane
 # (and not in a good way).
@@ -135,21 +180,21 @@ function setdiff() {
   local debug skip a b
   if [[ "$1" == 1 ]]; then debug=1; shift; fi
   if [[ "$1" ]]; then
-    local setdiffA setdiffB setdiffC
-    setdiffA=($1); setdiffB=($2)
+    local setdiff_new setdiff_cur setdiff_out
+    setdiff_new=($1); setdiff_cur=($2)
   fi
-  setdiffC=()
-  for a in "${setdiffA[@]}"; do
+  setdiff_out=()
+  for a in "${setdiff_new[@]}"; do
     skip=
-    for b in "${setdiffB[@]}"; do
+    for b in "${setdiff_cur[@]}"; do
       [[ "$a" == "$b" ]] && skip=1 && break
     done
-    [[ "$skip" ]] || setdiffC=("${setdiffC[@]}" "$a")
+    [[ "$skip" ]] || setdiff_out=("${setdiff_out[@]}" "$a")
   done
-  [[ "$debug" ]] && for a in setdiffA setdiffB setdiffC; do
+  [[ "$debug" ]] && for a in setdiff_new setdiff_cur setdiff_out; do
     echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
   done
-  [[ "$1" ]] && echo "${setdiffC[@]}"
+  [[ "$1" ]] && echo "${setdiff_out[@]}"
 }
 
 # If this file was being sourced, exit now.
@@ -159,6 +204,12 @@ function setdiff() {
 ###########################################
 # INTERNAL DOTFILES "INIT" VARS / FUNCTIONS
 ###########################################
+
+DOTFILES_SCRIPT_RUNNING=1
+function cleanup {
+  unset DOTFILES_SCRIPT_RUNNING
+}
+trap cleanup EXIT
 
 # Initialize.
 init_file=$DOTFILES/caches/init/selected
@@ -258,7 +309,67 @@ function do_stuff() {
 
 # Enough with the functions, let's do stuff.
 
-export prompt_delay=5
+# Set the prompt delay to be longer for the very first run.
+export prompt_delay=5; is_dotfiles_bin || prompt_delay=15
+
+# Keep-alive: update existing sudo time stamp if set, otherwise do nothing.
+# Note that this doesn't work with Homebrew, since brew explicitly invalidates
+# the sudo timestamp, which is probably wise.
+# See https://gist.github.com/cowboy/3118588
+while true; do sudo -n true; sleep 10; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Install a custom sudoers file that allows "sudo apt-get" to be executed
+# without asking for a password.
+sudoers_file=/etc/sudoers.d/cowboy-dotfiles
+# Contents of the sudoers file.
+function sudoers_text() {
+  cat <<EOF
+# This file was created by cowboy's dotfiles script on $(date -I)
+# (which will never update it, only recreate it if it's missing)
+# Sudoers reference: http://ubuntuforums.org/showthread.php?t=1132821
+
+# Command aliases.
+Cmnd_Alias APT = /usr/bin/apt-get
+
+# Members of the sudo and admin groups can run these commands without password.
+%sudo ALL=(ALL) ALL, NOPASSWD:APT
+%admin ALL=(ALL) ALL, NOPASSWD:APT
+EOF
+}
+# Bash commands to update the sudoers file.
+function sudoers_code() {
+  cat <<EOF
+echo "$(sudoers_text)" > $sudoers_file
+chmod 0440 $sudoers_file
+if visudo -c; then
+  echo; echo "Sudoers file created."
+else
+  rm $sudoers_file
+  echo; echo "Unable to create sudoers file."
+fi
+EOF
+}
+# Offer to create the sudoers file if it doesn't exist.
+if is_ubuntu && [[ ! -e $sudoers_file ]]; then
+  cat <<EOF
+
+The sudoers file can be updated to allow "sudo apt-get" to be executed
+without asking for a password. You can verify that this worked correctly by
+running "sudo -k apt-get". If it doesn't ask for a password, and the output
+looks normal, it worked.
+
+THIS SHOULD ONLY BE ATTEMPTED IF YOU ARE LOGGED IN AS ROOT IN ANOTHER SHELL.
+
+This will be skipped if "Y" isn't pressed within the next $prompt_delay seconds.
+EOF
+  read -N 1 -t $prompt_delay -p "Update sudoers file? [y/N] " update_sudoers; echo
+  if [[ "$update_sudoers" =~ [Yy] ]]; then
+    e_header "Creating sudoers file"
+    sudo bash -c "$(sudoers_code)"
+  else
+    echo "Skipping."
+  fi
+fi
 
 # Ensure that we can actually, like, compile anything.
 if [[ ! "$(type -P gcc)" ]] && is_osx; then
@@ -281,11 +392,10 @@ fi
 
 # Initialize.
 if [[ ! -d $DOTFILES ]]; then
-  # $DOTFILES directory doesn't exist? Clone it!
-  new_dotfiles_install=1
-  prompt_delay=15
+  # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-  git clone --recursive git://github.com/${github_user:-cowboy}/dotfiles.git $DOTFILES
+  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
+    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git $DOTFILES
   cd $DOTFILES
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.
@@ -295,14 +405,18 @@ elif [[ "$1" != "restart" ]]; then
   git pull
   git submodule update --init --recursive --quiet
   if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
-    e_header "Changes detected, restarting script"
-    exec "$0" "restart"
+    if is_dotfiles_bin; then
+      e_header "Changes detected, restarting script"
+      exec "$0" restart
+    else
+      e_header "Changes detected, please re-run script"
+      exit
+    fi
   fi
 fi
 
 # Add binaries into the path
-[[ -d $DOTFILES/bin ]] && PATH=$DOTFILES/bin:$PATH
-export PATH
+[[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
 
 # Tweak file globbing.
 shopt -s dotglob
@@ -316,9 +430,9 @@ backup_dir="$DOTFILES/backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
 backup=
 
 # Execute code for each file in these subdirectories.
-do_stuff "copy"
-do_stuff "link"
-do_stuff "init"
+do_stuff copy
+do_stuff link
+do_stuff init
 
 # Alert if backups were made.
 if [[ "$backup" ]]; then
