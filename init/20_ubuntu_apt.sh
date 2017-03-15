@@ -129,11 +129,14 @@ if is_ubuntu_desktop; then
     zenmap
   )
 
+  # https://github.com/mitchellh/vagrant/issues/7411
+  deb_installed+=(/usr/bin/vagrant)
+  deb_sources+=(https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb)
   # https://github.com/vagrant-libvirt/vagrant-libvirt/issues/575
-  apt_packages+=(vagrant)
-  function postinstall_vagrant() {
-    sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
-  }
+  # apt_packages+=(vagrant)
+  # function postinstall_vagrant() {
+  #   sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
+  # }
 
   # https://support.gitkraken.com/how-to-install
   deb_installed+=(/usr/bin/gitkraken)
