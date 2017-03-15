@@ -125,6 +125,7 @@ if is_ubuntu_desktop; then
     shutter
     transgui
     unity-tweak-tool
+    vagrant
     vlc
     zenmap
   )
