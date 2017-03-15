@@ -125,10 +125,15 @@ if is_ubuntu_desktop; then
     shutter
     transgui
     unity-tweak-tool
-    vagrant
     vlc
     zenmap
   )
+
+  # https://github.com/vagrant-libvirt/vagrant-libvirt/issues/575
+  apt_packages+=(vagrant)
+  function postinstall_vagrant() {
+    sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
+  }
 
   # https://support.gitkraken.com/how-to-install
   deb_installed+=(/usr/bin/gitkraken)
