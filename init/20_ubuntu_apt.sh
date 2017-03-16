@@ -129,6 +129,9 @@ if is_ubuntu_desktop; then
     zenmap
   )
 
+  # Manage online accounts via "gnome-control-center" in launcher
+  apt_packages+=(gnome-control-center gnome-online-accounts)
+
   # https://github.com/mitchellh/vagrant/issues/7411
   deb_installed+=(/usr/bin/vagrant)
   deb_sources+=(https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb)
