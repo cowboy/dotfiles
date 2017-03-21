@@ -63,6 +63,7 @@ function prompt_git() {
         /^(# )?Untracked files:$/                {r=r "?"}\
       END {print r}'
   )"
+  output=${output//[^a-z0-9\/]/-}
   if [[ "$flags" ]]; then
     output="$output$c1:$c0$flags"
   fi
@@ -83,6 +84,8 @@ function prompt_hg() {
       /(unknown)/      {a= "?"}\
       END {print r a}'
   )"
+  output=${output//[^a-z0-9\/]/-}
+  bookmark=${bookmark//[^a-z0-9\/]/-}
   output="$output:$bookmark"
   if [[ "$flags" ]]; then
     output="$output$c1:$c0$flags"
