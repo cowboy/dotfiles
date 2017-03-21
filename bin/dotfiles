@@ -172,6 +172,18 @@ function __array_filter() {
   done
 }
 
+# Do something n times.
+function n_times() {
+  local max=$1; shift
+  local i=0; while [[ $i -lt $max ]]; do "$@"; i=$((i+1)); done
+}
+
+# Do something n times, passing along the array index.
+function n_times_i() {
+  local max=$1; shift
+  local i=0; while [[ $i -lt $max ]]; do "$@" "$i"; i=$((i+1)); done
+}
+
 # Given strings containing space-delimited words A and B, "setdiff A B" will
 # return all words in A that do not exist in B. Arrays in bash are insane
 # (and not in a good way).

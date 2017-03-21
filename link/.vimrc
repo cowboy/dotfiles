@@ -287,4 +287,5 @@ Plug 'vim-scripts/dbext.vim'
 Plug 'krisajenkins/vim-pipe'
 Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'mileszs/ack.vim'
+Plug 'tmux-plugins/vim-tmux'
 call plug#end()

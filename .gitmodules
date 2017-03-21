@@ -31,3 +31,9 @@
 [submodule "rbenv-update"]
 	path = link/.rbenv/plugins/rbenv-update
 	url = git://github.com/rkh/rbenv-update.git
+[submodule "link/.tmux/plugins/tpm"]
+        path = link/.tmux/plugins/tpm
+        url = git@github.com:tmux-plugins/tpm.git
+[submodule "vendor/.tmux"]
+        path = vendor/.tmux
+        url = git@github.com:gpakosz/.tmux.git

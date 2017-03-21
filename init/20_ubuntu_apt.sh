@@ -26,7 +26,6 @@ apt_packages+=(
   ansible
   awscli
   build-essential
-  byobu
   cmatrix
   cowsay
   curl
