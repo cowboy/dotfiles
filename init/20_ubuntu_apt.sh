@@ -125,6 +125,7 @@ if is_ubuntu_desktop; then
     transgui
     unity-tweak-tool
     vlc
+    xclip
     zenmap
   )
 
