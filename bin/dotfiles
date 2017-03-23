@@ -29,13 +29,24 @@ function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;34m➜\033[0m  $@"; }
 
-# For testing.
+# For testing some of these functions.
 function assert() {
-  local success modes equals actual expected
-  modes=(e_error e_success); equals=("!=" "=="); expected="$1"; shift
-  actual="$("$@")"
-  [[ "$actual" == "$expected" ]] && success=1 || success=0
-  ${modes[success]} "\"$actual\" ${equals[success]} \"$expected\""
+  local success modes equals result
+  modes=(e_error e_success); equals=("!=" "==");
+  [[ "$1" == "$2" ]] && success=1 || success=0
+  if [[ "$(echo "$1" | wc -l)" != 1 || "$(echo "$2" | wc -l)" != 1 ]]; then
+    result="$(diff <(echo "$1") <(echo "$2") | sed '
+      s/^\([^<>-].*\)/===[\1]====================/
+      s/^\([<>].*\)/\1|/
+      s/^< /actual   |/
+      s/^> /expected |/
+      2,$s/^/    /
+    ')"
+    [[ ! "$result" ]] && result="(multiline comparison)"
+  else
+    result="\"$1\" ${equals[success]} \"$2\""
+  fi
+  ${modes[success]} "$result"
 }
 
 # Test if the dotfiles script is currently
@@ -140,35 +151,53 @@ function _prompt_menu_add() {
   _prompt_menu_result=("${_prompt_menu_result[@]}" "${menu_options[i]}")
 }
 
-# Array mapper. Calls map_fn for each item ($1) and index ($2) in array.
-# Usage: array_map array_name map_fn
+# Array mapper. Calls map_fn for each item ($1) and index ($2) in array, and
+# prints whatever map_fn prints. If map_fn is omitted, all input array items
+# are printed.
+# Usage: array_map array_name [map_fn]
 function array_map() {
-  local __arr
-  eval __arr=\("\${$1[@]}"\); shift
-  for i in "${!__arr[@]}"; do
-    "$@" "${__arr[i]}" $i
+  local __i__ __arr__=$1; shift
+  for __i__ in $(eval echo "\${!$__arr__[@]}"); do
+    __val__="$(eval echo "\"\${$__arr__[__i__]}\"")"
+    if [[ "$1" ]]; then
+      "$@" "$__val__" $__i__
+    else
+      echo "$__val__"
+    fi
   done
 }
 
-# Print out bash array for debugging purposes
+# Print bash array in the format "i <val>" (one per line) for debugging.
 function array_print() { array_map $1 __array_print; }
 function __array_print() { echo "$2 <$1>"; }
 
-# Array filter. Calls map_fn for each item ($1) and index ($2) in array.
-# Returns filtered array containing array values.
-# Usage: array_filter array_name filter_fn
+# Array filter. Calls filter_fn for each item ($1) and index ($2) in array_name
+# array, and prints all values for which filter_fn returns a non-zero exit code
+# to stdout. If filter_fn is omitted, input array items that are empty strings
+# will be removed.
+# Usage: array_filter array_name [filter_fn]
+# Eg. mapfile filtered_arr < <(array_filter source_arr)
 function array_filter() { __array_filter 1 "$@"; }
-# Returns filtered array containing array indices.
-# Usage: array_filter_i array_name filter_fn
+# Works like array_filter, but outputs array indices instead of array items.
 function array_filter_i() { __array_filter 0 "$@"; }
-
+# The core function. Wheeeee.
 function __array_filter() {
-  local __arr __mode __output
-  __mode=$1; shift
-  eval __arr=\("\${$1[@]}"\); shift
-  for i in "${!__arr[@]}"; do
-    [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
-    "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
+  local __i__ __val__ __mode__ __arr__
+  __mode__=$1; shift; __arr__=$1; shift
+  for __i__ in $(eval echo "\${!$__arr__[@]}"); do
+    __val__="$(eval echo "\${$__arr__[__i__]}")"
+    if [[ "$1" ]]; then
+      "$@" "$__val__" $__i__ >/dev/null
+    else
+      [[ "$__val__" ]]
+    fi
+    if [[ "$?" == 0 ]]; then
+      if [[ "$__mode__" == 1 ]]; then
+        eval echo "\"\${$__arr__[__i__]}\""
+      else
+        echo $__i__
+      fi
+    fi
   done
 }
 
