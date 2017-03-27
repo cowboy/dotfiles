@@ -11,6 +11,9 @@
 # Read more (and see a screenshot) in the "Prompt" section of
 # https://github.com/cowboy/dotfiles
 
+# Abort if a prompt is already defined.
+[[ "$PROMPT_COMMAND" ]] && return
+
 # ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
 #
 #  0  reset          4  underline
