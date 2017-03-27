@@ -39,6 +39,7 @@ apt_packages+=(
   mercurial
   nmap
   postgresql
+  python-pip
   silversearcher-ag
   sl
   telnet
