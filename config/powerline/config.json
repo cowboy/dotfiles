@@ -1,0 +1,18 @@
+{
+	"common": {
+	},
+	"ext": {
+		"shell": {
+			"colorscheme": "default",
+			"theme": "cowboy",
+			"local_themes": {
+				"continuation": "continuation",
+				"select": "select"
+			}
+		},
+		"tmux": {
+			"colorscheme": "default",
+			"theme": "default"
+		}
+	}
+}
