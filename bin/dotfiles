@@ -340,7 +340,7 @@ function config_test() {
 }
 function config_do() {
   e_success "Linking ~/.config/$1."
-  ln -sf ${2#$HOME/} ~/.config/
+  ln -sf ../${2#$HOME/} ~/.config/
 }
 
 # Copy, link, init, etc.
