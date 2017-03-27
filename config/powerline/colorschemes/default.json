@@ -25,6 +25,6 @@
     "battery":
       { "fg": "gray8", "bg": "gray0", "attrs": [] },
     "battery_gradient":
-      { "fg": "white", "bg": "dark_GREEN_Orange_red", "attrs": [] }
+      { "fg": "white", "bg": "battery_green_orange_red", "attrs": [] }
   }
 }

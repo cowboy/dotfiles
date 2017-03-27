@@ -40,6 +40,11 @@
     "time": {
       "before": "⌚ "
     },
+    "external_ip": {
+      "args": {
+        "query_url": "http://ipecho.net/plain"
+      }
+    },
 
     "powerline.segments.common.net.network_load": {
       "args": {
