@@ -3,6 +3,7 @@
 
 # Add pip packages
 pip_packages=(
+  netifaces
   powerline-status
 )
 

@@ -35,7 +35,8 @@ if [[ "$(which powerline-daemon)" ]]; then
   # If not in a login shell (eg. "sudo bash") or inside a tmux pane:
   if ! shopt -q login_shell || [[ "$TMUX" ]]; then
     powerline_command_args+=(
-      segment_data.date-seg.display=false
+      segment_data.date_seg.display=false
+      segment_data.hostname.display=false
     )
   fi
   if [[ "${#powerline_command_args[@]}" != 0 ]]; then
