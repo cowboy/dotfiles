@@ -156,7 +156,7 @@ function _prompt_menu_add() {
 # are printed.
 # Usage: array_map array_name [map_fn]
 function array_map() {
-  local __i__ __arr__=$1; shift
+  local __i__ __val__ __arr__=$1; shift
   for __i__ in $(eval echo "\${!$__arr__[@]}"); do
     __val__="$(eval echo "\"\${$__arr__[__i__]}\"")"
     if [[ "$1" ]]; then
@@ -192,13 +192,32 @@ function __array_filter() {
       [[ "$__val__" ]]
     fi
     if [[ "$?" == 0 ]]; then
-      if [[ "$__mode__" == 1 ]]; then
+      if [[ $__mode__ == 1 ]]; then
         eval echo "\"\${$__arr__[__i__]}\""
       else
         echo $__i__
       fi
     fi
   done
+}
+
+# Array join. Joins array ($1) items on string ($2).
+function array_join() { __array_join 1 "$@"; }
+# Works like array_join, but removes empty items first.
+function array_join_filter() { __array_join 0 "$@"; }
+
+function __array_join() {
+  local __i__ __val__ __out__ __init__ __mode__ __arr__
+  __mode__=$1; shift; __arr__=$1; shift
+  for __i__ in $(eval echo "\${!$__arr__[@]}"); do
+    __val__="$(eval echo "\"\${$__arr__[__i__]}\"")"
+    if [[ $__mode__ == 1 || "$__val__" ]]; then
+      [[ "$__init__" ]] && __out__="$__out__$@"
+      __out__="$__out__$__val__"
+      __init__=1
+    fi
+  done
+  [[ "$__out__" ]] && echo "$__out__"
 }
 
 # Do something n times.

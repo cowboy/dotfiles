@@ -97,3 +97,32 @@ IFS= read -rd '' actual < <(array_filter_i fixture1 filter)
 expected=$'1\n3\n5\n7\n'
 test_assert
 
+
+e_header array_join
+
+IFS= read -rd '' actual < <(array_join empty ',')
+expected=$''
+test_assert
+
+IFS= read -rd '' actual < <(array_join fixture1 ',')
+expected=$'a,b,,c d, e ,  \'f\'  , \"g\'h\" ,i,\n'
+test_assert
+
+IFS= read -rd '' actual < <(array_join fixture1 ', ')
+expected=$'a, b, , c d,  e ,   \'f\'  ,  \"g\'h\" , i, \n'
+test_assert
+
+
+e_header array_join_filter
+
+IFS= read -rd '' actual < <(array_join_filter empty ',')
+expected=$''
+test_assert
+
+IFS= read -rd '' actual < <(array_join_filter fixture1 ',')
+expected=$'a,b,c d, e ,  \'f\'  , \"g\'h\" ,i\n'
+test_assert
+
+IFS= read -rd '' actual < <(array_join_filter fixture1 ', ')
+expected=$'a, b, c d,  e ,   \'f\'  ,  \"g\'h\" , i\n'
+test_assert
