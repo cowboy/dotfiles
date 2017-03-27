@@ -15,9 +15,9 @@ function tm() {
   fi
 }
 
-# Start tmux now (at login), but only if not already started & detached in this
-# shell.
-if [[ ! "$TMUX_AUTO_STARTED" ]]; then
+# Start tmux now (at login), but only if in a login shell and not already
+# started (and possibly detached) in this shell.
+if shopt -q login_shell && [[ ! "$TMUX_AUTO_STARTED" ]]; then
   TMUX_AUTO_STARTED=1
   tm SOURCE
 fi
