@@ -1,11 +1,4 @@
 if [[ "$(which powerline-daemon)" ]]; then
-  # Allow prompt to be restored to default.
-  [[ "${#__PS_DEFAULT[@]}" == 0 ]] && __PS_DEFAULT=("$PS1" "$PS2" "$PS3" "$PS4")
-  function prompt_default() {
-    unset PROMPT_COMMAND
-    for i in {1..4}; do eval "PS$i='${__PS_DEFAULT[i-1]}'"; done
-  }
-
   # Powerline stuff.
   export POWERLINE_PREFIX="$(python -c "import site; print(site.getusersitepackages())")/powerline"
 
@@ -41,12 +34,11 @@ if [[ "$(which powerline-daemon)" ]]; then
   __powerline_command_args=()
   __powerline_command_prefix=' -t cowboy.'
 
-  # Run at any time to remove extra stuff from the prompt.
+  # Run at any time to remove extra powerline segments from the prompt.
   function prompt_simple() {
     __temp=(date_seg hostname battery uptime system_load external_ip internal_ip)
     function __temp() { echo "segment_data.$1.display=false"; }
     __powerline_command_args=($(array_map __temp __temp))
-    unset __temp; unset -f __temp
     __set_powerline_command_args
   }
 
