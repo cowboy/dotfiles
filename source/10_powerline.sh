@@ -32,7 +32,7 @@ if [[ "$(which powerline-daemon)" ]]; then
 
   # Conditionally change the powerline config.
   __powerline_command_args=()
-  __powerline_command_prefix=' -t cowboy.'
+  __powerline_command_theme=' -t default.'
 
   # Run at any time to remove extra powerline segments from the prompt.
   function prompt_simple() {
@@ -45,7 +45,7 @@ if [[ "$(which powerline-daemon)" ]]; then
   function __set_powerline_command_args() {
     POWERLINE_COMMAND_ARGS=
     if [[ "${#__powerline_command_args[@]}" != 0 ]]; then
-      POWERLINE_COMMAND_ARGS="$__powerline_command_prefix$(array_join __powerline_command_args "$__powerline_command_prefix")"
+      POWERLINE_COMMAND_ARGS="$__powerline_command_theme$(array_join __powerline_command_args "$__powerline_command_theme")"
     fi
   }
 
