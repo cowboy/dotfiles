@@ -8,6 +8,8 @@ apt_packages=()
 deb_installed=()
 deb_sources=()
 
+installers_path="$DOTFILES/caches/installers"
+
 # Ubuntu distro release name, eg. "xenial"
 release_name=$(lsb_release -c | awk '{print $2}')
 
@@ -197,6 +199,9 @@ function other_stuff() {
       sudo make install
     )
   fi
+  # Install misc bins from zip file.
+  install_from_zip ngrok 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip'
+  install_from_zip terraform 'https://releases.hashicorp.com/terraform/0.9.2/terraform_0.9.2_linux_amd64.zip'
 }
 
 ####################
@@ -271,7 +276,6 @@ function __temp() { [[ ! -e "$1" ]]; }
 deb_installed_i=($(array_filter_i deb_installed __temp))
 
 if (( ${#deb_installed_i[@]} > 0 )); then
-  installers_path="$DOTFILES/caches/installers"
   mkdir -p "$installers_path"
   e_header "Installing debs (${#deb_installed_i[@]})"
   for i in "${deb_installed_i[@]}"; do
@@ -283,6 +287,24 @@ if (( ${#deb_installed_i[@]} > 0 )); then
     sudo dpkg -i "$installer_file"
   done
 fi
+
+# install bins from zip file
+function install_from_zip() {
+  local name=$1 url=$2 bins b zip tmp
+  shift 2; bins=("$@"); [[ "${#bins[@]}" == 0 ]] && bins=($name)
+  if [[ ! "$(which $name)" ]]; then
+    mkdir -p "$installers_path"
+    e_header "Installing $name"
+    zip="$installers_path/$(echo "$url" | sed 's#.*/##')"
+    wget -O "$zip" "$url"
+    tmp=$(mktemp -d)
+    unzip "$zip" -d "$tmp"
+    for b in "${bins[@]}"; do
+      sudo cp "$tmp/$b" "/usr/local/bin/$(basename $b)"
+    done
+    rm -rf $tmp
+  fi
+}
 
 # Run anything else that may need to be run.
 type -t other_stuff >/dev/null && other_stuff
