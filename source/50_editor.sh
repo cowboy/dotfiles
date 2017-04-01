@@ -24,5 +24,4 @@ function q() {
     $EDITOR - > /dev/null
   fi
 }
-alias qv="q $DOTFILES/link/.{,g}vimrc +'cd $DOTFILES'"
 alias qs="q $DOTFILES"

@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 [[ "$1" == "source" ]] || \
 
-echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
+echo 'Dotfiles - Elliott Clark'
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
 
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -398,11 +397,11 @@ while true; do sudo -n true; sleep 10; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Install a custom sudoers file that allows "sudo apt-get" to be executed
 # without asking for a password.
-sudoers_file=/etc/sudoers.d/cowboy-dotfiles
+sudoers_file=/etc/sudoers.d/elliottneilclark-dotfiles
 # Contents of the sudoers file.
 function sudoers_text() {
   cat <<EOF
-# This file was created by cowboy's dotfiles script on $(date -I)
+# This file was created by elliottneilclark's dotfiles script on $(date -I)
 # (which will never update it, only recreate it if it's missing)
 # Sudoers reference: http://ubuntuforums.org/showthread.php?t=1132821
 
@@ -473,7 +472,7 @@ if [[ ! -d $DOTFILES ]]; then
   # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
   git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git $DOTFILES
+    git://github.com/${DOTFILES_GH_USER:-elliottneilclark}/dotfiles.git $DOTFILES
   cd $DOTFILES
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.

@@ -25,7 +25,6 @@ function add_ppa() {
 
 # Misc.
 apt_packages+=(
-  awscli
   build-essential
   cmatrix
   cowsay
@@ -96,12 +95,6 @@ if is_ubuntu_desktop; then
   apt_source_texts+=("deb http://repository.spotify.com stable non-free")
   apt_packages+=(spotify-client)
 
-  # https://tecadmin.net/install-oracle-virtualbox-on-ubuntu/
-  apt_keys+=(https://www.virtualbox.org/download/oracle_vbox_2016.asc)
-  apt_source_files+=(virtualbox)
-  apt_source_texts+=("deb http://download.virtualbox.org/virtualbox/debian $release_name contrib")
-  apt_packages+=(virtualbox-5.1)
-
   # http://askubuntu.com/a/190674
   add_ppa ppa:webupd8team/java
   apt_packages+=(oracle-java8-installer)
@@ -137,15 +130,6 @@ if is_ubuntu_desktop; then
 
   # Manage online accounts via "gnome-control-center" in launcher
   apt_packages+=(gnome-control-center gnome-online-accounts)
-
-  # https://github.com/mitchellh/vagrant/issues/7411
-  deb_installed+=(/usr/bin/vagrant)
-  deb_sources+=(https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.deb)
-  # https://github.com/vagrant-libvirt/vagrant-libvirt/issues/575
-  # apt_packages+=(vagrant)
-  # function postinstall_vagrant() {
-  #   sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
-  # }
 
   # https://support.gitkraken.com/how-to-install
   deb_installed+=(/usr/bin/gitkraken)

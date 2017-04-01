@@ -18,80 +18,19 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 
 # Homebrew casks
 casks=(
-  # Applications
-  1password
-  a-better-finder-rename
   awscli
-  battle-net
-  bettertouchtool
   charles
-  chromium
-  chronosync
-  controllermate
   coreutils
   docker
-  docker-machine
-  docker-compose
-  dropbox
-  easysimbl
-  fastscripts
   firefox
   google-chrome
-  gyazo
   hermes
-  hex-fiend
   iterm2
-  karabiner
   launchbar
   macvim
-  menumeters
-  messenger-for-desktop
-  midi-monitor
-  moom
-  omnidisksweeper
-  race-for-the-galaxy
-  reaper
-  remote-desktop-connection
-  scroll-reverser
-  seil
-  skype
-  slack
-  smoothmouse
-  sonos
-  sourcetree
   spotify
-  star-realms
   steam
-  synology-assistant
-  teamspeak-client
-  teamviewer
-  the-unarchiver
-  todoist
-  totalfinder
-  tower
-  transmission-remote-gui
-  tunnelblick
-  vagrant
-  virtualbox
   vlc
-  yacreader
-  ynab
-  # Drivers
-  xbox360-controller-driver
-  # Quick Look plugins
-  betterzipql
-  qlcolorcode
-  qlmarkdown
-  qlprettypatch
-  qlstephen
-  quicklook-csv
-  quicklook-json
-  quicknfo
-  suspicious-package
-  webpquicklook
-  # Color pickers
-  colorpicker-developer
-  colorpicker-skalacolor
 )
 
 # Install Homebrew casks.
@@ -102,21 +41,4 @@ if (( ${#casks[@]} > 0 )); then
     brew cask install $cask
   done
   brew cask cleanup
-fi
-
-# Work around colorPicker symlink issue.
-# https://github.com/caskroom/homebrew-cask/issues/7004
-cps=()
-for f in ~/Library/ColorPickers/*.colorPicker; do
-  [[ -L "$f" ]] && cps=("${cps[@]}" "$f")
-done
-
-if (( ${#cps[@]} > 0 )); then
-  e_header "Fixing colorPicker symlinks"
-  for f in "${cps[@]}"; do
-    target="$(readlink "$f")"
-    e_arrow "$(basename "$f")"
-    rm "$f"
-    cp -R "$target" ~/Library/ColorPickers/
-  done
 fi

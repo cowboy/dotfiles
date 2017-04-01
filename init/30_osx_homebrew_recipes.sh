@@ -6,23 +6,16 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
-  android-platform-tools
-  ansible
   bash
-  cmatrix
+  byobu
   cowsay
   git
   git-extras
   htop-osx
   hub
-  id3tool
   jq
   lesspipe
   man2html
-  mercurial
-  nmap
-  postgres
-  sl
   ssh-copy-id
   terminal-notifier
   the_silver_searcher
