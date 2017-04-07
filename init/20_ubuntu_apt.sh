@@ -156,21 +156,17 @@ if is_ubuntu_desktop; then
   deb_installed+=(/usr/bin/dropbox)
   deb_sources+=("https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb")
 
-  # https://github.com/raelgc/scudcloud#ubuntukubuntu-and-mint
   # http://askubuntu.com/a/852727
-  add_ppa ppa:rael-gc/scudcloud
-  apt_packages+=(scudcloud)
   deb_installed+=(/usr/share/fonts/truetype/msttcorefonts)
-  deb_sources+=(http://ftp.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb)
-  function preinstall_scudcloud() {
+  deb_sources+=(deb_source_msttcorefonts)
+  function deb_source_msttcorefonts() {
     echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+    echo http://ftp.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
   }
-  function postinstall_scudcloud() {
-    sudo dpkg-divert --add --rename --divert /usr/share/pixmaps/scudcloud.png.real /usr/share/pixmaps/scudcloud.png
-    sudo cp $DOTFILES/conf/ubuntu/scudcloud.png /usr/share/pixmaps/
-    sudo chmod +r /usr/share/pixmaps/scudcloud.png
-    sudo update-desktop-database
-  }
+
+  # https://slack.com/downloads/instructions/linux
+  deb_installed+=(/usr/bin/slack)
+  deb_sources+=(https://downloads.slack-edge.com/linux_releases/slack-desktop-2.5.2-amd64.deb)
 
   # http://askubuntu.com/questions/854480/how-to-install-the-steam-client/854481#854481
   apt_packages+=(python-apt)
