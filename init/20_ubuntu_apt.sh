@@ -126,6 +126,8 @@ if is_ubuntu_desktop; then
     fonts-mplus
     k4dirstat
     rofi
+    network-manager-openconnect
+    network-manager-openconnect-gnome
     openssh-server
     shutter
     transgui
