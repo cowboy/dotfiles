@@ -137,11 +137,23 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
+" Ctrl-arrows select split
+nnoremap [1;5B <C-W>j
+nnoremap [1;5A <C-W>k
+nnoremap [1;5C <C-W>l
+nnoremap [1;5D <C-W>h
+
 " Buffer navigation
 nnoremap <leader>b :CtrlPBuffer<CR> " List other buffers
 map <leader><leader> :b#<CR> " Switch between the last two files
 map gb :bnext<CR> " Next buffer
 map gB :bprev<CR> " Prev buffer
+
+" Switch buffers with Alt-Left/Right
+nmap [1;3C :bprev<CR>
+nmap [1;3D :bnext<CR>
+vmap [1;3C <Esc>:bprev<CR>
+vmap [1;3D <Esc>:bnext<CR>
 
 " Ctrl-J, the opposite of Shift-J
 nnoremap <C-J> a<CR><Esc>k$
