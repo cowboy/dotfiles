@@ -1,6 +1,7 @@
 {
   "common": {
-    "term_truecolor": false
+    "term_truecolor": "auto",
+    "ambiwidth": 1
   },
   "ext": {
     "shell": {
