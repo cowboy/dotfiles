@@ -13,7 +13,7 @@ if dein#load_state('~/.config/nvim/bundles')
   call dein#add('~/.config/nvim/bundles/repos/github.com/Shougo/dein.vim')
 
   call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('scrooloose/syntastic')
+  "call dein#add('scrooloose/syntastic')
 
   " Auto complete
   call dein#add('Shougo/deoplete.nvim')
@@ -25,6 +25,7 @@ if dein#load_state('~/.config/nvim/bundles')
   call dein#add('fatih/vim-go')
   call dein#add('slim-template/vim-slim')
   call dein#add('hdima/python-syntax')
+  call dein#add('zchee/deoplete-clang')
 
   " Rust
   call dein#add('rust-lang/rust.vim')
@@ -236,3 +237,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang/3.8.0/include/'
