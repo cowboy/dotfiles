@@ -1,0 +1,19 @@
+{
+  "common": {
+    "term_truecolor": false
+  },
+  "ext": {
+    "shell": {
+      "colorscheme": "default",
+      "theme": "default",
+      "local_themes": {
+        "continuation": "continuation",
+        "select": "select"
+      }
+    },
+    "tmux": {
+      "colorscheme": "default",
+      "theme": "default"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "segments": {
+    "above": [
+      {
+        "left": [
+          {
+            "function": "powerline.segments.common.env.user",
+            "priority": 25
+          },
+          {
+            "function": "powerline.segments.shell.cwd",
+            "priority": 10,
+            "args": {
+              "use_path_separator": true
+            }
+          },
+          {
+            "function": "powerline.segments.shell.continuation",
+            "draw_hard_divider": false
+          }
+        ],
+        "right": [
+          {
+            "function": "powerline.segments.common.vcs.branch",
+            "priority": 32,
+            "args": {
+              "status_colors": true
+            }
+          },
+          {
+            "function": "powerline.segments.common.bat.battery",
+            "priority": 34
+          },
+          {
+            "function": "powerline.segments.common.sys.uptime",
+            "priority": 55
+          },
+          {
+            "function": "powerline.segments.common.sys.system_load",
+            "priority": 50
+          },
+          {
+            "function": "powerline.segments.common.net.external_ip",
+            "priority": 40
+          },
+          {
+            "function": "powerline.segments.common.net.internal_ip",
+            "priority": 45
+          },
+          {
+            "name": "time",
+            "function": "powerline.segments.common.time.date",
+            "priority": 30,
+            "args": {
+              "format": "%H:%M:%S",
+              "istime": true
+            }
+          },
+          {
+            "name": "date_seg",
+            "function": "powerline.segments.common.time.date",
+            "priority": 36
+          },
+          {
+            "function": "powerline.segments.common.net.hostname",
+            "priority": 20
+          }
+        ]
+      }
+    ],
+    "left": [
+      {
+        "function": "powerline.segments.shell.last_status",
+        "priority": 10
+      },
+      {
+        "function": "powerline.segments.common.time.date",
+        "args": {
+          "format": "$"
+        }
+      }
+    ]
+  }
+}

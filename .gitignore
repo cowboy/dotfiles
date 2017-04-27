@@ -1,5 +1,6 @@
 # Lots of junk goes in here.
 /caches/
+/.cache
 /backups/
 
 # Top secret stuff!
@@ -15,8 +16,9 @@
 /link/.rbenv/versions/
 /link/.rbenv/version
 
-# Don't commit byobu ssh-agent symlink
-/link/.byobu/.ssh-agent
+# Don't commit tmux plugins, tpm will install them.
+/link/.tmux/plugins
+/config/nvim/bundles
 
 # Ignore any file with LOCAL in the name (good for per-machine vars/functions)
 *LOCAL*
