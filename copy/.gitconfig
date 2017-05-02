@@ -1,6 +1,6 @@
 [user]
   name = Geoff Shapiro
-  email = gshapiro49@gmail.com
+  email = EMAIL
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
