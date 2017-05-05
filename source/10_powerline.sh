@@ -1,6 +1,6 @@
 if [[ "$(which powerline-daemon)" ]]; then
   # Powerline stuff.
-  export POWERLINE_PREFIX="$(python -c "import site; print(site.getusersitepackages())")/powerline"
+  export POWERLINE_PREFIX="$(python -c "import powerline; print powerline.__path__[0]")"
 
   powerline-daemon -q
   export POWERLINE_BASH_CONTINUATION=1
