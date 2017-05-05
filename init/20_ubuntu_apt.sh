@@ -156,6 +156,10 @@ if is_ubuntu_desktop; then
   #   sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
   # }
 
+  # https://launchpad.net/grub-customizer
+  add_ppa ppa:danielrichter2007/grub-customizer
+  apt_packages+=(grub-customizer)
+
   # https://support.gitkraken.com/how-to-install
   deb_installed+=(/usr/bin/gitkraken)
   deb_sources+=(https://release.gitkraken.com/linux/gitkraken-amd64.deb)
@@ -261,10 +265,11 @@ e_header "Updating APT"
 sudo apt-get -qq update
 
 # Only do a dist-upgrade on initial install, otherwise do an upgrade.
+e_header "Upgrading APT"
 if is_dotfiles_bin; then
-  sudo apt-get -qq upgrade
+  sudo apt-get -qy upgrade
 else
-  sudo apt-get -qq dist-upgrade
+  sudo apt-get -qy dist-upgrade
 fi
 
 # Install APT packages.
