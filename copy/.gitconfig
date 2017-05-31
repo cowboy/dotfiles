@@ -34,6 +34,8 @@
 [fetch]
   recurseSubmodules = true
   prune        = true
+[submodule]
+  fetchjobs    = 8
 [log]
   abbrevCommit = true
 [push]
