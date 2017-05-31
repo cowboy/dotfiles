@@ -28,7 +28,7 @@
   taglist      = show-ref --tags --abbrev
 
   lol          = log --oneline --graph --decorate
-  ls = log --pretty=format:\"%C(red)%<(10,trunc)%cr%C(blue) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%Cgreen%d%C(yellow) %s %C(blue) (%ad)%C(reset)\" --abbrev-commit --decorate=short --date=local
+  ls = log --pretty=\"%C(red)%<(10,trunc)%cr%C(green) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%C(yellow)%<(60,trunc)% s%C(blue)% ai%C(reset)%C(dim)%+d%C(reset)\" --abbrev-commit --decorate=short
 
 
 [fetch]
