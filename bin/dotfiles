@@ -2,13 +2,14 @@
 [[ "$1" == "source" ]] || \
 
 echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
+echo 'Forked version from Matheus Moraes <matheusmmo.01@gmail.com>'
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/matheusmmo/dotfiles
 
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -69,8 +70,11 @@ function is_ubuntu() {
 function is_ubuntu_desktop() {
   dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
 }
+function is_fedora() {
+  rpm -qf /etc/*-release >&/dev/null || return 1
+}
 function get_os() {
-  for os in osx ubuntu ubuntu_desktop; do
+  for os in osx ubuntu ubuntu_desktop fedora; do
     is_$os; [[ $? == ${1:-0} ]] && echo $os
   done
 }
