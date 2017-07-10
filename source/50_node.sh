@@ -26,6 +26,9 @@ function nave_install() {
   [[ "$1" == "stable" ]] && nave_default stable && npm_install
 }
 
+# Use the version of node in the local .nvmrc file
+alias nvmrc='exec nave use $(<.nvmrc)'
+
 # Global npm modules to install.
 npm_globals=(
   babel-cli
