@@ -6,10 +6,11 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
-  android-platform-tools
   ansible
+  awscli
   bash
   cmatrix
+  coreutils
   cowsay
   git
   git-extras
@@ -26,6 +27,7 @@ recipes=(
   ssh-copy-id
   terminal-notifier
   the_silver_searcher
+  tmux
   tree
   wget
 )

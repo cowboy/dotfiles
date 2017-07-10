@@ -7,6 +7,7 @@ is_osx || return 1
 # Ensure the cask kegs are installed.
 kegs=(
   caskroom/cask
+  caskroom/drivers
   caskroom/fonts
 )
 brew_tap_kegs
@@ -17,65 +18,46 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 # Homebrew casks
 casks=(
   # Applications
-  1password
   a-better-finder-rename
-  awscli
+  android-platform-tools
   battle-net
   bettertouchtool
   charles
   chromium
   chronosync
   controllermate
-  coreutils
   docker
-  docker-machine
-  docker-compose
   dropbox
-  easysimbl
   fastscripts
   firefox
-  google-chrome
   gyazo
-  hermes
   hex-fiend
   iterm2
-  karabiner
+  karabiner-elements
   launchbar
   macvim
-  menumeters
   messenger-for-desktop
   midi-monitor
   moom
   omnidisksweeper
   race-for-the-galaxy
   reaper
-  remote-desktop-connection
+  robo-3t
+  screenhero
   scroll-reverser
-  seil
   skype
   slack
-  smoothmouse
-  sonos
   sourcetree
   spotify
-  star-realms
   steam
-  synology-assistant
-  teamspeak-client
-  teamviewer
   the-unarchiver
-  todoist
   totalfinder
   tower
-  transmission-remote-gui
-  tunnelblick
   vagrant
   virtualbox
   vlc
-  yacreader
   ynab
-  # Drivers
-  xbox360-controller-driver
+  yujitach-menumeters
   # Quick Look plugins
   betterzipql
   qlcolorcode
@@ -90,6 +72,9 @@ casks=(
   # Color pickers
   colorpicker-developer
   colorpicker-skalacolor
+  # Drivers
+  sonos
+  xbox360-controller-driver
   # Fonts
   font-m-plus
   font-mplus-nerd-font
