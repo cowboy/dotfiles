@@ -7,7 +7,7 @@ function tm() {
     # Clean up any orphaned "no logout" file.
     [[ -e $tmux_no_logout ]] && rm $tmux_no_logout
     # Actually start tmux.
-    tmux ls >/dev/null && tmux attach "$@" || tmux "$@"
+    tmux ls >/dev/null 2>&1 && tmux attach "$@" || tmux "$@"
     # If "no logout" doesn't exist, exit.
     [[ -e $tmux_no_logout ]] && rm $tmux_no_logout || exit
   elif [[ ! "$is_source" ]]; then

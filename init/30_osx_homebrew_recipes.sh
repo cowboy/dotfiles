@@ -23,6 +23,7 @@ recipes=(
   mercurial
   nmap
   postgresql
+  reattach-to-user-namespace
   sl
   ssh-copy-id
   terminal-notifier
