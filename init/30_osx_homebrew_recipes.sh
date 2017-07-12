@@ -22,7 +22,7 @@ recipes=(
   man2html
   mercurial
   nmap
-  postgres
+  postgresql
   sl
   ssh-copy-id
   terminal-notifier
