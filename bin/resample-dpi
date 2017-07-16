@@ -34,5 +34,5 @@ while [[ "$1" ]]; do
   h=$(echo "$pixelHeight * 72 / $dpiHeight" | bc)
 
   echo "Resampling $(basename "$file") to ${w}x${h} pixels @ 72 DPI."
-  sips "$file" -s dpiWidth 72 -s dpiHeight 72 -z $h $w >/dev/null 2>&1
+  sips "$file" -s dpiWidth 72 -s dpiHeight 72 -z $h $w &>/dev/null
 done
