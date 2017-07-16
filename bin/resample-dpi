@@ -20,10 +20,10 @@ HELP
 while [[ "$1" ]]; do
   file="$1"; shift
 
-  dpiWidth=$(sips "$file" -g dpiWidth | awk '/:/ {print $2}')
-  dpiHeight=$(sips "$file" -g dpiHeight | awk '/:/ {print $2}')
-  pixelWidth=$(sips "$file" -g pixelWidth | awk '/:/ {print $2}')
-  pixelHeight=$(sips "$file" -g pixelHeight | awk '/:/ {print $2}')
+  dpiWidth=$(sips "$file" --getProperty dpiWidth | awk '/:/ {print $2}')
+  dpiHeight=$(sips "$file" --getProperty dpiHeight | awk '/:/ {print $2}')
+  pixelWidth=$(sips "$file" --getProperty pixelWidth | awk '/:/ {print $2}')
+  pixelHeight=$(sips "$file" --getProperty pixelHeight | awk '/:/ {print $2}')
 
   if [[ "$(echo "$dpiWidth - 72" | bc)" == "0" || "$(echo "$dpiHeight - 72" | bc)" == "0" ]]; then
     echo "File $(basename "$file") already ${pixelWidth}x${pixelHeight} pixels @ 72 DPI."
@@ -34,5 +34,5 @@ while [[ "$1" ]]; do
   h=$(echo "$pixelHeight * 72 / $dpiHeight" | bc)
 
   echo "Resampling $(basename "$file") to ${w}x${h} pixels @ 72 DPI."
-  sips "$file" -s dpiWidth 72 -s dpiHeight 72 -z $h $w >/dev/null 2>&1
+  sips "$file" --setProperty dpiWidth 72 --setProperty dpiHeight 72 --resampleHeightWidth $h $w >/dev/null 2>&1
 done
