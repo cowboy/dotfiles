@@ -37,6 +37,9 @@ brew_install_recipes
 
 # Misc cleanup!
 
+# Remove recipes not listed
+brew_uninstall_recipes
+
 # This is where brew stores its binary symlinks
 local binroot="$(brew --config | awk '/HOMEBREW_PREFIX/ {print $2}')"/bin
 

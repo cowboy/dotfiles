@@ -91,6 +91,16 @@ if (( ${#casks[@]} > 0 )); then
   brew cask cleanup
 fi
 
+# Uninstall Homebrew casks.
+casks=($(setdiff "$(brew cask list 2>/dev/null)" "${casks[*]}"))
+if (( ${#casks[@]} > 0 )); then
+  e_header "Uninstalling Homebrew casks not listed: ${casks[*]}"
+  for cask in "${casks[@]}"; do
+    brew cask uninstall $cask
+  done
+  brew cask cleanup
+fi
+
 # Work around colorPicker symlink issue.
 # https://github.com/caskroom/homebrew-cask/issues/7004
 cps=()
