@@ -19,6 +19,7 @@ recipes=(
   id3tool
   jq
   lesspipe
+  macvim --HEAD --with-lua --with-luajit --with-override-system-vim
   man2html
   mercurial
   nmap
