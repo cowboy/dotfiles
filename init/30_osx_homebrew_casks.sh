@@ -35,7 +35,6 @@ casks=(
   iterm2
   karabiner-elements
   launchbar
-  macvim
   messenger-for-desktop
   midi-monitor
   moom
