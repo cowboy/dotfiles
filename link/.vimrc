@@ -287,6 +287,7 @@ endif
 Plug 'editorconfig/editorconfig-vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx'
 Plug 'mhinz/vim-signify'
 Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
