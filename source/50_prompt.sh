@@ -124,11 +124,11 @@ function prompt_command() {
   # http://twitter.com/cowboy/status/150254030654939137
   PS1="\n"
   # svn: [repo:lastchanged]
-  PS1="$PS1$(prompt_svn)"
+  # PS1="$PS1$(prompt_svn)"
   # git: [branch:flags]
   PS1="$PS1$(prompt_git)"
   # hg:  [branch:flags]
-  PS1="$PS1$(prompt_hg)"
+  # PS1="$PS1$(prompt_hg)"
   # misc: [cmd#:hist#]
   # PS1="$PS1$c1[$c0#\#$c1:$c0!\!$c1]$c9"
   # path: [user@host:path]
