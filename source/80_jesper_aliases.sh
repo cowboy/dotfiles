@@ -1,9 +1,12 @@
 alias cdv='cd ~/src/cancerventetid'
-alias cdn='cd ~/src/nine/pplus/plus-reporter'
+alias cdp='cd ~/src/nine/pplus/plus-reporter'
 alias cdc='cd ~/src/nine/csc/all_dev'
 alias cds='cd ~/src/nine/skat/Bogfoeringsguiden'
 alias cdn='cd ~/src/nine'
 alias cdk='cd ~/src/karnov'
+alias cda='cd ~/src/karnov/amp'
+alias cdg='cd ~/src/karnov/gitifier'
+alias cdpi='cd ~/src/karnov/kg-pipeline/pipelines/karnov-bridge'
 
 #alias kk="K=$(cdk && pwd);echo $K;"
 # function _kgProjects(){
@@ -27,6 +30,8 @@ export OCI_DIR="$(brew --prefix)/lib"
 
 
 
- #bintray
+ # bintray
  export BINTRAY_USERNAME=jesperronn
  export BINTRAY_KEY=
+
+# homebrew API token (for `brew search` and similar commands)
