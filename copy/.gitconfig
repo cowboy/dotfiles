@@ -7,7 +7,7 @@
   autocrlf     = input
   whitespace   = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
-  editor       = mvim -f
+  # editor       = mvim -f
 [apply]
   whitespace   = fix
 [color]
@@ -16,6 +16,20 @@
   branch       = auto
   ui           = auto
   interactive  = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
 [alias]
   st           = status -bs
   ci           = commit
@@ -34,6 +48,10 @@
 [fetch]
   recurseSubmodules = true
   prune        = true
+[push]
+  default = simple
+[merge]
+  log = true
 [submodule]
   fetchjobs    = 8
 [log]

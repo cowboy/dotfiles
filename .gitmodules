@@ -1,6 +1,12 @@
 [submodule "git-extras"]
-	path = vendor/git-extras
-	url = git://github.com/visionmedia/git-extras.git
+  path = vendor/git-extras
+  url = https://github.com/visionmedia/git-extras.git
 [submodule "z"]
-	path = vendor/z
-	url = git://github.com/rupa/z.git
+  path = vendor/z
+  url = https://github.com/rupa/z.git
+[submodule ".tmux"]
+  path = vendor/.tmux
+  url = https://github.com/gpakosz/.tmux.git
+[submodule ".tmux-tpm"]
+  path = link/.tmux/plugins/tpm
+  url = https://github.com/tmux-plugins/tpm.git

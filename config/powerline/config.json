@@ -1,0 +1,20 @@
+{
+  "common": {
+    "term_truecolor": "auto",
+    "ambiwidth": 1
+  },
+  "ext": {
+    "shell": {
+      "colorscheme": "default",
+      "theme": "default",
+      "local_themes": {
+        "continuation": "continuation",
+        "select": "select"
+      }
+    },
+    "tmux": {
+      "colorscheme": "default",
+      "theme": "default"
+    }
+  }
+}

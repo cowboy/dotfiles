@@ -1,0 +1,30 @@
+{
+  "groups": {
+    "hostname":
+      { "fg": "white", "bg": "darkblue", "attrs": ["bold"] },
+    "attached_clients":
+      { "fg": "white", "bg": "darkestblue", "attrs": ["bold"] },
+    "date":
+      { "fg": "gray8", "bg": "gray2", "attrs": [] },
+    "time":
+      { "fg": "gray10", "bg": "gray2", "attrs": ["bold"] },
+    "internal_ip":
+      { "fg": "gray10", "bg": "darkestpurple", "attrs": [] },
+    "external_ip":
+      { "fg": "white", "bg": "mediumpurple", "attrs": [] },
+    "system_load_gradient":
+      { "fg": "green_yellow_orange_red", "bg": "gray1", "attrs": [] },
+    "uptime":
+      { "fg": "gray10", "bg": "gray2", "attrs": [] },
+    "branch":
+      { "fg": "gray9", "bg": "mediumgreen", "attrs": [] },
+    "branch_dirty":
+      { "fg": "white", "bg": "mediumorange", "attrs": [] },
+    "branch_clean":
+      { "fg": "white", "bg": "mediumgreen", "attrs": [] },
+    "battery":
+      { "fg": "gray8", "bg": "gray0", "attrs": [] },
+    "battery_gradient":
+      { "fg": "white", "bg": "battery_green_orange_red", "attrs": [] }
+  }
+}

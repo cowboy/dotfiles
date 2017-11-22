@@ -7,7 +7,9 @@ is_osx || return 1
 # Homebrew recipes
 recipes=(
   ansible
+  awscli
   bash
+  coreutils
   git
   git-extras
   htop-osx
@@ -18,7 +20,7 @@ recipes=(
   tree
   wget
 
-#jespers recipes below
+  #jespers recipes below
   bash-completion
   cmake
   curl

@@ -1,0 +1,2 @@
+# https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Buttonless_touchpads_.28aka_ClickPads.29
+xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "Synaptics Soft Button Areas" 0 0 0 0 0 0 0 0 2>/dev/null

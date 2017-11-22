@@ -34,7 +34,7 @@ file="$cache_dir/${2:+$2.}$1.html"
 <html>
 <link rel="stylesheet" href="../../conf/manh/styles.css">
 <body>
-$(man "$@" 2>/dev/null | man2html -bare -nodepage)
+$(MANWIDTH=120 man "$@" 2>/dev/null | man2html -bare -nodepage)
 </body>
 </html>
 EOF

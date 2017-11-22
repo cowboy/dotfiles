@@ -3,6 +3,7 @@ source $DOTFILES/source/00_dotfiles.sh
 
 e_header "$(basename "$0" .sh)"
 
+# Strings
 function my_test() {
   setdiff "${desired[*]}" "${installed[*]}"
 }
@@ -23,26 +24,44 @@ desired=(a-b a); installed=(a-b a); assert "" my_test
 desired=(a a-b); installed=(a a-b); assert "" my_test
 desired=(a-b a); installed=(a a-b); assert "" my_test
 
-unset setdiffA setdiffB setdiffC
+# Arrays
+unset setdiff_new setdiff_cur setdiff_out
 setdiff "a b c" "" >/dev/null
-assert "0" echo "${#setdiffC[@]}"
+assert 0 echo "${#setdiff_out[@]}"
 
-unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(); setdiff
-assert "3" echo "${#setdiffC[@]}"
-assert "a b c" echo "${setdiffC[*]}"
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=(a b c); setdiff_cur=(); setdiff
+assert 3 echo "${#setdiff_out[@]}"
+assert "a" echo "${setdiff_out[0]}"
+assert "b" echo "${setdiff_out[1]}"
+assert "c" echo "${setdiff_out[2]}"
 
-unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(a); setdiff
-assert "2" echo "${#setdiffC[@]}"
-assert "b c" echo "${setdiffC[*]}"
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=(a b c); setdiff_cur=(a); setdiff
+assert 2 echo "${#setdiff_out[@]}"
+assert "b" echo "${setdiff_out[0]}"
+assert "c" echo "${setdiff_out[1]}"
 
-unset setdiffA setdiffB setdiffC; setdiffA=(a b c); setdiffB=(c a); setdiff
-assert "1" echo "${#setdiffC[@]}"
-assert "b" echo "${setdiffC[*]}"
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=(a b c); setdiff_cur=(c a); setdiff
+assert 1 echo "${#setdiff_out[@]}"
+assert "b" echo "${setdiff_out[0]}"
 
-unset setdiffA setdiffB setdiffC; setdiffA=("a b" c); setdiffB=(a b c); setdiff
-assert "1" echo "${#setdiffC[@]}"
-assert "a b" echo "${setdiffC[*]}"
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=("a b" c); setdiff_cur=(a b c); setdiff
+assert 1 echo "${#setdiff_out[@]}"
+assert "a b" echo "${setdiff_out[0]}"
 
-unset setdiffA setdiffB setdiffC; setdiffA=(a b "a b" c "c d"); setdiffB=(a c); setdiff
-assert "3" echo "${#setdiffC[@]}"
-assert "b a b c d" echo "${setdiffC[*]}"
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=(a b "a b" c "c d"); setdiff_cur=(a c); setdiff
+assert 3 echo "${#setdiff_out[@]}"
+assert "b" echo "${setdiff_out[0]}"
+assert "a b" echo "${setdiff_out[1]}"
+assert "c d" echo "${setdiff_out[2]}"
+
+unset setdiff_new setdiff_cur setdiff_out
+setdiff_new=(a b "a b" c "c d"); setdiff_cur=(b "c d"); setdiff
+assert 3 echo "${#setdiff_out[@]}"
+assert "a" echo "${setdiff_out[0]}"
+assert "a b" echo "${setdiff_out[1]}"
+assert "c" echo "${setdiff_out[2]}"

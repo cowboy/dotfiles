@@ -1,0 +1,51 @@
+{
+  "segments": {
+    "right": [
+      {
+        "function": "powerline.segments.common.bat.battery",
+        "priority": 34
+      },
+      {
+        "function": "powerline.segments.common.sys.uptime",
+        "priority": 55
+      },
+      {
+        "function": "powerline.segments.common.sys.system_load",
+        "priority": 50
+      },
+      {
+        "function": "powerline.segments.common.net.external_ip",
+        "priority": 40
+      },
+      {
+        "function": "powerline.segments.common.net.internal_ip",
+        "priority": 45
+      },
+      {
+        "name": "time",
+        "function": "powerline.segments.common.time.date",
+        "priority": 30,
+        "args": {
+          "format": "%H:%M",
+          "istime": true
+        }
+      },
+      {
+        "name": "date_seg",
+        "function": "powerline.segments.common.time.date",
+        "priority": 36
+      },
+      {
+        "function": "powerline.segments.tmux.attached_clients",
+        "priority": 25,
+        "args": {
+          "minimum": 2
+        }
+      },
+      {
+        "function": "powerline.segments.common.net.hostname",
+        "priority": 20
+      }
+    ]
+  }
+}
