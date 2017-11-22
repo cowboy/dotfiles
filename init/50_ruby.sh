@@ -1,16 +1,9 @@
-# Initialize rbenv.
-source $DOTFILES/source/50_ruby.sh
+# Initialize my ruby via rvm
 
-# Install Ruby.
-if [[ "$(type -P rbenv)" ]]; then
-  versions=(2.4.0)
+setopt interactivecomments
 
-  rubies=($(setdiff "${versions[*]}" "$(rbenv whence ruby)"))
-  if (( ${#rubies[@]} > 0 )); then
-    e_header "Installing Ruby versions: ${rubies[*]}"
-    for r in "${rubies[@]}"; do
-      rbenv install "$r"
-      [[ "$r" == "${versions[0]}" ]] && rbenv global "$r"
-    done
-  fi
-fi
+# install rvm and compile latest ruby
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+rvm get head
+rvm reload

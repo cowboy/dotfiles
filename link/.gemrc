@@ -1,4 +1,5 @@
 --- 
+gem: --no-rdoc --no-ri
 :benchmark: false
 :update_sources: true
 :backtrace: false

@@ -3,6 +3,8 @@ if [[ "${#__PROMPT_DEFAULT[@]}" == 0 ]]; then
   __PROMPT_DEFAULT=("$PS1" "$PS2" "$PS3" "$PS4")
 fi
 
+unset PROMPT_COMMAND
+
 # The default prompt.
 function prompt_default() {
   unset PROMPT_COMMAND

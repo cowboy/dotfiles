@@ -138,6 +138,7 @@ function __prompt_command() {
     done
     PS1="$PS1$c1]$c9"
   fi
+
   # misc: [cmd#:hist#]
   # PS1="$PS1$c1[$c0#\#$c1:$c0!\!$c1]$c9"
   # path: [user@host:path]
@@ -149,5 +150,23 @@ function __prompt_command() {
   PS1="$PS1$(__prompt_exit_code "$exit_code")"
   PS1="$PS1 \$ "
 }
+
+#Jesper's old prompt:
+## tput prompt colors, see http://linux.101hacks.com/ps1-examples/prompt-color-using-tput/
+#    A list of color codes
+#    0 – Black
+#    1 – Red
+#    2 – Green
+#    3 – Yellow
+#    4 – Blue
+#    5 – Magenta
+#    6 – Cyan
+#    7 – White
+
+# if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#  . $(brew --prefix)/etc/bash_completion
+  # export PS1='$(tput sgr 0)$(tput dim)\t $(tput setaf 5)[\w]$(tput setaf 2)$(__git_ps1 "(%s)")$(tput sgr0)\n$(tput dim)\$ $(tput sgr 0)'
+  # export PS1='$(tput sgr 0)\t $(tput setaf 5)[\w]$(tput setaf 2)$(__git_ps1 "(%s)")$(tput sgr0)\n\$ '
+# fi
 
 PROMPT_COMMAND="__prompt_command"

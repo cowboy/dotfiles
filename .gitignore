@@ -3,6 +3,7 @@
 /backups/
 
 # Top secret stuff!
+/link/.ssh/authorized_keys
 /link/.ssh/id_*
 /link/.ssh/*.pem
 /link/.ssh/known_hosts*

@@ -9,28 +9,30 @@ recipes=(
   ansible
   awscli
   bash
-  cmatrix
   coreutils
-  cowsay
   git
   git-extras
   htop-osx
   hub
-  id3tool
-  jq
   lesspipe
-  man2html
-  mercurial
   nmap
-  postgresql
-  reattach-to-user-namespace
-  sl
   ssh-copy-id
-  terminal-notifier
-  the_silver_searcher
-  tmux
   tree
   wget
+
+  #jespers recipes below
+  bash-completion
+  cmake
+  curl
+  heroku-toolbelt
+  hub
+  nvm
+  postgresql
+  python
+  python3
+  shellcheck
+  spark
+  sqlite
 )
 
 brew_install_recipes

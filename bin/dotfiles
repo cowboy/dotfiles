@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+github_user=jesperronn
+github_project=github_project
 [[ "$1" == "source" ]] || \
 
 echo 'Dotfiles - "Cowboy" Ben Alman - http://benalman.com/'
@@ -8,7 +10,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Usage: $(basename "$0")
 
 See the README for documentation.
-https://github.com/cowboy/dotfiles
+https://github.com/jesperronn/cowboy-dotfiles
 
 Copyright (c) 2014 "Cowboy" Ben Alman
 Licensed under the MIT license.
@@ -472,8 +474,7 @@ fi
 if [[ ! -d $DOTFILES ]]; then
   # Dotfiles directory doesn't exist? Clone it!
   e_header "Downloading dotfiles"
-  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-cowboy}/dotfiles.git $DOTFILES
+  git clone --recursive git://github.com/${github_user:-cowboy}/${github_project:-dotfiles}.git $DOTFILES
   cd $DOTFILES
 elif [[ "$1" != "restart" ]]; then
   # Make sure we have the latest files.

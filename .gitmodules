@@ -1,39 +1,12 @@
-[submodule "rbenv"]
-  path = vendor/rbenv
-  url = https://github.com/sstephenson/rbenv.git
 [submodule "git-extras"]
   path = vendor/git-extras
   url = https://github.com/visionmedia/git-extras.git
 [submodule "z"]
   path = vendor/z
   url = https://github.com/rupa/z.git
-[submodule "nave"]
-  path = vendor/nave
-  url = https://github.com/isaacs/nave.git
 [submodule ".tmux"]
   path = vendor/.tmux
   url = https://github.com/gpakosz/.tmux.git
 [submodule ".tmux-tpm"]
   path = link/.tmux/plugins/tpm
   url = https://github.com/tmux-plugins/tpm.git
-[submodule "rbenv-vars"]
-  path = link/.rbenv/plugins/rbenv-vars
-  url = https://github.com/sstephenson/rbenv-vars.git
-[submodule "ruby-build"]
-  path = link/.rbenv/plugins/ruby-build
-  url = https://github.com/sstephenson/ruby-build.git
-[submodule "rbenv-default-gems"]
-  path = link/.rbenv/plugins/rbenv-default-gems
-  url = https://github.com/sstephenson/rbenv-default-gems.git
-[submodule "rbenv-gem-rehash"]
-  path = link/.rbenv/plugins/rbenv-gem-rehash
-  url = https://github.com/sstephenson/rbenv-gem-rehash.git
-[submodule "rbenv-whatis"]
-  path = link/.rbenv/plugins/rbenv-whatis
-  url = https://github.com/rkh/rbenv-whatis.git
-[submodule "rbenv-use"]
-  path = link/.rbenv/plugins/rbenv-use
-  url = https://github.com/rkh/rbenv-use.git
-[submodule "rbenv-update"]
-  path = link/.rbenv/plugins/rbenv-update
-  url = https://github.com/rkh/rbenv-update.git

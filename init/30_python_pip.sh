@@ -4,7 +4,7 @@
 # Add pip packages
 pip_packages=(
   netifaces
-  powerline-status
+  # powerline-status
 )
 
 installed_pip_packages="$(pip list 2>/dev/null | awk '{print $1}')"
@@ -17,4 +17,3 @@ if (( ${#pip_packages[@]} > 0 )); then
     pip install "$package"
   done
 fi
-

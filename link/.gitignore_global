@@ -11,9 +11,9 @@
 # It's better to unpack these files and commit the raw source because
 # git has its own built in compression methods.
 *.7z
-*.jar
+#*.jar
 *.rar
-*.zip
+#*.zip
 *.gz
 *.bzip
 *.xz
@@ -48,10 +48,14 @@
 .Trashes
 
 # Windows image file caches
-Thumbs.db 
+Thumbs.db
 
 # Folder config file
 Desktop.ini
+
+# NPM
+.npmignore
+node_modules
 
 # Vim
 .swp

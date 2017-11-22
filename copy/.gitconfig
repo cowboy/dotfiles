@@ -1,29 +1,21 @@
 [user]
-  name = Ben Alman
-  email = EMAIL
+  name    = Jesper Rønn-Jensen
+  email   = EMAIL
+[github]
+  user  = jesperronn
 [core]
-  autocrlf = input
-  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+  autocrlf     = input
+  whitespace   = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
+  # editor       = mvim -f
 [apply]
-  whitespace = fix
-[alias]
-  br = branch
-  ci = commit
-  co = checkout
-  df = diff
-  g = grep -I
-  lg = log -p
-  pp = !"echo 'Pull'; git pull; echo 'Push'; git push"
-  rb = rbranch
-  rv = review
-  st = status
-  ksdiff = difftool -y -t Kaleidoscope
-[branch "master"]
-  remote = origin
-  merge = refs/heads/master
+  whitespace   = fix
 [color]
-  ui = auto
+  diff         = auto
+  status       = auto
+  branch       = auto
+  ui           = auto
+  interactive  = auto
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -37,25 +29,39 @@
   added = yellow
   changed = green
   untracked = cyan
+
+[alias]
+  st           = status -bs
+  ci           = commit
+  co           = checkout
+  br           = branch
+  lol          = log --oneline --graph --decorate
+  g            = grep --break --heading --line-number
+  root         = rev-parse --show-toplevel
+  cdroot       = !cd $(git root)
+  taglist      = show-ref --tags --abbrev
+
+  lol          = log --oneline --graph --decorate
+  ls = log --pretty=\"%C(red)%<(10,trunc)%cr%C(green) %<(8,trunc)%h %C(reset)%<(12,trunc)%an%C(yellow)%<(60,trunc)% s%C(blue)% ai%C(reset)%C(dim)%+d%C(reset)\" --abbrev-commit --decorate=short
+
+
+[fetch]
+  recurseSubmodules = true
+  prune        = true
 [push]
   default = simple
 [merge]
   log = true
-[difftool "Kaleidoscope"]
-  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[submodule]
+  fetchjobs    = 8
+[log]
+  abbrevCommit = true
+[push]
+  default      = current
 [rerere]
-  enabled = 1
-[url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
-[url "git://github.com/"]
-  insteadOf = "github:"
-[url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-  insteadOf = "gist:"
-[url "git@heroku.com:"]
-  insteadOf = "heroku:"
+  enable       = true
+[remote "origin"]
+  prune        = true
+
+[credential]
+  helper       = store --file=~/.git-credentials
