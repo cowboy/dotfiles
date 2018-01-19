@@ -7,7 +7,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Local dirs
-if !has('win32')
+if !has('win32') && !empty($DOTFILES)
   set backupdir=$DOTFILES/caches/vim
   set directory=$DOTFILES/caches/vim
   set undodir=$DOTFILES/caches/vim
@@ -138,6 +138,10 @@ nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
 " Ctrl-arrows select split
+nnoremap <silent> <C-Right> <c-W>l
+nnoremap <silent> <C-Left> <c-W>h
+nnoremap <silent> <C-Up> <c-W>k
+nnoremap <silent> <C-Down> <c-W>j
 nnoremap [1;5B <C-W>j
 nnoremap [1;5A <C-W>k
 nnoremap [1;5C <C-W>l
@@ -150,6 +154,10 @@ map gb :bnext<CR> " Next buffer
 map gB :bprev<CR> " Prev buffer
 
 " Switch buffers with Alt-Left/Right
+nmap <silent> <M-Left> :bprev<CR>
+nmap <silent> <M-Right> :bnext<CR>
+vmap <silent> <M-Left> :bprev<CR>
+vmap <silent> <M-Right> :bnext<CR>
 nmap [1;3C :bprev<CR>
 nmap [1;3D :bnext<CR>
 vmap [1;3C <Esc>:bprev<CR>
@@ -162,7 +170,8 @@ nnoremap <C-J> a<CR><Esc>k$
 let c = 1
 while c <= 99
   if c < 10
-    execute "nnoremap <silent> <leader>" . c . " :" . c . "b<CR>"
+    " execute "nnoremap <silent> <leader>" . c . " :" . c . "b<CR>"
+    execute "nmap <leader>" . c . " <Plug>AirlineSelectTab" . c
   endif
   execute "nnoremap <silent> " . c . "gb :" . c . "b<CR>"
   let c += 1
@@ -189,8 +198,8 @@ autocmd vimrc BufReadPost *
   \   exe "normal g`\"" |
   \ endif
 
-" F12: Source .vimrc & .gvimrc files
-nmap <F12> :call SourceConfigs()<CR>
+" The :Src command will source .vimrc & .gvimrc files
+command! Src :call SourceConfigs()
 
 if !exists("*SourceConfigs")
   function! SourceConfigs()
@@ -221,6 +230,13 @@ let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#fnamecollapse = 0
 "let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#fnametruncate = 16
+let g:airline#extensions#tabline#fnamecollapse = 2
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " NERDTree
 let NERDTreeShowHidden = 1

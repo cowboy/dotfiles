@@ -16,7 +16,7 @@ else
   let s:uname = system("echo -n \"$(uname -s)\"")
   if s:uname == "Linux"
     " My favorite font!
-    set guifont=M+\ 1m\ for\ Powerline\ 13
+    set guifont=M+\ 1m\ for\ Powerline\ 12
   else " OSX
     " My favorite font!
     set guifont=M+\ 1m\ regular\ Nerd\ Font\ Complete:h16
