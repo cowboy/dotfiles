@@ -50,10 +50,18 @@ apt_packages+=(
 apt_packages+=(vim)
 is_ubuntu_desktop && apt_packages+=(vim-gnome)
 
+# https://github.com/neovim/neovim/wiki/Installing-Neovim
+add_ppa ppa:neovim-ppa/stable
+apt_packages+=(neovim)
+
 # https://launchpad.net/~stebbins/+archive/ubuntu/handbrake-releases
 add_ppa ppa:stebbins/handbrake-releases
 apt_packages+=(handbrake-cli)
 is_ubuntu_desktop && apt_packages+=(handbrake-gtk)
+
+# https://github.com/rvm/ubuntu_rvm
+add_ppa ppa:rael-gc/rvm
+apt_packages+=(rvm)
 
 # https://github.com/rbenv/ruby-build/wiki
 apt_packages+=(
@@ -67,10 +75,24 @@ apt_packages+=(ansible)
 
 if is_ubuntu_desktop; then
   # http://www.omgubuntu.co.uk/2016/06/install-latest-arc-gtk-theme-ubuntu-16-04
-  apt_keys+=(http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key)
-  apt_source_files+=(arc-theme)
-  apt_source_texts+=("deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /")
+  # apt_keys+=(http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key)
+  # apt_source_files+=(arc-theme)
+  # apt_source_texts+=("deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /")
+  # apt_packages+=(arc-theme)
+
+  add_ppa ppa:fossfreedom/arc-gtk-theme-daily
   apt_packages+=(arc-theme)
+
+  # https://www.techrepublic.com/article/how-to-connect-a-linux-machine-to-google-cloud-print/
+  # sudo /usr/share/cloudprint-cups/setupcloudprint.py
+  add_ppa ppa:simon-cadman/niftyrepo
+  apt_packages+=(cupscloudprint)
+
+  # https://github.com/tagplus5/vscode-ppa
+  apt_keys+=(https://tagplus5.github.io/vscode-ppa/ubuntu/gpg.key)
+  apt_source_files+=(vscode.list)
+  apt_source_texts+=("deb https://tagplus5.github.io/vscode-ppa/ubuntu ./")
+  apt_packages+=(code code-insiders)
 
   # https://www.ubuntuupdates.org/ppa/google_chrome
   apt_keys+=(https://dl-ssl.google.com/linux/linux_signing_key.pub)
@@ -105,8 +127,8 @@ if is_ubuntu_desktop; then
   # https://www.skype.com/en/download-skype/skype-for-linux/
   # https://community.skype.com/t5/Linux/Skype-for-Linux-Beta-signatures-couldn-t-be-verified-because-the/td-p/4645756
   apt_keys+=(https://repo.skype.com/data/SKYPE-GPG-KEY)
-  apt_source_files+=(skype)
-  apt_source_texts+=("deb  https://repo.skype.com/deb stable main")
+  apt_source_files+=(skype-stable)
+  apt_source_texts+=("deb https://repo.skype.com/deb stable main")
   apt_packages+=(skypeforlinux)
 
   # http://askubuntu.com/a/190674
@@ -131,13 +153,13 @@ if is_ubuntu_desktop; then
   apt_packages+=(
     chromium-browser
     fonts-mplus
+    gnome-tweak-tool
     k4dirstat
     rofi
     network-manager-openconnect
     network-manager-openconnect-gnome
     openssh-server
     shutter
-    transgui
     unity-tweak-tool
     vlc
     xclip
