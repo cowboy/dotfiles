@@ -40,4 +40,5 @@ $(MANWIDTH=120 man "$@" 2>/dev/null | man2html -bare -nodepage)
 EOF
 
 # Open HTML (if it does exist).
-[[ -e "$file" ]] && open "$file"
+for cmd in xdg-open open; do [[ "$(which $cmd)" ]] && break; done
+[[ -e "$file" ]] && $cmd "$file"
