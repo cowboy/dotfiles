@@ -34,9 +34,9 @@ npm_globals=(
   babel-cli
   eslint
   grunt-cli
-  node-inspector
   pushstate-server
   webpack
+  yarn
 )
 
 # Because "rm -rf node_modules && npm install" takes WAY too long. Not sure
