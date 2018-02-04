@@ -62,6 +62,6 @@ In addition to the aforementioned [dotfiles][dotfiles] script, there are a few o
 <https://github.com/cowboy/dotfiles>
 
 ## License
-Copyright (c) 2016 Evan Chiu
+Copyright (c) 2018 Evan Chiu
 
 Licensed under the MIT license
