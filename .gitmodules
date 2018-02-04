@@ -1,6 +1,6 @@
 [submodule "libs/git-extras"]
 	path = libs/git-extras
-	url = git://github.com/visionmedia/git-extras.git
+	url = https://github.com/visionmedia/git-extras.git
 [submodule "libs/vim-airline"]
 	path = libs/vim-airline
 	url = https://github.com/bling/vim-airline
@@ -21,7 +21,7 @@
 	url = https://github.com/Shougo/vimproc.vim
 [submodule "libs/oh-my-zsh"]
 	path = libs/oh-my-zsh
-        url = https://github.com/robbyrussell/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh
 [submodule "libs/bullet-train"]
 	path = libs/bullet-train
 	url = https://github.com/caiogondim/bullet-train.zsh
