@@ -30,6 +30,8 @@ apt_packages+=(
   cmatrix
   cowsay
   curl
+  docker.io
+  docker-compose
   git-core
   groff
   hollywood
@@ -190,6 +192,11 @@ if is_ubuntu_desktop; then
   # https://support.gitkraken.com/how-to-install
   deb_installed+=(/usr/bin/gitkraken)
   deb_sources+=(https://release.gitkraken.com/linux/gitkraken-amd64.deb)
+
+  # http://www.get-notes.com/linux-download-debian-ubuntu
+  apt_packages+=(libqt5concurrent5)
+  deb_installed+=(/usr/bin/notes)
+  deb_sources+=("https://github.com/nuttyartist/notes/releases/download/v1.0.0/notes_1.0.0_amd64-$release_name.deb")
 
   # https://www.dropbox.com/install-linux
   apt_packages+=(python-gtk2 python-gpgme)
