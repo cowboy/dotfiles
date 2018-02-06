@@ -22,19 +22,8 @@ augroup END
 
 " Theme / Syntax highlighting
 
-" Make invisible chars less visible in terminal.
-autocmd vimrc ColorScheme * :hi NonText ctermfg=236
-autocmd vimrc ColorScheme * :hi SpecialKey ctermfg=236
-" Show trailing whitespace.
+" " Show trailing whitespace.
 autocmd vimrc ColorScheme * :hi ExtraWhitespace ctermbg=red guibg=red
-" Make selection more visible.
-autocmd vimrc ColorScheme * :hi Visual guibg=#00588A
-autocmd vimrc ColorScheme * :hi link multiple_cursors_cursor Search
-autocmd vimrc ColorScheme * :hi link multiple_cursors_visual Visual
-
-let g:molokai_italic=0
-colorscheme molokai
-set background=dark
 
 " Visual settings
 set cursorline " Highlight current line
@@ -50,8 +39,8 @@ set laststatus=2 " Always show status line
 autocmd vimrc InsertEnter * :set norelativenumber
 autocmd vimrc InsertLeave * :set relativenumber
 
-" Make it obvious where 80 characters is
-set textwidth=121
+set textwidth=80
+" Show 120 columns but make it obvious where 80 characters is
 let &colorcolumn="81,".join(range(120,999),",")
 
 " Scrolling
@@ -69,13 +58,12 @@ set expandtab " Expand tabs to spaces
 " Reformatting
 set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command.
 
-" Toggle show tabs and trailing spaces (,c)
+" Toggle show tabs and trailing spaces (,v)
 if has('win32')
   set listchars=tab:>\ ,trail:.,eol:$,nbsp:_,extends:>,precedes:<
 else
-  set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:>,precedes:<
+  set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:»,precedes:«
 endif
-"set listchars=tab:>\ ,trail:.,eol:$,nbsp:_,extends:>,precedes:<
 "set fillchars=fold:-
 nnoremap <silent> <leader>v :call ToggleInvisibles()<CR>
 
@@ -125,6 +113,7 @@ set wildignore+=*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/log/*,*/tmp/*
 set hidden " When a buffer is brought to foreground, remember undo history and marks.
 set report=0 " Show all changes.
 set mouse=a " Enable mouse in all modes.
+set ttymouse=xterm2 " Ensure mouse works inside tmux
 set shortmess+=I " Hide intro menu.
 
 " Splits
@@ -282,14 +271,22 @@ let g:mustache_abbreviations = 1
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+let g:ack_autoclose = 1
+nnoremap <Leader>a :Ack!<Space>
+
+" Multiple cursors
+nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -317,4 +314,12 @@ Plug 'krisajenkins/vim-pipe'
 Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'mileszs/ack.vim'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'elzr/vim-json'
 call plug#end()
+
+let g:gruvbox_bold = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_italicize_comments = 1
+let g:gruvbox_contrast_dark = 'medium'
+set background=dark
+colorscheme gruvbox
