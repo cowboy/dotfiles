@@ -178,6 +178,11 @@ if is_ubuntu_desktop; then
   #   sudo sed -i'' "s/Specification.all = nil/Specification.reset/" /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb
   # }
 
+  # https://be5invis.github.io/Iosevka/
+  # https://launchpad.net/~laurent-boulard/+archive/ubuntu/fonts
+  add_ppa ppa:laurent-boulard/fonts
+  apt_packages+=(fonts-iosevka)
+
   # https://launchpad.net/grub-customizer
   add_ppa ppa:danielrichter2007/grub-customizer
   apt_packages+=(grub-customizer)
