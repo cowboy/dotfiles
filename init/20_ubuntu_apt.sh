@@ -75,6 +75,17 @@ apt_packages+=(
 add_ppa ppa:ansible/ansible
 apt_packages+=(ansible)
 
+# http://tipsonubuntu.com/2016/09/13/vim-8-0-released-install-ubuntu-16-04/
+add_ppa ppa:jonathonf/vim
+apt_packages+=(vim)
+
+# https://launchpad.net/~hnakamur/+archive/ubuntu/tmux
+add_ppa ppa:hnakamur/tmux
+
+# https://github.com/greymd/tmux-xpanes
+add_ppa ppa:greymd/tmux-xpanes
+apt_packages+=(tmux-xpanes)
+
 if is_ubuntu_desktop; then
   # http://www.omgubuntu.co.uk/2016/06/install-latest-arc-gtk-theme-ubuntu-16-04
   # apt_keys+=(http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key)

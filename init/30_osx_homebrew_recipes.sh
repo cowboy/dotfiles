@@ -29,6 +29,7 @@ recipes=(
   terminal-notifier
   the_silver_searcher
   tmux
+  tmux-xpanes
   tree
   wget
 )
