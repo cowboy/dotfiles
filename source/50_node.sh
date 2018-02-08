@@ -33,9 +33,13 @@ alias nvmrc='exec nave use $(<.nvmrc)'
 npm_globals=(
   babel-cli
   eslint
+  json-lint
+  json2yaml
   grunt-cli
+  gulp-cli
   pushstate-server
   webpack
+  yaml2json
   yarn
 )
 
