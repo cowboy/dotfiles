@@ -120,21 +120,25 @@ set shortmess+=I " Hide intro menu.
 set splitbelow " New split goes below
 set splitright " New split goes right
 
-" Ctrl-J/K/L/H select split
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
-
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 1
 " Ctrl-arrows select split
-nnoremap <silent> <C-Right> <c-W>l
-nnoremap <silent> <C-Left> <c-W>h
-nnoremap <silent> <C-Up> <c-W>k
-nnoremap <silent> <C-Down> <c-W>j
-nnoremap [1;5B <C-W>j
-nnoremap [1;5A <C-W>k
-nnoremap [1;5C <C-W>l
-nnoremap [1;5D <C-W>h
+nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
+" This seems to be necessary in gnome-terminal
+nnoremap <silent> [1;5A :TmuxNavigateUp<cr>
+nnoremap <silent> [1;5B :TmuxNavigateDown<cr>
+nnoremap <silent> [1;5D :TmuxNavigateLeft<cr>
+nnoremap <silent> [1;5C :TmuxNavigateRight<cr>
+" Ctrl-J/K/L/H select split
+nnoremap <silent> <C-H> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-L> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-J> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-K> :TmuxNavigateRight<cr>
+" Previous split
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 " Buffer navigation
 nnoremap <leader>b :CtrlPBuffer<CR> " List other buffers
@@ -147,10 +151,20 @@ nmap <silent> <M-Left> :bprev<CR>
 nmap <silent> <M-Right> :bnext<CR>
 vmap <silent> <M-Left> :bprev<CR>
 vmap <silent> <M-Right> :bnext<CR>
-nmap [1;3C :bprev<CR>
-nmap [1;3D :bnext<CR>
-vmap [1;3C <Esc>:bprev<CR>
-vmap [1;3D <Esc>:bnext<CR>
+nmap <silent> [1;3D :bprev<CR>
+nmap <silent> [1;3C :bnext<CR>
+vmap <silent> [1;3D <Esc>:bprev<CR>
+vmap <silent> [1;3C <Esc>:bnext<CR>
+
+" Resize panes with Shift-Left/Right/Up/Down
+nnoremap <silent> <S-Up> :resize +1<CR>
+nnoremap <silent> <S-Down> :resize -1<CR>
+nnoremap <silent> <S-Right> :vertical resize +1<CR>
+nnoremap <silent> <S-Left> :vertical resize -1<CR>
+nnoremap <silent> [1;2A :resize +1<CR>
+nnoremap <silent> [1;2B :resize -1<CR>
+nnoremap <silent> [1;2C :vertical resize +1<CR>
+nnoremap <silent> [1;2D :vertical resize -1<CR>
 
 " Ctrl-J, the opposite of Shift-J
 nnoremap <C-J> a<CR><Esc>k$
@@ -226,6 +240,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#fnametruncate = 16
 let g:airline#extensions#tabline#fnamecollapse = 2
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " NERDTree
 let NERDTreeShowHidden = 1
@@ -278,6 +293,15 @@ nnoremap <Leader>a :Ack!<Space>
 nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'node_modules/.bin/eslint'
+let g:syntastic_json_checkers = ['jsonlint']
+
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
@@ -314,7 +338,9 @@ Plug 'krisajenkins/vim-pipe'
 Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'mileszs/ack.vim'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 let g:gruvbox_bold = 1
