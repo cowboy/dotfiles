@@ -5,6 +5,7 @@
 pip_packages=(
   netifaces
   powerline-status
+  tmuxp
 )
 
 installed_pip_packages="$(pip list 2>/dev/null | awk '{print $1}')"
@@ -17,4 +18,3 @@ if (( ${#pip_packages[@]} > 0 )); then
     pip install "$package"
   done
 fi
-

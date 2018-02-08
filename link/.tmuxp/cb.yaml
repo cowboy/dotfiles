@@ -1,0 +1,13 @@
+session_name: cb
+windows:
+
+- layout: 0029,232x54,0,0{151x54,0,0,1,80x54,152,0,2}
+  options:
+    automatic-rename: off
+  panes:
+  - shell_command: vim
+    focus: true
+  - shell_command: 'sleep 1 && clear'
+  window_name: dotfiles
+  start_directory: /home/cowboy/.dotfiles
+  focus: true
