@@ -167,7 +167,7 @@ nnoremap <silent> [1;2C :vertical resize +1<CR>
 nnoremap <silent> [1;2D :vertical resize -1<CR>
 
 " Ctrl-J, the opposite of Shift-J
-nnoremap <C-J> a<CR><Esc>k$
+nnoremap <C-J> i<CR><Esc>k:.s/\s\+$//e<CR>j^
 
 " Jump to buffer number 1-9 with ,<N> or 1-99 with <N>gb
 let c = 1
