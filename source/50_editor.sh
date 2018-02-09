@@ -22,3 +22,6 @@ function q() {
 }
 alias qv="q $DOTFILES/link/.{,g}vimrc +'cd $DOTFILES'"
 alias qs="q $DOTFILES"
+
+# For when you have vim on the brain
+alias :q=exit
