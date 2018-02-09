@@ -46,6 +46,7 @@ apt_packages+=(
   silversearcher-ag
   sl
   telnet
+  thefuck
   tree
 )
 
