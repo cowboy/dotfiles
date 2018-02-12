@@ -293,6 +293,10 @@ nnoremap <Leader>a :Ack!<Space>
 nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
+" Ale
+let g:ale_sign_column_always = 1
+let g:airline#extensions#ale#enabled = 1
+
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -301,6 +305,14 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'node_modules/.bin/eslint'
 let g:syntastic_json_checkers = ['jsonlint']
+
+" Emmet
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
@@ -340,7 +352,12 @@ Plug 'mileszs/ack.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
-Plug 'vim-syntastic/syntastic'
+Plug 'othree/eregex.vim'
+if v:version >= 800
+  Plug 'w0rp/ale'
+else
+  Plug 'vim-syntastic/syntastic'
+endif
 call plug#end()
 
 let g:gruvbox_bold = 1
