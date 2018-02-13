@@ -20,6 +20,24 @@ augroup vimrc
   autocmd!
 augroup END
 
+" Per-mode cursor shape
+" http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
+if has('unix')
+  let &t_SI = "\<Esc>[6 q"
+  let &t_SR = "\<Esc>[4 q"
+  let &t_EI = "\<Esc>[2 q"
+elseif has('macuinx')
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+endif
+
 " Theme / Syntax highlighting
 
 " " Show trailing whitespace.
@@ -231,8 +249,8 @@ let g:airline_powerline_fonts = 1 " TODO: detect this?
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:airline#extensions#tabline#fnamecollapse = 0
-"let g:airline#extensions#tabline#fnamemod = ':t'
+" let g:airline#extensions#tabline#fnamecollapse = 0
+" let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr = 1
@@ -265,7 +283,7 @@ let g:signify_vcs_list = ['git', 'hg', 'svn']
 " CtrlP.vim
 " map <leader>p <C-P>
 " map <leader>r :CtrlPMRUFiles<CR>
-"let g:ctrlp_match_window_bottom = 0 " Show at top of window
+" let g:ctrlp_match_window_bottom = 0 " Show at top of window
 
 " Vim-pipe
 let g:vimpipe_invoke_map = '<Leader>r'
@@ -276,7 +294,7 @@ let g:dbext_default_profile_PG_skillsbot = 'type=pgsql:host=rds.bocoup.com:dbnam
 let g:dbext_default_profile = 'PG_skillsbot'
 
 " Indent Guides
-let g:indent_guides_start_level = 2
+let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 
 " Mustache/handlebars
@@ -292,6 +310,8 @@ nnoremap <Leader>a :Ack!<Space>
 " Multiple cursors
 nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
+nnoremap <silent> j :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> j :MultipleCursorsFind <C-R>/<CR>
 
 " Ale
 let g:ale_sign_column_always = 1
@@ -307,7 +327,7 @@ let g:syntastic_javascript_eslint_exe = 'node_modules/.bin/eslint'
 let g:syntastic_json_checkers = ['jsonlint']
 
 " Emmet
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 let g:user_emmet_settings = {
   \  'javascript.jsx' : {
     \      'extends' : 'jsx',
@@ -317,36 +337,33 @@ let g:user_emmet_settings = {
 " https://github.com/junegunn/vim-plug
 " Reload .vimrc and :PlugInstall to install plugins.
 call plug#begin('~/.vim/plugged')
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-eunuch'
-Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-sensible'                                                       " Core config
+Plug 'rafi/awesome-vim-colorschemes'                                            " Color schemes
+Plug 'bling/vim-airline'                                                        " Status bar
+Plug 'tpope/vim-surround'                                                       " Quotes / parens / tags
+Plug 'tpope/vim-fugitive'                                                       " Git wrapper
+Plug 'tpope/vim-rhubarb'                                                        " Github helper
+Plug 'tpope/vim-vinegar'                                                        " File browser (?)
+Plug 'tpope/vim-repeat'                                                         " Enable . repeat in plugins
+Plug 'tpope/vim-commentary'                                                     " (gcc) Better commenting
+Plug 'tpope/vim-unimpaired'                                                     " Pairs of mappings with [ ]
+Plug 'tpope/vim-eunuch'                                                         " Unix helpers
+Plug 'scrooloose/nerdtree'                                                      " (,n) File browser
+Plug 'ctrlpvim/ctrlp.vim'                                                       " (C-P)(,b) Fuzzy file/buffer/mru/tag finder
 if v:version < 705 && !has('patch-7.4.785')
-  Plug 'vim-scripts/PreserveNoEOL'
+  Plug 'vim-scripts/PreserveNoEOL'                                              " Preserve missing final newline on save
 endif
-Plug 'editorconfig/editorconfig-vim'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'editorconfig/editorconfig-vim'                                            " EditorConfig
+Plug 'nathanaelkane/vim-indent-guides'                                          " (,ig) Visible indent guides
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx'
-Plug 'mhinz/vim-signify'
-Plug 'mattn/emmet-vim'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'chase/vim-ansible-yaml'
-Plug 'wavded/vim-stylus'
-Plug 'klen/python-mode', {'for': 'python'}
-Plug 'terryma/vim-multiple-cursors'
-Plug 'wting/rust.vim', {'for': 'rust'}
+Plug 'mxw/vim-jsx', {'for': 'javascript.jsx'}                                   " React JSX highlighting/indenting
+Plug 'mhinz/vim-signify'                                                        " VCS status in the sign column
+Plug 'mattn/emmet-vim'                                                          " (C-Y,) Expand HTML abbreviations
+Plug 'chase/vim-ansible-yaml'                                                   " Ansible YAML highlighting
+Plug 'klen/python-mode', {'for': 'python'}                                      " Python mode
+Plug 'terryma/vim-multiple-cursors'                                             " (C-N) Multiple selections/cursors
 Plug 'vim-scripts/dbext.vim'
-Plug 'krisajenkins/vim-pipe'
+Plug 'krisajenkins/vim-pipe'                                                    " (,r) Run a buffer through a command
 Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'mileszs/ack.vim'
 Plug 'tmux-plugins/vim-tmux'
