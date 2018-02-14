@@ -284,6 +284,7 @@ let g:signify_vcs_list = ['git', 'hg', 'svn']
 " map <leader>p <C-P>
 " map <leader>r :CtrlPMRUFiles<CR>
 " let g:ctrlp_match_window_bottom = 0 " Show at top of window
+let g:ctrlp_show_hidden = 1
 
 " Vim-pipe
 let g:vimpipe_invoke_map = '<Leader>r'
@@ -357,6 +358,7 @@ Plug 'editorconfig/editorconfig-vim'                                            
 Plug 'nathanaelkane/vim-indent-guides'                                          " (,ig) Visible indent guides
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': 'javascript.jsx'}                                   " React JSX highlighting/indenting
+Plug 'AndrewRadev/splitjoin.vim'                                                " (gS)(gJ) Split/join multi-line statements
 Plug 'mhinz/vim-signify'                                                        " VCS status in the sign column
 Plug 'mattn/emmet-vim'                                                          " (C-Y,) Expand HTML abbreviations
 Plug 'chase/vim-ansible-yaml'                                                   " Ansible YAML highlighting
