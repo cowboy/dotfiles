@@ -5,11 +5,11 @@
         "left": [
           {
             "function": "powerline.segments.common.env.user",
-            "priority": 25
+            "priority": 10
           },
           {
             "function": "powerline.segments.shell.cwd",
-            "priority": 100,
+            "priority": 30,
             "args": {
               "dir_limit_depth": 8,
               "use_path_separator": true
@@ -23,35 +23,35 @@
         "right": [
           {
             "function": "powerline.segments.common.vcs.branch",
-            "priority": 32,
+            "priority": 20,
             "args": {
               "status_colors": true
             }
           },
           {
             "function": "powerline.segments.common.bat.battery",
-            "priority": 34
-          },
-          {
-            "function": "powerline.segments.common.sys.uptime",
-            "priority": 55
-          },
-          {
-            "function": "powerline.segments.common.sys.system_load",
             "priority": 50
           },
           {
+            "function": "powerline.segments.common.sys.uptime",
+            "priority": 70
+          },
+          {
+            "function": "powerline.segments.common.sys.system_load",
+            "priority": 65
+          },
+          {
             "function": "powerline.segments.common.net.external_ip",
-            "priority": 40
+            "priority": 60
           },
           {
             "function": "powerline.segments.common.net.internal_ip",
-            "priority": 45
+            "priority": 55
           },
           {
             "name": "time",
             "function": "powerline.segments.common.time.date",
-            "priority": 30,
+            "priority": 40,
             "args": {
               "format": "%H:%M:%S",
               "istime": true
@@ -60,11 +60,11 @@
           {
             "name": "date_seg",
             "function": "powerline.segments.common.time.date",
-            "priority": 36
+            "priority": 45
           },
           {
             "function": "powerline.segments.common.net.hostname",
-            "priority": 20
+            "priority": 120
           }
         ]
       }

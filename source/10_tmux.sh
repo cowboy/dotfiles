@@ -37,7 +37,7 @@ function run_in_fresh_tmux_window() {
 # Usage: qq [num-panes] [working-directory] [...other-args]
 function qq() {
   local panes=1; [[ "$1" =~ ^[0-9]+$ ]] && panes=$1 && shift
-  local dir="$PWD"; [[ -d "$1" ]] && dir="$1" && shift
+  local dir="$PWD"; [[ -d "$1" ]] && dir="$(cd "$1" && pwd)" && shift
   local win=$(tmux new-window -P -a -c "$dir" -n "$(basename "$dir")")
   n_times $panes tmux split-window -t $win -c "$dir"
   tmux select-layout -t $win main-vertical
