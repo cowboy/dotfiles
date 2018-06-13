@@ -6,6 +6,10 @@ let maplocalleader="\\"
 nnoremap j gj
 nnoremap k gk
 
+" Map F1 to Esc because I'm sick of seeing help pop up
+map <F1> <Esc>
+imap <F1> <Esc>
+
 " Local dirs
 if !has('win32') && !empty($DOTFILES)
   set backupdir=$DOTFILES/caches/vim
