@@ -121,3 +121,4 @@ au BufNewFile,BufRead *.m            setlocal ft=mason
 au BufNewFile,BufRead *.mi           setlocal ft=mason
 au BufNewFile,BufRead *.md           setlocal ft=markdown
 au BufNewFile,BufRead *.zsh-theme    setlocal ft=zsh
+au BufNewFile,BufRead *.ts           setlocal ft=javascript
