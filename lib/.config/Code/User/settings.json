@@ -1,0 +1,20 @@
+{
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 14,
+    "editor.renderWhitespace": "boundary",
+    "C_Cpp.commentContinuationPatterns": [
+        "/**", "//"
+    ],
+    "terminal.integrated.shell.linux": "/usr/bin/fish",
+    "workbench.colorTheme": "Solarized Light",
+    "terminal.integrated.copyOnSelection": true,
+    "window.menuBarVisibility": "default",
+    "window.zoomLevel": 1.6,
+    "window.titleBarStyle": "custom",
+    "editor.fontLigatures": true,
+    "markdown.preview.fontFamily": "'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif",
+    "markdown.extension.orderedList.marker": "one",
+    "editor.cursorBlinking": "phase",
+    "markdown.extension.toc.githubCompatibility": true,
+    "editor.minimap.enabled": true
+}
