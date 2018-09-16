@@ -1,0 +1,66 @@
+kcminputrc Mouse cursorTheme 'breeze_cursors'
+/home/ginolatorilla/.config/kcminputrc
+!/etc/xdg/xdg-plasma/kcminputrc
+!/etc/xdg/kcminputrc
+!/usr/share/kubuntu-default-settings/kf5-settings/kcminputrc
+!/home/ginolatorilla/.local/share/config/kcminputrc
+!/usr/share/plasma/config/kcminputrc
+!/usr/local/share/config/kcminputrc
+!/usr/share/config/kcminputrc
+!/var/lib/snapd/desktop/config/kcminputrc
+*
+kcminputrc Mouse cursorSize ''
+/home/ginolatorilla/.config/kcminputrc
+!/etc/xdg/xdg-plasma/kcminputrc
+!/etc/xdg/kcminputrc
+!/usr/share/kubuntu-default-settings/kf5-settings/kcminputrc
+!/home/ginolatorilla/.local/share/config/kcminputrc
+!/usr/share/plasma/config/kcminputrc
+!/usr/local/share/config/kcminputrc
+!/usr/share/config/kcminputrc
+!/var/lib/snapd/desktop/config/kcminputrc
+*
+ksplashrc KSplash Theme Breeze
+/home/ginolatorilla/.config/ksplashrc
+!/etc/xdg/xdg-plasma/ksplashrc
+!/etc/xdg/ksplashrc
+!/usr/share/kubuntu-default-settings/kf5-settings/ksplashrc
+!/home/ginolatorilla/.local/share/config/ksplashrc
+!/usr/share/plasma/config/ksplashrc
+!/usr/local/share/config/ksplashrc
+!/usr/share/config/ksplashrc
+!/var/lib/snapd/desktop/config/ksplashrc
+*
+ksplashrc KSplash Engine KSplashQML
+/home/ginolatorilla/.config/ksplashrc
+!/etc/xdg/xdg-plasma/ksplashrc
+!/etc/xdg/ksplashrc
+!/usr/share/kubuntu-default-settings/kf5-settings/ksplashrc
+!/home/ginolatorilla/.local/share/config/ksplashrc
+!/usr/share/plasma/config/ksplashrc
+!/usr/local/share/config/ksplashrc
+!/usr/share/config/ksplashrc
+!/var/lib/snapd/desktop/config/ksplashrc
+*
+kdeglobals KScreen ScreenScaleFactors ''
+/home/ginolatorilla/.config/kdeglobals
+!/etc/xdg/xdg-plasma/kdeglobals
+!/etc/xdg/kdeglobals
+/usr/share/kubuntu-default-settings/kf5-settings/kdeglobals
+!/home/ginolatorilla/.local/share/config/kdeglobals
+!/usr/share/plasma/config/kdeglobals
+!/usr/local/share/config/kdeglobals
+!/usr/share/config/kdeglobals
+!/var/lib/snapd/desktop/config/kdeglobals
+*
+kcmfonts General forceFontDPI 0
+/home/ginolatorilla/.config/kcmfonts
+!/etc/xdg/xdg-plasma/kcmfonts
+!/etc/xdg/kcmfonts
+!/usr/share/kubuntu-default-settings/kf5-settings/kcmfonts
+!/home/ginolatorilla/.local/share/config/kcmfonts
+!/usr/share/plasma/config/kcmfonts
+!/usr/local/share/config/kcmfonts
+!/usr/share/config/kcmfonts
+!/var/lib/snapd/desktop/config/kcmfonts
+*

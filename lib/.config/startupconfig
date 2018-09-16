@@ -1,0 +1,13 @@
+#! /bin/sh
+# kcminputrc Mouse cursorTheme 'breeze_cursors'
+kcminputrc_mouse_cursortheme=Breeze_Snow
+# kcminputrc Mouse cursorSize ''
+kcminputrc_mouse_cursorsize=36
+# ksplashrc KSplash Theme Breeze
+ksplashrc_ksplash_theme=None
+# ksplashrc KSplash Engine KSplashQML
+ksplashrc_ksplash_engine=none
+# kdeglobals KScreen ScreenScaleFactors ''
+kdeglobals_kscreen_screenscalefactors=''
+# kcmfonts General forceFontDPI 0
+kcmfonts_general_forcefontdpi=0

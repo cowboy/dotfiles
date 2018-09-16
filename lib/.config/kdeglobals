@@ -1,0 +1,292 @@
+[$Version]
+update_info=fonts_global.upd:Fonts_Global,fonts_global_toolbar.upd:Fonts_Global_Toolbar
+
+[ColorEffects:Disabled]
+ChangeSelectionColor=
+Color=56,56,56
+ColorAmount=0
+ColorEffect=0
+ContrastAmount=0.65
+ContrastEffect=1
+Enable=
+IntensityAmount=0.1
+IntensityEffect=2
+
+[ColorEffects:Inactive]
+ChangeSelectionColor=true
+Color=112,111,110
+ColorAmount=0.025
+ColorEffect=2
+ContrastAmount=0.1
+ContrastEffect=2
+Enable=true
+IntensityAmount=0
+IntensityEffect=0
+
+[Colors:Button]
+BackgroundAlternate=224,223,222
+BackgroundNormal=248,246,240
+DecorationFocus=190,169,114
+DecorationHover=190,169,114
+ForegroundActive=169,114,190
+ForegroundInactive=114,101,68
+ForegroundLink=0,87,174
+ForegroundNegative=191,3,3
+ForegroundNeutral=176,128,0
+ForegroundNormal=38,33,22
+ForegroundPositive=0,110,40
+ForegroundVisited=79,94,133
+
+[Colors:Complementary]
+BackgroundAlternate=59,64,69
+BackgroundNormal=49,54,59
+DecorationFocus=30,146,255
+DecorationHover=61,174,230
+ForegroundActive=246,116,0
+ForegroundInactive=175,176,179
+ForegroundLink=61,174,230
+ForegroundNegative=237,21,21
+ForegroundNeutral=201,206,59
+ForegroundNormal=239,240,241
+ForegroundPositive=17,209,22
+ForegroundVisited=61,174,230
+
+[Colors:Selection]
+BackgroundAlternate=62,138,204
+BackgroundNormal=190,169,114
+DecorationFocus=190,169,114
+DecorationHover=190,169,114
+ForegroundActive=169,114,190
+ForegroundInactive=198,207,229
+ForegroundLink=0,49,110
+ForegroundNegative=156,14,14
+ForegroundNeutral=255,221,0
+ForegroundNormal=252,252,252
+ForegroundPositive=128,255,128
+ForegroundVisited=79,94,133
+
+[Colors:Tooltip]
+BackgroundAlternate=196,224,255
+BackgroundNormal=248,246,240
+DecorationFocus=190,169,114
+DecorationHover=190,169,114
+ForegroundActive=169,114,190
+ForegroundInactive=114,101,68
+ForegroundLink=0,87,174
+ForegroundNegative=191,3,3
+ForegroundNeutral=176,128,0
+ForegroundNormal=38,33,22
+ForegroundPositive=0,110,40
+ForegroundVisited=79,94,133
+
+[Colors:View]
+BackgroundAlternate=248,247,246
+BackgroundNormal=252,252,252
+DecorationFocus=190,169,114
+DecorationHover=190,169,114
+ForegroundActive=169,114,190
+ForegroundInactive=114,101,68
+ForegroundLink=0,87,174
+ForegroundNegative=191,3,3
+ForegroundNeutral=176,128,0
+ForegroundNormal=38,33,22
+ForegroundPositive=0,110,40
+ForegroundVisited=79,94,133
+
+[Colors:Window]
+BackgroundAlternate=218,217,216
+BackgroundNormal=248,246,240
+DecorationFocus=190,169,114
+DecorationHover=190,169,114
+ForegroundActive=169,114,190
+ForegroundInactive=114,101,68
+ForegroundLink=0,87,174
+ForegroundNegative=191,3,3
+ForegroundNeutral=176,128,0
+ForegroundNormal=38,33,22
+ForegroundPositive=0,110,40
+ForegroundVisited=79,94,133
+
+[DesktopIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=togamma
+ActiveSemiTransparent=false
+ActiveValue=0.699999988079071
+Animated=true
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=48
+
+[DialogIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=none
+ActiveSemiTransparent=false
+ActiveValue=1
+Animated=false
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=32
+
+[DirSelect Dialog]
+DirSelectDialog Size=1920,1003
+History Items[$e]=file:$HOME,smb://gino.latorilla@192.168.0.33/Users/pblatorilla/Videos/2018-02-16
+
+[Emoticons]
+emoticonsTheme=Breeze
+parseMode=2
+
+[General]
+ColorScheme=Ginto
+Name=Breeze
+dbfile=/home/ginolatorilla/.mozilla/firefox/p7ev3mfu.default/places.sqlite
+fixed=Fira Code,12,-1,5,50,0,0,0,0,0,Regular
+font=PT Sans,14,-1,5,50,0,0,0,0,0,Regular
+menuFont=PT Sans,14,-1,5,50,0,0,0,0,0,Regular
+shadeSortColumn=true
+smallestReadableFont=PT Sans,13,-1,5,50,0,0,0,0,0,Regular
+toolBarFont=PT Sans,14,-1,5,50,0,0,0,0,0,Regular
+widgetStyle=Breeze
+
+[Icons]
+Theme=Marwaita Icons (Light)
+
+[KDE]
+ColorScheme=Breeze
+LookAndFeelPackage=org.kde.breeze.desktop
+ShowIconsInMenuItems=true
+ShowIconsOnPushButtons=true
+contrast=4
+widgetStyle=breeze
+
+[KFileDialog Settings]
+Automatically select filename extension=true
+Breadcrumb Navigation=true
+Decoration position=0
+LocationCombo Completionmode=5
+PathCombo Completionmode=5
+Preview Width=221
+Previews=false
+Show Bookmarks=false
+Show Full Path=false
+Show Preview=true
+Show Speedbar=true
+Show hidden files=false
+Sort by=Name
+Sort directories first=true
+Sort reversed=false
+Speedbar Width=211
+View Style=Simple
+listViewIconSize=0
+
+[KShortcutsDialog Settings]
+Dialog Size=600,480
+
+[MainToolbarIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=none
+ActiveSemiTransparent=false
+ActiveValue=1
+Animated=false
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=22
+
+[PanelIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=togamma
+ActiveSemiTransparent=false
+ActiveValue=0.699999988079071
+Animated=false
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=48
+
+[SmallIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=none
+ActiveSemiTransparent=false
+ActiveValue=1
+Animated=false
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=16
+
+[Toolbar style]
+ToolButtonStyle=TextBesideIcon
+ToolButtonStyleOtherToolbars=TextBesideIcon
+
+[ToolbarIcons]
+ActiveColor=169,156,255
+ActiveColor2=0,0,0
+ActiveEffect=none
+ActiveSemiTransparent=false
+ActiveValue=1
+Animated=false
+DefaultColor=144,128,248
+DefaultColor2=0,0,0
+DefaultEffect=none
+DefaultSemiTransparent=false
+DefaultValue=1
+DisabledColor=34,202,0
+DisabledColor2=0,0,0
+DisabledEffect=togray
+DisabledSemiTransparent=true
+DisabledValue=1
+Size=22
+
+[Translations]
+LANGUAGE=en_GB
+
+[WM]
+activeBackground=242,237,226
+activeBlend=248,246,240
+activeFont=PT Sans,13,-1,5,75,0,0,0,0,0,Bold
+activeForeground=38,33,22
+inactiveBackground=232,232,232
+inactiveBlend=75,71,67
+inactiveForeground=137,142,146
