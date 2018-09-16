@@ -1,0 +1,15 @@
+[$Version]
+update_info=kscreenlocker.upd:0.1-autolock
+
+[Daemon]
+LockGrace=90
+
+[Greeter]
+Theme=org.kubuntu.desktop
+WallpaperPlugin=org.kde.image
+
+[Greeter][Wallpaper][org.kde.image][General]
+Image=file:///home/ginolatorilla/.wallpaper
+
+[Greeter][Wallpaper][org.kde.potd][General]
+Provider=natgeo

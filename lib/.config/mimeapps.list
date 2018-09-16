@@ -1,0 +1,9 @@
+[Added Associations]
+text/html=google-chrome.desktop;firefox.desktop;org.kde.kate.desktop;libreoffice-writer.desktop;okularApplication_txt.desktop;code.desktop;
+
+[Default Applications]
+text/html=google-chrome.desktop;
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;
+x-scheme-handler/mailto=org.kde.kmail2.desktop;
+x-scheme-handler/vscode=Code.desktop

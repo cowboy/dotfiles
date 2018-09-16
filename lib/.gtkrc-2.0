@@ -1,0 +1,18 @@
+# File created by KDE Gtk Config
+# Configs for GTK2 programs 
+
+include "/usr/share/themes/Breeze/gtk-2.0/gtkrc"
+style "user-font" 
+{
+	font_name="PT Sans Regular"
+}
+widget_class "*" style "user-font"
+gtk-font-name="PT Sans Regular 12"
+gtk-theme-name="Breeze"
+gtk-icon-theme-name="breeze"
+gtk-fallback-icon-theme="breeze"
+gtk-cursor-theme-name="Breeze_Snow"
+gtk-toolbar-style=GTK_TOOLBAR_ICONS
+gtk-menu-images=1
+gtk-button-images=1
+gtk-primary-button-warps-slider=0
