@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+
+shopt -s expand_aliases
+alias warn='echo $(tput setaf 3)▲ $(tput sgr0)'
+alias inform='echo $(tput setaf 4)ℹ $(tput sgr0)'
+
+function get_options()
+{
+    TEMP=$(getopt -o hf --long help,force -- "$@")
+    if [[ $? != 0 ]]; then exit 1; fi
+    eval set -- "$TEMP"
+
+    force_link_creation=false
+    while true; do
+        case "$1" in
+            -h | --help)
+                echo "Usage: $(basename $0) [OPTIONS...]"
+                echo " -h, --help   Shows this help text."
+                echo " --force      Always generate links no matter what."
+                exit 0;; # Tricky to see, but I should exit because no need to do anything.
+            -f | --force)
+                force_link_creation=true
+                shift;;
+            --) shift; break;;
+            *) break;;
+        esac
+    done
+}
+
+function begin_linking_in()
+{
+    local lib_dir=$1
+    local link_dir=$2
+    link_to_files_and_pointees_of_links "$lib_dir" "$link_dir"
+
+    local dir
+    for dir in $(find "$lib_dir" -maxdepth 1  ! -path "$lib_dir" -type d); do
+        link_to_immediates_in_$(basename $dir | sed s/[.]/dot/g) "$dir"
+    done
+}
+
+function link_to_files_and_pointees_of_links()
+{
+    local lib_dir=$1
+    local link_dir=${2:-~}
+    local file
+    OLDIFS=$IFS
+    IFS=$(echo -en "\n\b")
+    for file in $(find "$lib_dir" -maxdepth 1 -type f -or -type l); do
+        pretty_safe_linker "$file" "$link_dir/$(basename $file)"
+    done
+    IFS=$OLDIFS
+}
+
+function link_to_directories()
+{
+    local lib_dir=$1
+    local link_dir=${2:-~}
+    local dir
+    for dir in $(find "$lib_dir" -maxdepth 1  ! -path "$lib_dir" -type d); do
+        pretty_safe_linker "$dir" "$link_dir/$(basename $dir)"
+    done
+}
+
+function link_to_immediates_in_dotlocal()
+{
+    local dir="$@"
+    mkdir -p ~/.local/bin
+    link_to_files_and_pointees_of_links "$dir/bin" ~/.local/bin
+    link_to_directories "$dir/bin" ~/.local/bin
+
+    mkdir -p ~/.local/share/applications
+    link_to_files_and_pointees_of_links "$dir/share/applications" ~/.local/share/applications
+
+    mkdir -p ~/.local/share/color-schemes
+    link_to_files_and_pointees_of_links "$dir/share/color-schemes" ~/.local/share/color-schemes
+
+    mkdir -p ~/.local/share/konsole
+    link_to_files_and_pointees_of_links "$dir/share/konsole" ~/.local/share/konsole
+}
+
+function link_to_immediates_in_dotconfig()
+{
+    local dir="$@"
+    link_to_files_and_pointees_of_links "$dir" ~/.config
+
+    mkdir -p ~/.config/Code/User
+    link_to_files_and_pointees_of_links "$dir/Code/User" ~/.config/Code/User
+
+    mkdir -p ~/.config/fish
+    link_to_files_and_pointees_of_links "$dir/fish" ~/.config/fish
+
+    mkdir -p ~/.config/gtk-3.0
+    link_to_files_and_pointees_of_links "$dir/gtk-3.0" ~/.config/gtk-3.0
+}
+
+function link_to_immediates_in_dotkde()
+{
+    local dir="$@"
+    mkdir -p ~/.kde/share/config
+    link_to_files_and_pointees_of_links "$dir/share/config" ~/.kde/share/config
+}
+
+function link_to_immediates_in_dotfonts()
+{
+    local dir="$@"
+    link_to_files_and_pointees_of_links "$dir" ~/.fonts
+
+    mkdir -p ~/.fonts/f
+    link_to_files_and_pointees_of_links "$dir/f" ~/.fonts/f
+
+    mkdir -p ~/.fonts/p
+    link_to_files_and_pointees_of_links "$dir/f" ~/.fonts/p
+}
+
+function pretty_linker()
+{
+    local target="$(readlink -f $1)"
+    local link="$(readlink -f $2)"
+    ln --symbolic --force "$target" "$link" $3
+    echo "$(tput setaf 2)✔$(tput sgr0) Link created: $(tput setaf 6)$link$(tput sgr0) 🡪  $target"
+}
+
+function pretty_safe_linker()
+{
+    local target=$1
+    local link=$2
+    do_$(what_to_do_with_these "$target" "$link") "$target" "$link"
+}
+
+function what_to_do_with_these()
+{
+    if $force_link_creation; then
+        echo "backup_then_link"
+        return 0
+    fi
+
+    local target="$(readlink -f $1)"
+    local link="$(readlink -f $2)"
+    if [[ "$(readlink -f $link)" == $target ]]; then
+        echo "skip_linking"
+    else
+        echo "backup_then_link"
+    fi
+}
+
+function do_skip_linking()
+{
+    local link=$2
+    warn "$(tput bold)$link$(tput sgr0) is already linked so I will skip this."
+}
+
+function do_backup_then_link()
+{
+    local target=$1
+    local link=$2
+    local relative_dir="$(dirname $2)"
+    mkdir -p "$backup_dir/${relative_dir#$HOME}" 2>/dev/null
+    mv "$link" "$backup_dir/${relative_dir#$HOME}" 2>/dev/null
+    pretty_linker "$target" "$link"
+}
+
+function show_stuff_in_backup_or_remove_if_empty()
+{
+    rmdir "$backup_dir" 2>/dev/null
+    [[ ! -d "$backup_dir" ]] && return 0
+
+    local file
+    inform "The following have been backed-up:"
+
+    OLDIFS=$IFS
+    IFS=$(echo -en "\n\b")
+    for file in $(find "$backup_dir" -type f -or -type l); do
+        echo -e "\t• $file"
+    done
+    IFS=$OLDIFS
+}
+
+## Do stuff
+get_options $@
+
+dotfile_dir=~/.dotfiles
+
+if [[ ! -d "$dotfile_dir" ]]; then
+    warn "Could not find $(tput bold)$(tput setaf 1)~/.dotfiles$(tput sgr0), so I will relink it to myself."
+    pretty_linker "$(dirname $0)" ~/.dotfiles
+fi
+
+backup_dir="$dotfile_dir/backup/$(date '+%Y-%m-%d_%H-%M-%S')"
+mkdir -p "$backup_dir"
+
+inform "I will now link files in $(tput bold)$(tput setaf 2)$HOME$(tput sgr0) to the dotfiles library."
+begin_linking_in "$dotfile_dir/lib"
+
+echo
+show_stuff_in_backup_or_remove_if_empty
