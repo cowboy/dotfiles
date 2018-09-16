@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+function check_if_sudo()
+{
+    if [[ $EUID != 0 ]]; then
+        echo "You need to run this command as ROOT user"
+        exit 1
+    fi
+}
+
+function install_software_sources()
+{
+    # Google Chrome
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+
+    # Windscribe VPN
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7
+    echo "deb https://repo.windscribe.com/ubuntu zesty main" >> /etc/apt/sources.list.d/windscribe-repo.list
+
+    # VS Code
+    wget -q -O - https://tagplus5.github.io/vscode-ppa/ubuntu/gpg.key | apt-key add -
+    wget -O /etc/apt/sources.list.d/vscode.list https://tagplus5.github.io/vscode-ppa/ubuntu/vscode.list
+}
+
+function install_software_from_package_manager()
+{
+    apt update
+    apt install -y build-essential fish net-tools tree steam exuberant-ctags \
+                ruby-dev libicu-dev cmake cmake-gui ninja-build \
+                urserver windscribe-cli \
+                google-chrome-stable code
+    
+    # Install VScode plugins?
+    # fish-ide
+    # fish-vscode
+    # Gitconfig Syntax
+    # Python
+    # C/C++
+}
+
+function apply_ubuntu_workarounds()
+{
+    # /etc/systemd/journal.conf
+    journalctl --vacuum-time=5d
+    systemctl mask windscribe-cli.service
+    systemctl mask NetworkManager-wait-online.service
+
+    # /usr/bin/google-chrome-stable --force-device-scale-factor=1.2 %U
+}
+
+function should_install_as_normal_user()
+{
+    gem install --user-install gollum github-markdown
+}
+
+function clone_git_repos()
+{
+    pushd ~/src
+    git clone https://github.com/google/benchmark
+    pushd benchmark
+    # Install Google benchmark in ~/.local
+    popd
+}
+
+check_if_sudo
