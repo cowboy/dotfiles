@@ -1,10 +1,10 @@
 # Dotfiles
 
-My OSX / Ubuntu dotfiles.
+My macOS / Ubuntu dotfiles.
 
 ## About this project
 
-I've been using bash on-and-off for a long time (since Slackware Linux was distributed on 1.44MB floppy disks). In all that time, every time I've set up a new Linux or OS X machine, I've copied over my `.bashrc` file and my `~/bin` folder to each machine manually. And I've never done a very good job of actually maintaining these files. It's been a total mess.
+I've been using bash on-and-off for a long time (since Slackware Linux was distributed on 1.44MB floppy disks). In all that time, every time I've set up a new Linux or macOS machine, I've copied over my `.bashrc` file and my `~/bin` folder to each machine manually. And I've never done a very good job of actually maintaining these files. It's been a total mess.
 
 I finally decided that I wanted to be able to execute a single command to "bootstrap" a new system to pull down all of my dotfiles and configs, as well as install all the tools I commonly use. In addition, I wanted to be able to re-execute that command at any time to synchronize anything that might have changed. Finally, I wanted to make it easy to re-integrate changes back in, so that other machines could be updated.
 
@@ -16,7 +16,7 @@ That command is [dotfiles][dotfiles], and this is my "dotfiles" Git repo.
 
 When [dotfiles][dotfiles] is run for the first time, it does a few things:
 
-1. In Ubuntu, Git is installed if necessary via APT (it's already there in OSX).
+1. In Ubuntu, Git is installed if necessary via APT (it's already there in macOS).
 1. This repo is cloned into your user directory, under `~/.dotfiles`.
 1. Files in `/copy` are copied into `~/`. ([read more](#the-copy-step))
 1. Files in `/link` are symlinked into `~/`. ([read more](#the-link-step))
@@ -44,7 +44,7 @@ Any file in the `/link` subdirectory gets symlinked into `~/` with `ln -s`. Edit
 ### The "init" step
 Scripts in the `/init` subdirectory will be executed. A whole bunch of things will be installed, but _only_ if they aren't already.
 
-#### OS X
+#### macOS
 
 * Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
@@ -70,13 +70,13 @@ Also, before installing, be sure to [read my gently-worded note](#heed-this-crit
 
 ## Installation
 
-### OS X Notes
+### macOS Notes
 
 You need to have [XCode](https://developer.apple.com/downloads/index.action?=xcode) or, at the very minimum, the [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a much smaller download.
 
-The easiest way to install the XCode Command Line Tools in OSX 10.9+ is to open up a terminal, type `xcode-select --install` and [follow the prompts](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
+The easiest way to install the XCode Command Line Tools in macOS 10.9+ is to open up a terminal, type `xcode-select --install` and [follow the prompts](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
 
-_Tested in OSX 10.10_
+_Tested in macOS 10.10_
 
 ### Ubuntu Notes
 
