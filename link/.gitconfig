@@ -1,5 +1,5 @@
 [user]
-  name = Evan Chiu
+  name = Evan 🌟 Chiu
   email = evan@evanchiu.com
 [core]
   autocrlf = input
@@ -12,7 +12,8 @@
   dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s'
   dagn = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --name-only
   dc = diff --cached
-  ff = pull --ff-only
+  ds = diff --staged
+  ff = pull --ff-only --prune
   lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit -n 21
   lgf = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit --all
   lgn = log --graph --pretty=format:'%C(auto)%h%d %s %C(magenta)%cr %C(cyan)%an%Creset' --abbrev-commit --all --name-only -n 8
