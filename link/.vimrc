@@ -321,6 +321,10 @@ vnoremap <silent> j :MultipleCursorsFind <C-R>/<CR>
 " Ale
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier-eslint'],
+\}
+" let g:ale_fix_on_save = 1
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -371,6 +375,7 @@ Plug 'terryma/vim-multiple-cursors'                                             
 Plug 'vim-scripts/dbext.vim'
 Plug 'krisajenkins/vim-pipe'                                                    " (,r) Run a buffer through a command
 Plug 'krisajenkins/vim-postgresql-syntax'
+Plug 'jparise/vim-graphql'                                                      " GraphQL
 Plug 'mileszs/ack.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'christoomey/vim-tmux-navigator'
