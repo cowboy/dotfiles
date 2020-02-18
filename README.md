@@ -76,7 +76,7 @@ You need to have [XCode](https://developer.apple.com/downloads/index.action?=xco
 
 The easiest way to install the XCode Command Line Tools in OSX 10.9+ is to open up a terminal, type `xcode-select --install` and [follow the prompts](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
 
-_Tested in OSX 10.10_
+_Tested in OSX 10.15_
 
 ### Ubuntu Notes
 
