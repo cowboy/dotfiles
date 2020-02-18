@@ -28,23 +28,28 @@ casks=(
   chromium
   chronosync
   controllermate
+  datagrip
   docker
   dropbox
   fastscripts
   firefox
+  gimp
   gyazo
   hex-fiend
   iterm2
   karabiner-elements
+  licecap
   macvim
   messenger-for-desktop
+  microsoft-remote-desktop-beta
   midi-monitor
   moom
+  ngrok
   omnidisksweeper
+  postman
   race-for-the-galaxy
   reaper
   robo-3t
-  screenhero
   scroll-reverser
   skype
   slack
@@ -52,12 +57,14 @@ casks=(
   spotify
   steam
   the-unarchiver
-  totalfinder
   tower
   vagrant
   virtualbox
+  visual-studio-code
   vlc
+  xscreensaver
   ynab
+  zeplin
   # Quick Look plugins
   betterzipql
   qlcolorcode

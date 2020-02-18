@@ -25,7 +25,9 @@ recipes=(
   postgresql
   reattach-to-user-namespace
   sl
+  smartmontools
   ssh-copy-id
+  telnet
   terminal-notifier
   the_silver_searcher
   thefuck
