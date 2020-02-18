@@ -18,5 +18,8 @@
 # Don't commit tmux plugins, tpm will install them.
 /link/.tmux/plugins
 
+# Don't commit tmux resurrect state.
+/link/.tmux/resurrect
+
 # Ignore any file with LOCAL in the name (good for per-machine vars/functions)
 *LOCAL*
