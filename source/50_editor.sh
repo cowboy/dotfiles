@@ -1,29 +1,36 @@
 # Editing
 
-export EDITOR=vim
+export VISUAL=vim
 
 # If mvim is installed, use it instead of native vim
 if [[ "$(which mvim)" ]]; then
-    EDITOR="mvim -v"
-    alias vim="$EDITOR"
+    VISUAL="mvim -v"
+    alias vim="$VISUAL"
 fi
 
 if [[ ! "$SSH_TTY" ]]; then
   if [[ ! "$TMUX" ]]; then
-    is_osx && EDITOR=mvim || EDITOR=gvim
+    is_osx && VISUAL=mvim || VISUAL=gvim
   fi
-  export LESSEDIT="$EDITOR ?lm+%lm -- %f"
-  export GIT_EDITOR="$EDITOR -f"
+  export LESSEDIT="$VISUAL ?lm+%lm -- %f"
+  export GIT_EDITOR="$VISUAL -f"
 fi
 
-export VISUAL="$EDITOR"
+export EDITOR="$VISUAL"
+
+# VS Code
+if [[ "$(which code)" ]]; then
+  EDITOR="code --wait"
+  VISUAL="code --new-window"
+  unset GIT_EDITOR
+fi
 
 function q() {
   if [[ -t 0 ]]; then
-    $EDITOR "$@"
+    $VISUAL "$@"
   else
     # Read from STDIN (and hide the annoying "Reading from stdin..." message)
-    $EDITOR - > /dev/null
+    $VISUAL - > /dev/null
   fi
 }
 alias qv="q $DOTFILES/link/.{,g}vimrc +'cd $DOTFILES'"
