@@ -7,9 +7,6 @@
 [submodule "z"]
   path = vendor/z
   url = https://github.com/rupa/z.git
-[submodule "nave"]
-  path = vendor/nave
-  url = https://github.com/isaacs/nave.git
 [submodule ".tmux"]
   path = vendor/.tmux
   url = https://github.com/gpakosz/.tmux.git
