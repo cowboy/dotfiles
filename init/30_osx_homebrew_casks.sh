@@ -8,6 +8,7 @@ is_osx || return 1
 kegs=(
   homebrew/cask-drivers
   homebrew/cask-fonts
+  homebrew/cask-versions
 )
 brew_tap_kegs
 
@@ -19,12 +20,12 @@ casks=(
   # Applications
   a-better-finder-rename
   alfred
-  aluxian-messenger
   android-platform-tools
   bartender
   battle-net
   bettertouchtool
   betterzip
+  caprine
   charles
   chromium
   chronosync
