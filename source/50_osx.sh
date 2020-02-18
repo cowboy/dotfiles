@@ -14,6 +14,9 @@ alias c="tr -d '\n' | pbcopy"
 # Start ScreenSaver. This will lock the screen if locking is enabled.
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
 
+# Iterm 2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 # Create a new Parallels VM from template, replacing the existing one.
 function vm_template() {
   local name="$@"
