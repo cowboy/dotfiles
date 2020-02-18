@@ -75,11 +75,25 @@ function _grbo_err() {
 function ged() {
   local files
   local _IFS="$IFS"
-  IFS=$'\n' files=($(git diff --name-status "$@" | grep -v '^D' | cut -f2 | sort | uniq))
+  IFS=$'\n'
+  files=($(git diff --name-status "$@" | grep -v '^D' | cut -f2 | sort | uniq))
+  if [[ "$2" ]]; then
+    echo "Opening files modified between $1 and $2"
+  else
+    files+=($(git ls-files --others --exclude-standard))
+    if [[ "$1" ]]; then
+      echo "Opening files modified since $1"
+    else
+      echo "Opening unstaged/untracked modified files"
+    fi
+  fi
   IFS="$_IFS"
-  echo "Opening files modified $([[ "$2" ]] && echo "between $1 and $2" || echo "since $1")"
   gcd
-  q "${files[@]}"
+  if [[ "$(which code)" ]]; then
+    code "$(git rev-parse --show-toplevel)" -n "${files[@]}"
+  else
+    q "${files[@]}"
+  fi
   cd - > /dev/null
 }
 
