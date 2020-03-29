@@ -23,6 +23,7 @@ recipes=(
   mercurial
   nmap
   postgresql
+  powerline-go
   reattach-to-user-namespace
   sl
   smartmontools
