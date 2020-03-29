@@ -74,9 +74,6 @@ casks=(
   quicknfo
   suspicious-package
   webpquicklook
-  # Color pickers
-  colorpicker-developer
-  colorpicker-skalacolor
   # Drivers
   sonos
   xbox360-controller-driver-unofficial
