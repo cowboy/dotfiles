@@ -46,6 +46,7 @@ casks=(
   midi-monitor
   moom
   ngrok
+  numi
   omnidisksweeper
   postman
   reaper
