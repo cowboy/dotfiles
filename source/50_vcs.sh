@@ -36,6 +36,15 @@ alias gu-all='eachdir git pull'
 alias gp-all='eachdir git push'
 alias gs-all='eachdir git status'
 
+# Set upstream branch
+function gsu() {
+  local branch_name=$(git symbolic-ref --short HEAD)
+  [[ ! "$branch_name" ]] && echo 'Error: current git branch not detected' && return 1
+  local upstream="$(git config "branch.$branch_name.merge")"
+  [[ "$upstream" ]] && echo "Upstream for branch '$branch_name' already set." && return
+  git branch --set-upstream-to=origin/$branch_name $branch_name
+}
+
 # Rebase topic branch onto origin parent branch and update local parent branch
 # to match origin parent branch
 function grbo() {
