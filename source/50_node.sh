@@ -11,3 +11,15 @@ function make_npx_alias () {
 make_npx_alias json2yaml
 make_npx_alias pushstate-server
 make_npx_alias yaml2json
+
+function get_last_modified_js_file_recursive() {
+  find . -type d \( -name node_modules -o -name .git \) -prune -o -type f \( -name '*.js' -o -name '*.jsx' \) -print0 \
+    | xargs -0 stat -f '%m %N' \
+    | sort -rn \
+    | head -1 \
+    | cut -d' ' -f2-
+}
+
+function watchlast() {
+  yarn watch --testPathPattern "$(get_last_modified_js_file_recursive | sed 's#.*/#/#;s#\..*#\\.#')"
+}
