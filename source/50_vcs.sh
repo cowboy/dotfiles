@@ -233,6 +233,22 @@ function git_diff_rename() {
   fi
 }
 
+# Open a handful of PRs to test the CI system (defaults to 5)
+function git_pr_blaster() {
+  local i new_branch branch="$(gbs)"
+  for i in $(seq 1 ${1:-5}); do
+    new_branch="$branch-test-do-not-merge-$i"
+    git checkout -b "$new_branch" && \
+      echo "$new_branch" >> TEST_PR_DO_NOT_MERGE.txt && \
+      git add . && \
+      git commit -m "$new_branch" && \
+      git push --no-verify && \
+      git checkout - && \
+      git branch -D "$new_branch" && \
+      open "$(gurl)/pull/new/$new_branch"
+  done
+}
+
 # OSX-specific Git shortcuts
 if is_osx; then
   alias gdk='git ksdiff'
