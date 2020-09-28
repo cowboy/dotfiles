@@ -6,7 +6,7 @@ function _update_ps1() {
     -cwd-mode plain \
     -numeric-exit-codes \
     -error $? \
-    -modules termtitle,time,venv,user,ssh,cwd,perms,git,hg,jobs,exit,root \
+    -modules termtitle,time,venv,user,ssh,cwd,perms,git,hg,jobs,newline,exit,root \
   )"
 }
 
