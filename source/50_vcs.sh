@@ -202,6 +202,37 @@ function gstat() {
   unset IFS
 }
 
+# Rename/delete diff helper
+# (pipe to pbcopy for github comment-friendly output)
+#
+# 1. Check out a branch
+# 2. Get a list of changed files since master:
+#    $ git diff master --name-status
+# 3. Organize listed files into M/D pairs, eg:
+#    M    src/File.jsx
+#    D    src/FileFeatureFlagName.jsx
+#
+#    M    src/File.test.jsx
+#    D    src/FileFeatureFlagName.test.jsx
+# 4. For each pair, run this function, eg:
+#    $ git_diff_rename src/File.jsx src/FileFeatureFlagName.jsx
+#    $ git_diff_rename src/File.test.jsx src/FileFeatureFlagName.test.jsx
+function git_diff_rename() {
+  local prev_commit="$1"
+  local before="$3"
+  local after="$2"
+  if [ -p /dev/stdout ]; then
+    echo -en "<details>\n  <summary>Diff of <code>$before</code> -> <code>$after</code></summary>\n\n"
+    echo -en 'Command:\n```sh\n'
+    echo git diff $prev_commit:"$before" HEAD:"$after"
+    echo -en '```\n\nDiff:\n```diff\n'
+  fi
+  git diff $prev_commit:"$before" HEAD:"$after"
+  if [ -p /dev/stdout ]; then
+    echo -en '```\n</details>\n'
+  fi
+}
+
 # OSX-specific Git shortcuts
 if is_osx; then
   alias gdk='git ksdiff'
