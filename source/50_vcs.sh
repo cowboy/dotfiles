@@ -17,6 +17,7 @@ alias gm='git commit -m'
 alias gma='git commit -am'
 alias gb='git branch'
 alias gba='git branch -a'
+alias gbup='gb --set-upstream-to=origin/$(gbs) $(gbs)'
 function gc() { git checkout "${@:-master}"; } # Checkout master by default
 alias gco='gc'
 alias gcb='gc -b'
