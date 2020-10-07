@@ -1,7 +1,16 @@
-[[ "$(which powerline-go)" ]] || return
+if [[ "$(which powerline-go)" ]]; then
+  # Installed by homebrew on MacOS
+  powerline_go_cmd=powerline-go
+elif [[ -x ${GOPATH:-~/go}/bin/powerline-go ]]; then
+  # Installed manually (for now) via
+  # go get -u github.com/justjanne/powerline-go
+  powerline_go_cmd=${GOPATH:-~/go}/bin/powerline-go
+else
+  return
+fi
 
 function _update_ps1() {
-  PS1="$(powerline-go \
+  PS1="$($powerline_go_cmd \
     -static-prompt-indicator \
     -cwd-mode plain \
     -numeric-exit-codes \

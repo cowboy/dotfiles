@@ -11,7 +11,7 @@ pip_packages=(
   tmuxp
 )
 
-is_osx || pip_packages+=(powerline-status)
+# is_osx || pip_packages+=(powerline-status)
 
 installed_pip_packages="$($pip_cmd list 2>/dev/null | awk '{print $1}')"
 pip_packages=($(setdiff "${pip_packages[*]}" "$installed_pip_packages"))
