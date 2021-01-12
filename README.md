@@ -46,7 +46,7 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 
 #### OS X
 
-* Minor XCode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
+* Minor Xcode init via the [init/10_osx_xcode.sh](init/10_osx_xcode.sh) script
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
 * Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
 * Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
@@ -72,9 +72,9 @@ Also, before installing, be sure to [read my gently-worded note](#heed-this-crit
 
 ### OS X Notes
 
-You need to have [XCode](https://developer.apple.com/downloads/index.action?=xcode) or, at the very minimum, the [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a much smaller download.
+You need to have [Xcode](https://developer.apple.com/downloads/index.action?=xcode) or, at the very minimum, the [Xcode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a much smaller download.
 
-The easiest way to install the XCode Command Line Tools in OSX 10.9+ is to open up a terminal, type `xcode-select --install` and [follow the prompts](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
+The easiest way to install the Xcode Command Line Tools in OSX 10.9+ is to open up a terminal, type `xcode-select --install` and [follow the prompts](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
 
 _Tested in OSX 10.15_
 
