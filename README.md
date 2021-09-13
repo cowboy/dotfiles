@@ -50,7 +50,7 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 * Homebrew via the [init/20_osx_homebrew.sh](init/20_osx_homebrew.sh) script
 * Homebrew recipes via the [init/30_osx_homebrew_recipes.sh](init/30_osx_homebrew_recipes.sh) script
 * Homebrew casks via the [init/30_osx_homebrew_casks.sh](init/30_osx_homebrew_casks.sh) script
-* [Fonts](/cowboy/dotfiles/tree/master/conf/osx/fonts) via the [init/50_osx_fonts.sh](init/50_osx_fonts.sh) script
+* [Fonts](/housepage/dotfiles/tree/master/conf/osx/fonts) via the [init/50_osx_fonts.sh](init/50_osx_fonts.sh) script
 
 #### Ubuntu
 * APT packages and git-extras via the [init/20_ubuntu_apt.sh](init/20_ubuntu_apt.sh) script
@@ -64,7 +64,7 @@ Scripts in the `/init` subdirectory will be executed. A whole bunch of things wi
 
 Because the [dotfiles][dotfiles] script is completely self-contained, you should be able to delete everything else from your dotfiles repo fork, and it will still work. The only thing it really cares about are the `/copy`, `/link` and `/init` subdirectories, which will be ignored if they are empty or don't exist.
 
-If you modify things and notice a bug or an improvement, [file an issue](https://github.com/cowboy/dotfiles/issues) or [a pull request](https://github.com/cowboy/dotfiles/pulls) and let me know.
+If you modify things and notice a bug or an improvement, [file an issue](https://github.com/housepage/dotfiles/issues) or [a pull request](https://github.com/housepage/dotfiles/pulls) and let me know.
 
 Also, before installing, be sure to [read my gently-worded note](#heed-this-critically-important-warning-before-you-install).
 
@@ -80,7 +80,7 @@ _Tested in OSX 10.10_
 
 ### Ubuntu Notes
 
-You might want to set up your ubuntu server [like I do it](https://github.com/cowboy/dotfiles/wiki/ubuntu-setup), but then again, you might not.
+You might want to set up your ubuntu server [like I do it](https://github.com/housepage/dotfiles/wiki/ubuntu-setup), but then again, you might not.
 
 Either way, you should at least update/upgrade APT with `sudo apt-get -qq update && sudo apt-get -qq dist-upgrade` first.
 
@@ -96,12 +96,12 @@ Why? Because I often completely break this repo while updating. Which means that
 
 1. [Read my gently-worded note](#heed-this-critically-important-warning-before-you-install)
 1. Fork this repo
-1. Open a terminal/shell and do this (change `cowboy` and `master` as appropriate):
+1. Open a terminal/shell and do this (change `housepage` and `master` as appropriate):
 
 #### Ubuntu
 
 ```sh
-export DOTFILES_GH_USER=cowboy
+export DOTFILES_GH_USER=housepage
 export DOTFILES_GH_BRANCH=master
 bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
@@ -109,7 +109,7 @@ bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES
 #### macOS
 
 ```sh
-export DOTFILES_GH_USER=cowboy
+export DOTFILES_GH_USER=housepage
 export DOTFILES_GH_BRANCH=master
 bash -c "$(curl -fsSL https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
@@ -123,13 +123,13 @@ There's a lot of stuff that requires admin access via `sudo`, so be warned that 
 #### Ubuntu
 
 ```sh
-bash -c "$(wget -qO- https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
+bash -c "$(wget -qO- https://bit.ly/housepage-dotfiles)" && source ~/.bashrc
 ```
 
 #### macOS
 
 ```sh
-bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://bit.ly/housepage-dotfiles)" && source ~/.bashrc
 ```
 
 ## Aliases and Functions
@@ -163,9 +163,10 @@ Check it out:
 ## Inspiration
 <https://github.com/gf3/dotfiles>  
 <https://github.com/mathiasbynens/dotfiles>  
+<https://github.com/cowboy/dotfiles>  
 (and 15+ years of accumulated crap)
 
 ## License
-Copyright (c) 2014 "Cowboy" Ben Alman  
+Copyright (c) 2021 Peaches Gall  
 Licensed under the MIT license.  
 <http://benalman.com/about/license/>

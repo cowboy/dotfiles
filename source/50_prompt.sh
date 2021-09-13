@@ -5,11 +5,11 @@
 # http://benalman.com/about/license/
 #
 # Example:
-# [master:!?][cowboy@CowBook:~/.dotfiles]
+# [master:!?][houspage@$HOST:~/.dotfiles]
 # [11:14:45] $
 #
 # Read more (and see a screenshot) in the "Prompt" section of
-# https://github.com/cowboy/dotfiles
+# https://github.com/houspage/dotfiles
 
 # Abort if a prompt is already defined.
 [[ "$PROMPT_COMMAND" ]] && return
@@ -115,7 +115,7 @@ function __prompt_command() {
   [[ "$simple_prompt" ]] && PS1='\n$ ' && return
 
   __prompt_get_colors
-  # http://twitter.com/cowboy/status/150254030654939137
+  # http://twitter.com/houspage/status/150254030654939137
   PS1="\n"
   __prompt_vcs_info=()
   # git: [branch:flags]
@@ -127,7 +127,7 @@ function __prompt_command() {
   # Iterate over all vcs info parts, outputting an escaped var name that will
   # be interpolated automatically. This ensures that malicious branch names
   # can't execute arbitrary commands. For more info, see this PR:
-  # https://github.com/cowboy/dotfiles/pull/68
+  # https://github.com/houspage/dotfiles/pull/68
   if [[ "${#__prompt_vcs_info[@]}" != 0 ]]; then
     PS1="$PS1$c1[$c0"
     for i in "${!__prompt_vcs_info[@]}"; do
