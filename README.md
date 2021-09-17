@@ -101,8 +101,8 @@ Why? Because I often completely break this repo while updating. Which means that
 #### Ubuntu
 
 ```sh
-export DOTFILES_GH_USER=cowboy
-export DOTFILES_GH_BRANCH=master
+export DOTFILES_GH_USER=mcaj-git
+export DOTFILES_GH_BRANCH=main
 bash -c "$(wget -qO- https://raw.github.com/$DOTFILES_GH_USER/dotfiles/$DOTFILES_GH_BRANCH/bin/dotfiles)" && source ~/.bashrc
 ```
 
